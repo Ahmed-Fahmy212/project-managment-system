@@ -1,14 +1,151 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id                Int       @id @default(autoincrement())
+  cognitoId         String    @unique
+  username          String    @unique
+  profilePictureUrl String?
+  teamId            Int?
+  deletedAt         DateTime?
+  isDeleted         Boolean?
+  updatedAt         DateTime  @updatedAt
+
+  authoredTasks   Task[]           @relation("TaskAuthor")
+  assignedTasks   Task[]           @relation("TaskAssignee")
+  taskAssignments TaskAssignment[]
+  attachments     Attachment[]
+  comments        Comment[]
+  team            Team?            @relation(fields: [teamId], references: [id])
+
+  deletedBy    Int?
+  deletedUser  User?  @relation("UserDeletedBy", fields: [deletedBy], references: [id])
+  deletedUsers User[] @relation("UserDeletedBy")
+
+  deletedTeams        Team[]           @relation("TeamDeletedBy")
+  deletedProjects     Project[]        @relation("ProjectDeletedBy")
+  deletedProjectTeams ProjectTeam[]    @relation("ProjectTeamDeletedBy")
+  deletedTasks        Task[]           @relation("TaskDeletedBy")
+  deletedAssignments  TaskAssignment[] @relation("TaskAssignmentDeletedBy")
+  deletedAttachments  Attachment[]     @relation("AttachmentDeletedBy")
+  deletedComments     Comment[]        @relation("CommentDeletedBy")
+}
+
+model Team {
+  id                   Int       @id @default(autoincrement())
+  teamName             String
+  productOwnerUserId   Int?
+  projectManagerUserId Int?
+  deletedAt            DateTime?
+  isDeleted            Boolean?
+  deletedById          Int?
+  updatedAt            DateTime  @updatedAt
+
+  projectTeams ProjectTeam[]
+  user         User[]
+  deletedBy    User?         @relation("TeamDeletedBy", fields: [deletedById], references: [id])
+}
+
+model Project {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  startDate   DateTime?
+  endDate     DateTime?
+  deletedAt   DateTime?
+  isDeleted   Boolean?
+  deletedById Int?
+  updatedAt   DateTime  @updatedAt
+
+  tasks        Task[]
+  projectTeams ProjectTeam[]
+  deletedBy    User?         @relation("ProjectDeletedBy", fields: [deletedById], references: [id])
+}
+
+model ProjectTeam {
+  id          Int       @id @default(autoincrement())
+  teamId      Int
+  projectId   Int
+  deletedAt   DateTime?
+  deletedById Int?
+  updatedAt   DateTime  @updatedAt
+
+  team      Team    @relation(fields: [teamId], references: [id])
+  project   Project @relation(fields: [projectId], references: [id])
+  deletedBy User?   @relation("ProjectTeamDeletedBy", fields: [deletedById], references: [id])
+}
+
+model Task {
+  id             Int       @id @default(autoincrement())
+  title          String
+  description    String?
+  status         String?
+  priority       String?
+  tags           String?
+  startDate      DateTime?
+  dueDate        DateTime?
+  points         Int?
+  projectId      Int
+  authorUserId   Int
+  assignedUserId Int?
+  deletedAt      DateTime?
+  deletedById    Int?
+  updatedAt      DateTime  @updatedAt
+
+  project         Project          @relation(fields: [projectId], references: [id])
+  author          User             @relation("TaskAuthor", fields: [authorUserId], references: [id])
+  assignee        User?            @relation("TaskAssignee", fields: [assignedUserId], references: [id])
+  taskAssignments TaskAssignment[]
+  attachments     Attachment[]
+  comments        Comment[]
+  deletedBy       User?            @relation("TaskDeletedBy", fields: [deletedById], references: [id])
+}
+
+model TaskAssignment {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  taskId      Int
+  deletedAt   DateTime?
+  deletedById Int?
+  updatedAt   DateTime  @updatedAt
+
+  user      User  @relation(fields: [userId], references: [id])
+  task      Task  @relation(fields: [taskId], references: [id])
+  deletedBy User? @relation("TaskAssignmentDeletedBy", fields: [deletedById], references: [id])
+}
+
+model Attachment {
+  id           Int       @id @default(autoincrement())
+  fileURL      String
+  fileName     String?
+  taskId       Int
+  uploadedById Int
+  deletedAt    DateTime?
+  deletedById  Int?
+  updatedAt    DateTime  @updatedAt
+
+  task       Task  @relation(fields: [taskId], references: [id])
+  uploadedBy User  @relation(fields: [uploadedById], references: [id])
+  deletedBy  User? @relation("AttachmentDeletedBy", fields: [deletedById], references: [id])
+}
+
+model Comment {
+  id          Int       @id @default(autoincrement())
+  text        String
+  taskId      Int
+  userId      Int
+  deletedAt   DateTime?
+  deletedById Int?
+  updatedAt   DateTime  @updatedAt
+
+  task      Task  @relation(fields: [taskId], references: [id])
+  user      User  @relation(fields: [userId], references: [id])
+  deletedBy User? @relation("CommentDeletedBy", fields: [deletedById], references: [id])
 }
