@@ -67,3 +67,49 @@ export interface Team {
     productOwnerUserId?: number;
     projectManagerUserId?: number;
 }
+
+export const api = createApi({
+    baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
+    reducerPath: "api",
+    // prepareHeaders:async(headers) =>{
+    //     const sesssion = await fetchAuthSession()
+    // }
+    tagTypes: ["Projects", "Tasks"],
+
+    endpoints: (bu) => ({
+        getPtjects: bu.query<Project[], void>({
+            query: () => "projects",
+            providesTags: ["Projects"],
+        }),
+        createPoject: bu.mutation<Project, Partial<Project>>({
+            query: (body) => ({
+                url: "projects",
+                method: "POST",
+                body,
+            }),
+            invalidatesTags: ["Projects"],
+        }),
+        getTasks: bu.query<Task[], { projectId: number }>({
+            query: (projectId) => `tasks?projectId=${projectId}`,
+            providesTags: (result) => result ? result.map(({ id }) => ({ type: "Tasks", id }))
+                : [{ type: "Tasks" as const }],
+        }),
+        createTask: bu.mutation<Task, Partial<Task>>({
+            query: (body) => ({
+                url: "tasks",
+                method: "POST",
+                body,
+            }),
+            invalidatesTags: ["Tasks"],
+        }),
+        updateTask: bu.mutation<Task, {taskId : number, status: string}>({
+        query:({taskId, status}) => ({
+            url: `tasks/${taskId}/status`,
+            method: "PATCH",
+            body: {status},
+        }),
+        })
+    }),
+})
+
+export const { useGetPtjectsQuery, useCreatePojectMutation ,useCreateTaskMutation ,useGetTasksQuery } = api
