@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 
-
+// want show the fkn header
 type Props = {
     params: {id:string};
 }

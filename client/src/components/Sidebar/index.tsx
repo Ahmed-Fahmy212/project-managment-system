@@ -23,11 +23,14 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/app/redux";
 import { setIsSidebarCollapsed } from "@/state";
+import {useGetProjectsQuery} from "@/state/api"
+
 
 const Sidebar = () => {
   const [showProjects, setShowProjects] = useState(false);
   const [showPriority, setShowPriority] = useState(false);
 
+  const { data: projects } = useGetProjectsQuery();
   const dispatch = useAppDispatch();
   const isSidebarCollapsed = useAppSelector(
     (state) => state.global.isSidebarCollapsed,
@@ -68,8 +71,8 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* LINKS */}
-      {/* //!TODO add here the space left */}
+      {/* navbar LINKS */}
+      {/* !TODO add here the space left */}
       <nav className="flex w-full flex-col justify-start gap-2 p-2">
         <SidebarLink href="/" icon={Home} label="Home" />
         <SidebarLink href="/briefcase" icon={Briefcase} label="Projects" />
@@ -79,6 +82,7 @@ const Sidebar = () => {
         <SidebarLink href="/user" icon={Users} label="Users" />
       </nav>
 
+        {/* Project Show ++ List */}
       <button
         title="asd"
         onClick={() => setShowProjects((prev) => !prev)}
@@ -91,6 +95,14 @@ const Sidebar = () => {
           <ChevronDown className="h-5 w-5" />
         )}
       </button>
+      {/* //TODO check here out */}
+      {
+        showProjects && projects?.map((project) => (
+          <SidebarLink key={project.id} href={`/projects/${project.id}`} icon={Briefcase} label={project.name} />
+        ))
+      }
+
+      {/* priority Show + List */}
       <button
         title="asd"
         onClick={() => setShowPriority((prev) => !prev)}

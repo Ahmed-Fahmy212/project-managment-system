@@ -77,11 +77,11 @@ export const api = createApi({
     tagTypes: ["Projects", "Tasks"],
 
     endpoints: (bu) => ({
-        getPtjects: bu.query<Project[], void>({
+        getProjects: bu.query<Project[], void>({
             query: () => "projects",
             providesTags: ["Projects"],
         }),
-        createPoject: bu.mutation<Project, Partial<Project>>({
+        createProject: bu.mutation<Project, Partial<Project>>({
             query: (body) => ({
                 url: "projects",
                 method: "POST",
@@ -112,4 +112,4 @@ export const api = createApi({
     }),
 })
 
-export const { useGetPtjectsQuery, useCreatePojectMutation ,useCreateTaskMutation ,useGetTasksQuery } = api
+export const { useGetProjectsQuery, useCreateProjectMutation ,useCreateTaskMutation ,useGetTasksQuery } = api
