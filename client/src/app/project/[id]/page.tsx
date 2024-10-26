@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
+import ProjectHeader from "../projectHeader";
 
 // want show the fkn header
 type Props = {
