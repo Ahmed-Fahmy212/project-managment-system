@@ -1,18 +1,15 @@
 import { Request, Response } from "express";
 import prisma from '../../../prisma/client'
+// convert this into a controller
+// move db to service layer 
+// move validation to middleware
 
 export const getProjects = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  try {
-    const projects = await prisma.project.findMany();
-    res.json(projects);
-  } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error retrieving projects: ${error.message}` });
-  }
+  const projects = await prisma.project.findMany();
+  res.json(projects);
 };
 
 export const createProject = async (
@@ -20,19 +17,13 @@ export const createProject = async (
   res: Response
 ): Promise<void> => {
   const { name, description, startDate, endDate } = req.body;
-  try {
-    const newProject = await prisma.project.create({
-      data: {
-        name,
-        description,
-        startDate,
-        endDate,
-      },
-    });
-    res.status(201).json(newProject);
-  } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error creating a project: ${error.message}` });
-  }
+  const newProject = await prisma.project.create({
+    data: {
+      name,
+      description,
+      startDate,
+      endDate,
+    },
+  });
+  res.json(newProject);
 };
