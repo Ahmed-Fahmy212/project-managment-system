@@ -1,22 +1,32 @@
 import { Request, Response } from "express";
 import prisma from '../../../prisma/client'
-// convert this into a controller
-// move db to service layer 
-// move validation to middleware
+import { BadRequestException } from "../../exceptions/BadRequestException";
+import { StatusCodes, ReasonPhrases } from 'http-status-codes'
+import { Project } from "@prisma/client";
+import response from "../../util/responce";
+interface ProjectData {
+  name: string;
+  description: string;
+  startDate: Date;
+  endDate: Date;
+}
 
 export const getProjects = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<Project> => {
   const projects = await prisma.project.findMany();
-  res.json(projects);
+  return response.success(res, projects);
 };
 
 export const createProject = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { name, description, startDate, endDate } = req.body;
+  const { name, description, startDate, endDate }: ProjectData = req.body;
+  if (!name || !description || !startDate || !endDate) {
+    throw new BadRequestException(`Missing required fields ${name ? "" : "name"} ${description ? "" : "description"} ${startDate ? "" : "startDate"} ${endDate ? "" : "endDate"}`);
+  }
   const newProject = await prisma.project.create({
     data: {
       name,
