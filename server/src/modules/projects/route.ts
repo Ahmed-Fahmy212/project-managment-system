@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { getProjects, createProject } from "./projectController";
 
 const router = Router();
 
