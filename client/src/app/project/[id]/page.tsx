@@ -5,7 +5,7 @@ import ProjectHeader from "../projectHeader";
 
 // want show the fkn header
 type Props = {
-    params: {id:string};
+    params: { id:string };
 }
 const Project = ({params} : Props) => {
     const {id} = params;
@@ -16,3 +16,5 @@ const Project = ({params} : Props) => {
         </div>
     )
 }
+
+export default Project;
