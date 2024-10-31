@@ -1,3 +1,5 @@
+"use client";
+
 import Header from "@/components/Header";
 import { Clock, Grid3x3, List, Table } from "lucide-react";
 
@@ -11,7 +13,7 @@ const ProjectHeader = ({ activeTab, setActiveTab }: props) => {
     <div className="px-4 xl:px-6">
       {/* project name*/}
       <div className="py-6 lg:px-8 lg:pb-4">
-        <Header name="LRX | Develpment Cycle 1." />
+        <Header name="LRX | Develpment Cycle 1" />
       </div>
       {/* Tabs */}
       <div className="dark:border-stroke-dark flex flex-wrap-reverse gap-2 border-y border-gray-200 pb-[8px] pt-2 md:items-center">
@@ -45,7 +47,7 @@ const ProjectHeader = ({ activeTab, setActiveTab }: props) => {
     </div>
   );
 };
-
+//================================================================================================================================================================
 type TabButtonProps = {
   name: string;
   icon: React.ReactNode;
