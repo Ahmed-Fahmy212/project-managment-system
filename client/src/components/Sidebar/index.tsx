@@ -23,14 +23,17 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/app/redux";
 import { setIsSidebarCollapsed } from "@/state";
-import {useGetProjectsQuery} from "@/state/api"
-
+import { useGetProjectsQuery } from "@/state/api";
 
 const Sidebar = () => {
   const [showProjects, setShowProjects] = useState(false);
   const [showPriority, setShowPriority] = useState(false);
 
-  const { data: projects } = useGetProjectsQuery();
+  const { data } = useGetProjectsQuery();
+  // todo fix three calls
+  console.log("💛💛 data", data);
+  const projects = data?.data;
+  console.log("💛💛 projects", projects);
   const dispatch = useAppDispatch();
   const isSidebarCollapsed = useAppSelector(
     (state) => state.global.isSidebarCollapsed,
@@ -82,7 +85,7 @@ const Sidebar = () => {
         <SidebarLink href="/user" icon={Users} label="Users" />
       </nav>
 
-        {/* Project Show ++ List */}
+      {/* Project Show ++ List */}
       <button
         title="asd"
         onClick={() => setShowProjects((prev) => !prev)}
@@ -96,11 +99,15 @@ const Sidebar = () => {
         )}
       </button>
       {/* //TODO check here out */}
-      {
-        showProjects && projects?.map((project) => (
-          <SidebarLink key={project.id} href={`/projects/${project.id}`} icon={Briefcase} label={project.name} />
-        ))
-      }
+      {showProjects &&
+        projects?.map((project) => (
+          <SidebarLink
+            key={project.id}
+            href={`/projects/${project.id}`}
+            icon={Briefcase}
+            label={project.name}
+          />
+        ))}
 
       {/* priority Show + List */}
       <button
