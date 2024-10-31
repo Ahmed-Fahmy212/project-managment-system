@@ -69,7 +69,7 @@ export interface Team {
 }
 
 export const api = createApi({
-    baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
+    baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/" }),
     reducerPath: "api",
     // prepareHeaders:async(headers) =>{
     //     const sesssion = await fetchAuthSession()
@@ -77,8 +77,8 @@ export const api = createApi({
     tagTypes: ["Projects", "Tasks"],
 
     endpoints: (bu) => ({
-        getProjects: bu.query<Project[], void>({
-            query: () => "projects",
+        getProjects: bu.query<{ data: Project[] }, void>({
+        query: () => "projects",
             providesTags: ["Projects"],
         }),
         createProject: bu.mutation<Project, Partial<Project>>({
@@ -102,14 +102,14 @@ export const api = createApi({
             }),
             invalidatesTags: ["Tasks"],
         }),
-        updateTask: bu.mutation<Task, {taskId : number, status: string}>({
-        query:({taskId, status}) => ({
-            url: `tasks/${taskId}/status`,
-            method: "PATCH",
-            body: {status},
-        }),
+        updateTask: bu.mutation<Task, { taskId: number, status: string }>({
+            query: ({ taskId, status }) => ({
+                url: `tasks/${taskId}/status`,
+                method: "PATCH",
+                body: { status },
+            }),
         })
     }),
 })
 
-export const { useGetProjectsQuery, useCreateProjectMutation ,useCreateTaskMutation ,useGetTasksQuery } = api
+export const { useGetProjectsQuery, useCreateProjectMutation, useCreateTaskMutation, useGetTasksQuery } = api
