@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import AppRoutes from './routes';
+import AppRoutes from './api';
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware';
 import 'express-async-errors';
 // Configs
@@ -15,7 +15,6 @@ app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use(morgan('common'));
 
 app.use(AppRoutes)
-
 
 app.get('*', (req, res) => {
   res.status(404).json({

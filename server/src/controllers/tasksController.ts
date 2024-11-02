@@ -15,7 +15,7 @@ export const tasks = {
   ): Promise<any> => {
     try {
 
-      const projectId  = req.params.projectId;
+      const projectId = req.params.projectId;
       const parsedProjectId = parseInt(projectId);
       if (!projectId || isNaN(parsedProjectId)) {
         throw new BadRequestException("Invalid or missing required field: projectId");
@@ -64,6 +64,29 @@ export const tasks = {
   //   const project = await TaskService.updateTask(parseInt(id), { name, description, startDate, endDate });
   //   response.success(res, project);
   // },
+  updateTaskStatus: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    const { taskId } = req.params as { taskId: string };
+    //TODO convert into enum use fkn zod
+    const { status } = req.body as { status: string };
+    //TODO move to service 
+    try {
+      const updatedTask = await prisma.task.update({
+        where: {
+          id: Number(taskId),
+        },
+        data: {
+          status: status,
+        },
+      });
+      response.success(res, updatedTask)
+    } catch (error: any) {
+      next(error)
+    }
+  }
   // deleteTask: async (
   //   req: Request,
   //   res: Response
