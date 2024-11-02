@@ -90,7 +90,7 @@ export const api = createApi({
             invalidatesTags: ["Projects"],
         }),
         getTasks: bu.query<Task[], { projectId: number }>({
-            query: (projectId) => `tasks?projectId=${projectId}`,
+            query: ({projectId}) => `tasks/${projectId}`,
             providesTags: (result) => result ? result.map(({ id }) => ({ type: "Tasks", id }))
                 : [{ type: "Tasks" as const }],
         }),
