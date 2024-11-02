@@ -13,6 +13,34 @@ const Project = ({params} : Props) => {
     return (
         <div>
             <ProjectHeader activeTab={activeTab} setActiveTab = {setActiveTab} />
+            {
+                activeTab === "Board" && (
+                    <div>
+                        <h1>Board</h1>
+                    </div>
+                )
+            }
+            {
+                activeTab === "List" && (
+                    <div>
+                        <h1>List</h1>
+                    </div>
+                )
+            }
+            {
+                activeTab === "Timeline" && (
+                    <div>
+                        <h1>Timeline</h1>
+                    </div>
+                )
+            }
+            {
+                activeTab === "Table" && (
+                    <div>
+                        <h1>Table</h1>
+                    </div>
+                )
+            }
         </div>
     )
 }
