@@ -8,7 +8,7 @@ const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const routes_1 = __importDefault(require("./modules/routes"));
+const routes_1 = __importDefault(require("./routes"));
 const errorHandlerMiddleware_1 = __importDefault(require("./middleware/errorHandlerMiddleware"));
 require("express-error-handler");
 // Configs

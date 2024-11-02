@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import AppRoutes from './modules/routes';
+import AppRoutes from './routes';
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware';
 import 'express-error-handler';
 // Configs
