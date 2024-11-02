@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import prisma from '../../prisma/client'
 import { BadRequestException } from "../exceptions/BadRequestException";
 import { StatusCodes, ReasonPhrases } from 'http-status-codes'
@@ -10,11 +10,22 @@ import { TaskService } from "../services";
 export const tasks = {
   getTasks: async (
     req: Request,
-    res: Response
-  ): Promise<void> => {
-    const { projectId } = req.params;
-    const tasks = await TaskService.getTasks(parseInt(projectId));
-    response.success(res, tasks);
+    res: Response,
+    next: NextFunction
+  ): Promise<any> => {
+    try {
+
+      const projectId  = req.params.projectId;
+      const parsedProjectId = parseInt(projectId);
+      if (!projectId || isNaN(parsedProjectId)) {
+        throw new BadRequestException("Invalid or missing required field: projectId");
+      }
+      const tasks = await TaskService.getTasks(parsedProjectId);
+      response.success(res, tasks);
+    }
+    catch (error) {
+      next(error)
+    }
   },
 
   getOneTask: async (
