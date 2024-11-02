@@ -5,7 +5,7 @@ const errorHandlerMiddleware = (err: HttpException, req: Request, res: Response,
     const error = err instanceof HttpException ? err : new HttpException('Internal Server Error', 500);
 
     res.status(error.statusCode || 500).json({
-        data: {
+        error: {
             name: error.name,
             message: error.message,
             stack: process.env.NODE_ENV === 'development' ? error.stack : undefined,
