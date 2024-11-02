@@ -31,9 +31,7 @@ const Sidebar = () => {
 
   const { data } = useGetProjectsQuery();
   // todo fix three calls
-  console.log("💛💛 data", data);
   const projects = data?.data;
-  console.log("💛💛 projects", projects);
   const dispatch = useAppDispatch();
   const isSidebarCollapsed = useAppSelector(
     (state) => state.global.isSidebarCollapsed,
