@@ -89,9 +89,9 @@ export const api = createApi({
             }),
             invalidatesTags: ["Projects"],
         }),
-        getTasks: bu.query<Task[], { projectId: number }>({
+        getTasks: bu.query<{data :Task[]}, { projectId: number }>({
             query: ({projectId}) => `tasks/${projectId}`,
-            providesTags: (result) => result ? result.map(({ id }) => ({ type: "Tasks", id }))
+            providesTags: (result) => result ? result.data.map(({ id }) => ({ type: "Tasks", id }))
                 : [{ type: "Tasks" as const }],
         }),
         createTask: bu.mutation<Task, Partial<Task>>({
@@ -112,4 +112,4 @@ export const api = createApi({
     }),
 })
 
-export const { useGetProjectsQuery, useCreateProjectMutation, useCreateTaskMutation, useGetTasksQuery } = api
+export const { useGetProjectsQuery, useCreateProjectMutation, useCreateTaskMutation, useGetTasksQuery , useUpdateTaskMutation} = api
