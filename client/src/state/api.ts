@@ -42,7 +42,7 @@ export interface Task {
     title: string;
     description?: string;
     status?: Status;
-    priority?: Priority;
+    priority: Priority;
     tags?: string;
     startDate?: string;
     dueDate?: string;
@@ -50,7 +50,6 @@ export interface Task {
     projectId: number;
     authorUserId?: number;
     assignedUserId?: number;
-
     author?: User;
     assignee?: User;
     comments?: Comment[];
@@ -108,6 +107,9 @@ export const api = createApi({
                 method: "PATCH",
                 body: { status },
             }),
+            invalidatesTags: (result, error, { taskId }) => [
+                { type: "Tasks", id: taskId },
+              ],
         })
     }),
 })
