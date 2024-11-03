@@ -38,7 +38,7 @@ const Sidebar = () => {
   );
   return (
     <div
-      className={`z-40 flex h-[100%] flex-col justify-start overflow-y-auto bg-white shadow-xl transition-all duration-500 dark:bg-black ${isSidebarCollapsed ? "hidden w-0" : "w-64"}`}
+      className={`z-40 flex h-[100%] flex-col justify-start overflow-x-visible bg-white shadow-xl transition-all duration-500 dark:bg-black ${isSidebarCollapsed ? "hidden w-0" : "w-64"}`}
     >
       <div className="flex w-full items-center justify-between p-2 md:px-4 md:py-2">
         <div className="text-lg font-bold text-gray-800 dark:text-white">
@@ -58,16 +58,16 @@ const Sidebar = () => {
         )}
       </div>
       {/* TEAM */}
-      <div className="flex items-center justify-center gap-5 border-y-[1.5px] border-gray-200 px-8 py-4 dark:border-gray-700 ">
+      <div className="flex items-center justify-between gap-5 border-y-[1.5px] border-gray-200 px-2 py-4 dark:border-gray-700 ">
         <Image src="/logo.png" alt="logo" width={40} height={40} />
         <div className="">
-          <h3 className="mt-1 flex items-center tracking-wide dark:text-gray-200 max-smallScreen:text-[10px]">
+          <h3 className="mt-1 flex items-center justi tracking-wide dark:text-gray-200  text-xs text-nowrap">
             LRX Team
           </h3>
 
           <div className="mt-1 flex items-start gap-2">
             <LockIcon className="mt-[0.1rem] h-3 w-3 text-gray-500 dark:text-gray-400" />
-            <p className="text-xs text-gray-500">Private</p>
+            <p className="text-[10px] text-gray-500 md:text-xs">Private</p>
           </div>
         </div>
       </div>
