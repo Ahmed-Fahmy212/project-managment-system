@@ -8,6 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// apply soft delete well 
 model User { 
   id                Int       @id @default(autoincrement())
   cognitoId         String    @unique
@@ -15,7 +16,7 @@ model User {
   profilePictureUrl String?
   teamId            Int?
   deletedAt         DateTime?
-  isDeleted         Boolean?
+  isDeleted         Boolean? @default(false)
   updatedAt         DateTime  @updatedAt
 
   authoredTasks   Task[]           @relation("TaskAuthor")
@@ -44,7 +45,7 @@ model Team {
   productOwnerUserId   Int?
   projectManagerUserId Int?
   deletedAt            DateTime?
-  isDeleted            Boolean?
+  isDeleted            Boolean?@default(false)
   deletedById          Int?
   updatedAt            DateTime  @updatedAt
 
@@ -60,7 +61,7 @@ model Project {
   startDate   DateTime?
   endDate     DateTime?
   deletedAt   DateTime?
-  isDeleted   Boolean?
+  isDeleted   Boolean?@default(false)
   deletedById Int?
   updatedAt   DateTime  @updatedAt
 
