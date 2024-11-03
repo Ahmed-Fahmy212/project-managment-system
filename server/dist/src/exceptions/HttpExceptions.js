@@ -5,9 +5,7 @@ class HttpException extends Error {
     constructor(message, statusCode) {
         super(message);
         this.statusCode = statusCode;
-        //TODO 
-        //TODO check if this is necessary
-        // Error.captureStackTrace(this, this.constructor);
+        this.name = this.constructor.name;
     }
 }
 exports.HttpException = HttpException;
