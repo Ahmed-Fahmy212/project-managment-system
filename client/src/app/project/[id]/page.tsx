@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import ProjectHeader from "../projectHeader";
-
+import Board from "../BoardView/index";
 // want show the fkn header
 type Props = {
     params: { id:string };
@@ -10,14 +10,13 @@ type Props = {
 const Project = ({params} : Props) => {
     const {id} = params;
     const [activeTab , setActiveTab] = useState("Board")
+    const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
     return (
         <div>
             <ProjectHeader activeTab={activeTab} setActiveTab = {setActiveTab} />
             {
                 activeTab === "Board" && (
-                    <div>
-                        <h1>Board</h1>
-                    </div>
+                    <Board id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen}/>
                 )
             }
             {
