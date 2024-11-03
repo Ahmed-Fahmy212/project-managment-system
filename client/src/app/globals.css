@@ -4,6 +4,10 @@
 *, *::before, *::after {
   box-sizing: border-box;
 }
+html{
+  box-sizing: border-box;
+  overflow-y: hidden;
+}
 html, body {
   height: 100%;
   width: 100%;
