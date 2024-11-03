@@ -7,7 +7,9 @@ import StoreProvider, { useAppSelector } from "./redux";
 /////////////////////////////////////////////////////////////////////////////
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
-
+  const isSidebarCollapsed = useAppSelector(
+    (state) => state.global.isSidebarCollapsed,
+  );
   useEffect(() => {
     if (isDarkMode) {
       document.body.classList.add("dark");
@@ -21,11 +23,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="flex h-full min-h-screen w-full bg-gray-50 text-gray-900">
       {/* sidebar */}
       <Sidebar />
-      <main className={`flex w-full flex-col bg-gray-50 dark:bg-dark-bg`}>
-        <Navbar />
-        {children}
-      </main>
-    </div>
+      <main className={`flex w-full flex-col bg-gray-50 dark:bg-dark-bg ${isSidebarCollapsed ? '' : 'max-smallScreen:hidden'}`}>
+      <Navbar />
+      {children}
+    </main>
+    </div >
   );
 };
 /////////////////////////////////////////////////////////////////////////////
