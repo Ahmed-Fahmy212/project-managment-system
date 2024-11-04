@@ -38,7 +38,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
             status={status}
             tasks={tasks?.data || []}
             moveTask={moveTask}
-            setIsModelNewTaskOpen={setIsModalNewTaskOpen}
+            setIsModalNewTaskOpen={setIsModalNewTaskOpen}
           />
         ))}
       </div>
@@ -51,13 +51,13 @@ type TaskColumnProps = {
   status: string;
   tasks: Tasks[];
   moveTask: (taskId: number, toStatus: string) => void;
-  setIsModelNewTaskOpen: (isopen: boolean) => void;
+  setIsModalNewTaskOpen: (isopen: boolean) => void;
 };
 const TaskColumn = ({
   status,
   tasks,
   moveTask,
-  setIsModelNewTaskOpen,
+  setIsModalNewTaskOpen,
 }: TaskColumnProps) => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "task",
@@ -104,7 +104,7 @@ const TaskColumn = ({
             </button>
             <button
               className="flex h-6 w-6 items-center justify-center rounded bg-gray-200 dark:bg-dark-tertiary dark:text-white"
-              onClick={() => setIsModelNewTaskOpen(true)}
+              onClick={() => setIsModalNewTaskOpen(true)}
             >
               <Plus size={16} />
             </button>
