@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import DashboardWrapper from "./dashboardWrapper";
+import { ToastProvider } from "@/components/toaster-provider";
 const inter = Inter({subsets : ["latin"]});
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body
         className={`${inter.className}`}
       >
+        <ToastProvider />
         <DashboardWrapper>{children}</DashboardWrapper>
       </body>
     </html>
