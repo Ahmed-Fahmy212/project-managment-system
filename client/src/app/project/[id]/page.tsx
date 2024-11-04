@@ -3,27 +3,26 @@
 import { useState } from "react";
 import ProjectHeader from "../projectHeader";
 import Board from "../BoardView/index";
+import ListView from "../ListView";
 // want show the fkn header
 type Props = {
-    params: { id:string };
+    params: { id: string };
 }
-const Project = ({params} : Props) => {
-    const {id} = params;
-    const [activeTab , setActiveTab] = useState("Board")
+const Project = ({ params }: Props) => {
+    const { id } = params;
+    const [activeTab, setActiveTab] = useState("Board")
     const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
     return (
         <div>
-            <ProjectHeader activeTab={activeTab} setActiveTab = {setActiveTab} />
+            <ProjectHeader activeTab={activeTab} setActiveTab={setActiveTab} />
             {
                 activeTab === "Board" && (
-                    <Board id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen}/>
+                    <Board id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
                 )
             }
             {
                 activeTab === "List" && (
-                    <div>
-                        <h1>List</h1>
-                    </div>
+                    <ListView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
                 )
             }
             {

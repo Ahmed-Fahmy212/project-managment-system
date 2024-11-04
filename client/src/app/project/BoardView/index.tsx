@@ -21,11 +21,11 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     error,
   } = useGetTasksQuery({ projectId: Number(id) });
 
-  const [updateTaskStatus ] = useUpdateTaskMutation();
+  const [updateTaskStatus] = useUpdateTaskMutation();
   const moveTask = (taskId: number, toStatus: string) => {
     updateTaskStatus({ taskId, status: toStatus });
   };
-  
+
   if (error) {
     toast.error(JSON.stringify(error))
   }
@@ -165,7 +165,7 @@ const Task = ({ task }: TaskProps) => {
       ref={(instance) => {
         drag(instance);
       }}
-      className={`mb-4 rounded-md bg-white shadow dark:bg-dark-secondary 
+      className={`mb-4 rounded-md bg-white shadow dark:bg-dark-secondary flex flex-col
         ${isDragging ? "opacity-50   " : "opacity-100"}`
       }
     >
@@ -179,7 +179,7 @@ const Task = ({ task }: TaskProps) => {
         />
       )}
 
-      <div className="p-4 md:p-6">
+      <div className="px-4 pt-4 md:px-6 md:pt-6">
         <div className="flex items-start justify-between">
           {/* priority && tag */}
           <div className="flex flex-1 flex-wrap items-center gap-2">
@@ -197,17 +197,18 @@ const Task = ({ task }: TaskProps) => {
           <button className="flex h-6 w-4 items-center justify-center dark:text-neutral-500">
             <EllipsisVertical size={26} />
           </button>
-        </div>
+        </div> 
+        {/*-----------*/}
 
-        <div className="my-3 flex justify-between">
+        <div className="my-3 flex justify-between items-center">
           <h4 className="text-md font-bold dark:text-white">{task.title}</h4>
-          {typeof task.points === "number" && (
+          {task.points && (
             <div className="text-xs font-semibold dark:text-white">
               {task.points} pts
             </div>
           )}
-          <div className="text-xs text-gray-500 dark:text-neutral-500">
-            {formattedStartDate && <span>{formattedStartDate} - </span>}
+          <div className="text-[4px] flex flex-col text-gray-500 dark:text-neutral-500">
+            {formattedStartDate && <span>{formattedStartDate} </span>}
             {formattedDueDate && <span>{formattedDueDate}</span>}
           </div>
         </div>
