@@ -107,9 +107,9 @@ export const api = createApi({
                 method: "PATCH",
                 body: { status },
             }),
-            invalidatesTags: (result, error, { taskId }) => [
-                { type: "Tasks", id: taskId },
-              ],
+            invalidatesTags: (result, error, { taskId }) => {
+                return [{ type: "Tasks", id: taskId }];
+            },
         })
     }),
 })

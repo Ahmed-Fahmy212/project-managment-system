@@ -5,6 +5,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { format } from "date-fns";
 import Image from "next/image";
 import { EllipsisVertical, MessageSquareMore, Plus } from "lucide-react";
+import toast from "react-hot-toast";
 
 type BoardViewProps = {
   id: string;
@@ -19,15 +20,15 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     isLoading,
     error,
   } = useGetTasksQuery({ projectId: Number(id) });
-  //TODO toast error must added 
-  if (error) {
-    console.log("❤❤❤❤error", error)
-  }
-  const [updateTaskStatus] = useUpdateTaskMutation();
+
+  const [updateTaskStatus ] = useUpdateTaskMutation();
   const moveTask = (taskId: number, toStatus: string) => {
     updateTaskStatus({ taskId, status: toStatus });
   };
-
+  
+  if (error) {
+    toast.error(JSON.stringify(error))
+  }
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="pl-4 w-full h-svh grid grid-cols-footer overflow-x-scroll gap-4 ">
@@ -218,7 +219,7 @@ const Task = ({ task }: TaskProps) => {
       {/* assignee + commments + shape icon */}
       <div className="p-2 flex items-center justify-between ">
         <div className="flex -space-x-[6px] overflow-hidden">
-          
+
           {
             task.assignee &&
             <Image
