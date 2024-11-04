@@ -26,7 +26,7 @@ export interface User {
     name: string;
     email: string;
     role: string;
-    profilePicture?: string;
+    profilePictureUrl?: string;
     cognitoid?: string;
     teamId?: number;
 }
