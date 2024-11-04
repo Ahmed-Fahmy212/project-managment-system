@@ -5,8 +5,9 @@
   box-sizing: border-box;
 }
 html{
-  box-sizing: border-box;
-  overflow-y: hidden;
+  height: 1vh;
+  width: 100%;
+  overflow: hidden;
 }
 html, body {
   height: 100%;
