@@ -14,7 +14,14 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
-app.use(morgan('common'));
+
+app.use(morgan((tokens, req, res) => {
+  return [
+    `${tokens.status(req, res)}`,
+    `${tokens.method(req, res)}/${tokens.url(req, res)}`,
+    `${tokens['response-time'](req, res)} ms`,
+  ].join(' | ');
+}));
 
 app.use(WinstonLogger);
 
