@@ -215,7 +215,41 @@ const Task = ({ task }: TaskProps) => {
         </p>
         <div className="mt-4 border-t border-gray-200 dark:border-stroke-dark" />
       </div>
+      {/* assignee + commments + shape icon */}
+      <div className="p-2 flex items-center justify-between ">
+        <div className="flex -space-x-[6px] overflow-hidden">
+          
+          {
+            task.assignee &&
+            <Image
+              key={`${task.assignee.id}`}
+              src={`/${task.assignee?.profilePictureUrl}`}
+              alt={`/${task.assignee.name}`}
+              width={30}
+              height={30}
+              className="rounded-full h-8 w-8 border-2 border-white object-cover dark:border-dark-secondary"
+            />
+          }
+          {
+            task.author &&
+            <Image
+              key={`${task.author.id}`}
+              src={`/${task.author?.profilePictureUrl}`}
+              alt={`/${task.author.name}`}
+              width={30}
+              height={30}
+              className="rounded-full h-8 w-8 border-2 border-white object-cover dark:border-dark-secondary"
+            />
+          }
 
+        </div>
+        <div className="flex items-center text-gray-500 dark:text-neural-500">
+          <MessageSquareMore size={20} />
+          <span className="ml-1 text-sm dark:text-neural-400">
+            {numberOfComments}
+          </span>
+        </div>
+      </div>
 
     </div>
   );
