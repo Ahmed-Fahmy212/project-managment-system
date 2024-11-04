@@ -37,7 +37,7 @@ const config: Config = {
     },
     gridTemplateColumns: {
       '16': 'repeat(16, minmax(0, 1fr))',
-      'footer': 'repeat(4, 260px)',
+      'footer': 'repeat(4, 290px)',
     }
   },
   plugins: [],
