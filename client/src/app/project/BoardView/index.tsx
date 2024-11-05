@@ -31,7 +31,8 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   }
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="pl-4 w-full h-svh grid grid-cols-footer overflow-x-scroll gap-4 ">
+      {/* array of columns now has full hight remaining in component previous */}
+      <div className="pl-4 h-full grid grid-cols-footer  gap-4 ">
         {taskStatus.map((status) => (
           <TaskColumn
             key={status}
@@ -80,7 +81,7 @@ const TaskColumn = ({
       ref={(instance) => {
         drop(instance);
       }}
-      className={`rounded-lg py-2 sm:py-4 xl:px-2 ${isOver ?
+      className={`rounded-lg py-2  sm:py-4 xl:px-2 ${isOver ?
         "bg-blue-200 dark:bg-neutral-950 transition duration-500" : ""}`}
     >
       <div className="mb-3 flex w-full">

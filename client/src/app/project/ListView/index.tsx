@@ -19,7 +19,7 @@ const ListView = ({ id, setIsModalNewTaskOpen }: Props) => {
   if (error) return <div>An error occurred while fetching tasks</div>;
 
   return (
-    <div className="px-4 pb-8 xl:px-6 h-full overflow-scroll">
+    <div className="px-4 pb-8 xl:px-6 h-full ">
       <div className="pt-5">
         <Header
           name="List"
