@@ -102,6 +102,7 @@ model Task {
 
   project         Project          @relation(fields: [projectId], references: [id])
   author          User             @relation("TaskAuthor", fields: [authorUserId], references: [id])
+  // make this join table 
   assignee        User?            @relation("TaskAssignee", fields: [assignedUserId], references: [id])
   taskAssignments TaskAssignment[]
   attachments     Attachment[]

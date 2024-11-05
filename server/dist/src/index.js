@@ -11,13 +11,21 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const api_1 = __importDefault(require("./api"));
 const errorHandlerMiddleware_1 = __importDefault(require("./middleware/errorHandlerMiddleware"));
 require("express-async-errors");
+const logger_1 = require("./util/logger");
 // Configs
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use(helmet_1.default.crossOriginResourcePolicy({ policy: 'cross-origin' }));
-app.use((0, morgan_1.default)('common'));
+app.use((0, morgan_1.default)((tokens, req, res) => {
+    return [
+        `${tokens.status(req, res)}`,
+        `${tokens.method(req, res)}/${tokens.url(req, res)}`,
+        `${tokens['response-time'](req, res)} ms`,
+    ].join(' | ');
+}));
+app.use(logger_1.WinstonLogger);
 app.use(api_1.default);
 app.get('*', (req, res) => {
     res.status(404).json({
@@ -30,6 +38,6 @@ app.get('*', (req, res) => {
 app.use(errorHandlerMiddleware_1.default);
 const port = parseInt(process.env.PORT || "8000");
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-    console.log(`database running on port : 5432`);
+    console.log(`\x1b[32mServer running on port ${port}\x1b[0m`);
+    console.log(`\x1b[32mdatabase running on port : 5432\x1b[0m`);
 });

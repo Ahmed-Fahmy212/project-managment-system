@@ -3,7 +3,7 @@ import { transports, format } from 'winston';
 
 export const WinstonLogger = expressWinston.logger({
     transports: [
-        new transports.File({ filename: process.env.API_LOG_FILENAME || 'app.log' })
+        new transports.File({ filename: process.env.API_LOG_FILENAME || 'app.log' }),
     ],
     format: format.combine(
         format.json(),
