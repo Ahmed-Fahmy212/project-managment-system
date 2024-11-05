@@ -20,10 +20,10 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
   //-----------------------------------------------------------------------------
   return (
-    <div className="flex flex-row h-svh w-full bg-gray-50 text-gray-900">
+    <div className="flex overscroll-none  flex-row h-svh w-full bg-gray-50 text-gray-900">
       {/* sidebar */}
       <Sidebar />
-      <main className={`flex w-full  flex-col bg-gray-50 dark:bg-dark-bg ${isSidebarCollapsed ? '' : 'max-smallScreen:overflow-x-hidden'}`}>
+      <main className={`flex w-full h-full flex-col bg-gray-50 dark:bg-dark-bg ${isSidebarCollapsed ? '' : 'max-smallScreen:overflow-x-hidden'}`}>
         <Navbar />
         {children}
       </main>
