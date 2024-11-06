@@ -13,23 +13,23 @@ const Project = ({ params }: Props) => {
     const [activeTab, setActiveTab] = useState("Board")
     const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
     return (
-        <div className="h-full overflow-scroll">
+        <div className="flex flex-col flex-1 overflow-hidden">
             <ProjectHeader activeTab={activeTab} setActiveTab={setActiveTab} />
-            {activeTab === "Board" && (
-                <Board id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
-            )
-            }
-            {activeTab === "List" && (
-                <ListView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
-            )
-            }
-            {activeTab === "Timeline" && (
-                <div><h1>Timeline</h1></div>
-            )
-            }
-            {activeTab === "Table" && (<div><h1>Table</h1></div>
-            )
-            }
+                {activeTab === "Board" && (
+                    <Board id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
+                )
+                }
+                {activeTab === "List" && (
+                    <ListView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
+                )
+                }
+                {activeTab === "Timeline" && (
+                    <div><h1>Timeline</h1></div>
+                )
+                }
+                {activeTab === "Table" && (<div><h1>Table</h1></div>
+                )
+                }
         </div>
     )
 }

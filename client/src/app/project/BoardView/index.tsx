@@ -30,20 +30,22 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     toast.error(JSON.stringify(error))
   }
   return (
-    <DndProvider backend={HTML5Backend}>
-      {/* array of columns now has full hight remaining in component previous */}
-      <div className="pl-4 h-full grid grid-cols-footer  gap-4 ">
-        {taskStatus.map((status) => (
-          <TaskColumn
-            key={status}
-            status={status}
-            tasks={tasks?.data || []}
-            moveTask={moveTask}
-            setIsModalNewTaskOpen={setIsModalNewTaskOpen}
-          />
-        ))}
-      </div>
-    </DndProvider>
+    <div className="overflow-y-scroll flex-1">
+      <DndProvider backend={HTML5Backend}>
+        {/* array of columns now has full hight remaining in component previous */}
+        <div className="pl-4  grid grid-cols-footer gap-4 ">
+          {taskStatus.map((status) => (
+            <TaskColumn
+              key={status}
+              status={status}
+              tasks={tasks?.data || []}
+              moveTask={moveTask}
+              setIsModalNewTaskOpen={setIsModalNewTaskOpen}
+            />
+          ))}
+        </div>
+      </DndProvider>
+    </div>
   );
 };
 //================================================================================================================================================================
@@ -81,7 +83,7 @@ const TaskColumn = ({
       ref={(instance) => {
         drop(instance);
       }}
-      className={`rounded-lg py-2  sm:py-4 xl:px-2 ${isOver ?
+      className={`rounded-lg py-2 h-full  sm:py-4 xl:px-2 ${isOver ?
         "bg-blue-200 dark:bg-neutral-950 transition duration-500" : ""}`}
     >
       <div className="mb-3 flex w-full">
@@ -170,17 +172,8 @@ const Task = ({ task }: TaskProps) => {
         ${isDragging ? "opacity-50   " : "opacity-100"}`
       }
     >
-      {task.attachments && task.attachments.length > 0 && (
-        <Image
-          src={`/${task.attachments[0].fileURL}`}
-          alt={`/${task.attachments[0].fileName}`}
-          width={200}
-          height={200}
-          className="h-auto w-full rounded-t-md"
-        />
-      )}
 
-      <div className="px-4 pt-4 md:px-6 md:pt-6">
+      <div className="h-auto px-4 pt-4 md:px-6 md:pt-6">
         <div className="flex items-start justify-between">
           {/* priority && tag */}
           <div className="flex flex-1 flex-wrap items-center gap-2">
@@ -198,7 +191,7 @@ const Task = ({ task }: TaskProps) => {
           <button className="flex h-6 w-4 items-center justify-center dark:text-neutral-500">
             <EllipsisVertical size={26} />
           </button>
-        </div> 
+        </div>
         {/*-----------*/}
 
         <div className="my-3 flex justify-between items-center">
@@ -216,11 +209,24 @@ const Task = ({ task }: TaskProps) => {
         <p className="text-sm text-gray-600 dark:text-neutral-500">
           {task.description}
         </p>
+        {task.attachments && task.attachments.length > 0 && (
+          <Image
+            src={`/${task.attachments[0].fileURL}`}
+            alt={`/${task.attachments[0].fileName}`}
+            width={200}
+            height={200}
+            className="h-auto w-full mt-4 "
+          />
+        )}
         <div className="mt-4 border-t border-gray-200 dark:border-stroke-dark" />
       </div>
+
+
+
       {/* assignee + commments + shape icon */}
       <div className="p-2 flex items-center justify-between ">
-        <div className="flex -space-x-[6px] overflow-hidden">
+        {/* understand this relly mater */}
+        <div className="flex -space-x-[4px]  overflow-hidden">
 
           {
             task.assignee &&
