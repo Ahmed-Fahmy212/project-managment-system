@@ -14,3 +14,24 @@ html, body {
   @apply text-gray-50;
   @apply text-sm;
 }
+
+@layer utilities {.scrollbar::-webkit-scrollbar {
+  width: 18px;
+  height: 10px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  border-radius: 100vh;
+  background: #ffffff;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #18181B;
+  border-radius: 100vh;
+  border: 3px solid #ffffff;
+}
+
+/* .scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #c0a0b9;
+} */
+}

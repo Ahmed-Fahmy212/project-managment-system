@@ -34,7 +34,7 @@ const ListView = ({ id, setIsModalNewTaskOpen }: Props) => {
           isSmallText
         />
       </div>
-        <div className="p-4 h-full w-full overflow-y-scroll ">
+        <div className="p-4 h-full w-full overflow-y-scroll scrollbar ">
           <div className=" grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 ">
             {tasks?.data?.map((task: Task) => <TaskCard key={task.id} task={task} />)}
           </div>
