@@ -17,6 +17,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Status, Task } from "@/state/api";
+import { useAppSelector } from "@/app/redux";
 interface DataTableProps {
     data: Task[]
     columns: ColumnDef<any>[],
@@ -37,6 +38,9 @@ export function DataTable({
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel()
     })
+
+    // const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
+
     return (
         <div className="border overflow-x-auto p-4 rounded">
             <Table >
@@ -75,7 +79,7 @@ export function DataTable({
                                                     cell.column.id === 'status'
                                                         ?
                                                         <span
-                                                            className={`px-2 py-2 rounded-md justify-center content-center text-white text-sm text-nowrap`}
+                                                            className={`px-3 py-2 rounded-full font-semibold justify-center content-center text-white text-sm text-nowrap`}
                                                             style={{ backgroundColor: statusColor[data[index].status as Status] }}
                                                         >
                                                             {data[index].status}
