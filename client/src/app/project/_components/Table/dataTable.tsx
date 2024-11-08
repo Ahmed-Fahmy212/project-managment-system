@@ -42,14 +42,14 @@ export function DataTable({
     // const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
 
     return (
-        <div className="border overflow-x-auto p-4 rounded">
+        <div className="border overflow-x-auto p-4 rounded dark:text-white">
             <Table >
                 <TableHeader >
                     {table.getHeaderGroups().map(headerGroup => (
                         <TableRow key={headerGroup.id}>
                             {headerGroup.headers.map(header => (
                                 <TableHead key={header.id}>
-                                    <div className="font-semibold text-black">
+                                    <div className="font-semibold text-black dark:text-white">
                                         {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                                     </div>
                                 </TableHead>
