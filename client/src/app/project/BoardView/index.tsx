@@ -201,7 +201,7 @@ const Task = ({ task }: TaskProps) => {
               {task.points} pts
             </div>
           )}
-          <div className="text-[4px] flex flex-col text-gray-500 dark:text-neutral-500">
+          <div className="text-sm flex flex-col text-gray-400 dark:text-neutral-500">
             {formattedStartDate && <span>{formattedStartDate} </span>}
             {formattedDueDate && <span>{formattedDueDate}</span>}
           </div>
