@@ -16,6 +16,7 @@ import {
   User,
   Users,
   X,
+  ChevronLeft
 } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -47,13 +48,13 @@ const Sidebar = () => {
         {isSidebarCollapsed ? null : (
           // todo add transition duration 500
           <button
-            className="rounded-full p-1 hover:bg-gray-200 dark:hover:bg-gray-700"
+            className="rounded-full p-1 hover:bg-gray-100 dark:hover:bg-gray-700"
             title="x"
             onClick={() => {
               dispatch(setIsSidebarCollapsed(!isSidebarCollapsed));
             }}
           >
-            <X className="h-6 w-6 pt-1 text-gray-800 hover:text-gray-500 dark:text-white" />
+            <ChevronLeft className="h-8 w-8  text-gray-800  dark:text-white" />
           </button>
         )}
       </div>
