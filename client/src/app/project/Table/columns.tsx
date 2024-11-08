@@ -1,5 +1,5 @@
-
-type Time = {
+import {ColumnDef} from "@tanstack/react-table";
+type Task = {
     title: string;
     description: string;
     tags: string;
@@ -10,7 +10,7 @@ type Time = {
     assignee: string;
 }
 
-export const Columns  = [
+export const Columns: ColumnDef<Task,any>[] = [
     {
         accessorKey: 'title',
         header: 'Title',
