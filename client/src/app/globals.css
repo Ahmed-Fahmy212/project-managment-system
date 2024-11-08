@@ -35,3 +35,9 @@ html, body {
   background: #c0a0b9;
 } */
 }
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}

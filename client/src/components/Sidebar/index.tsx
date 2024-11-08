@@ -38,7 +38,7 @@ const Sidebar = () => {
   );
   return (
     <div
-      className={`z-40 flex h-[100%] flex-col justify-start overflow-x-visible bg-white shadow-xl transition-all duration-500 dark:bg-black ${isSidebarCollapsed ? "hidden w-0" : "w-64"}`}
+      className={`z-40 flex h-[100%] flex-col justify-start overflow-x-visible bg-white shadow-xl transition-all duration-500 dark:bg-black ${isSidebarCollapsed ? "hidden w-0" : "min-w-64"}`}
     >
       <div className="flex w-full items-center justify-between p-2 md:px-4 md:py-2">
         <div className="text-lg font-bold text-gray-800 dark:text-white">
