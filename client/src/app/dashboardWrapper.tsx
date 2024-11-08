@@ -4,6 +4,8 @@ import React, { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import StoreProvider, { useAppSelector } from "./redux";
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
+
 /////////////////////////////////////////////////////////////////////////////
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
@@ -20,12 +22,12 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
   //-----------------------------------------------------------------------------
   return (
-    <div className="flex overscroll-none  flex-row h-svh w-full bg-gray-50 text-gray-900">
+    <div className="bg-gray-50 flex flex-row h-svh overscroll-none text-gray-900 w-full">
       {/* sidebar */}
       <Sidebar />
-      <main className={`flex flex-col w-full h-full bg-gray-50 dark:bg-dark-bg ${isSidebarCollapsed ? '' : 'max-smallScreen:overflow-x-hidden'}`}>
+      <main className={`overscroll-none flex flex-col w-full h-full bg-gray-50 dark:bg-dark-bg ${isSidebarCollapsed ? '' : 'max-smallScreen:overflow-x-hidden'}`}>
         <Navbar />
-        {children}
+        <NuqsAdapter>{children}</NuqsAdapter>
       </main>
     </div >
   );

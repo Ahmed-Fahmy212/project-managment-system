@@ -10,7 +10,7 @@ type Task = {
     assignee: string;
 }
 
-export const Columns: ColumnDef<Task,any>[] = [
+export const Columns: ColumnDef<Task>[] = [
     {
         accessorKey: 'title',
         header: 'Title',

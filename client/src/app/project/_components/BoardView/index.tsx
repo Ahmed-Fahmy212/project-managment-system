@@ -30,10 +30,10 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     toast.error(JSON.stringify(error))
   }
   return (
-    <div className="overflow-y-scroll flex-1">
+    <div className="flex-1 overflow-y-scroll">
       <DndProvider backend={HTML5Backend}>
         {/* array of columns now has full hight remaining in component previous */}
-        <div className="pl-4  grid grid-cols-footer gap-4 ">
+        <div className="gap-4 grid grid-cols-footer pl-4">
           {taskStatus.map((status) => (
             <TaskColumn
               key={status}
@@ -86,27 +86,27 @@ const TaskColumn = ({
       className={`rounded-lg py-2 h-full  sm:py-4 xl:px-2 ${isOver ?
         "bg-blue-200 dark:bg-neutral-950 transition duration-500" : ""}`}
     >
-      <div className="mb-3 flex w-full">
+      <div className="flex mb-3 w-full">
         <div
           className={`w-2 !bg-[${statusColor[status]}] rounded-s-lg`}
           style={{ backgroundColor: statusColor[status] }}
         />
-        <div className="flex w-full items-center justify-between rounded-e-lg bg-white px-5 py-4 dark:bg-dark-secondary">
-          <h3 className="flex items-center text-base font-semibold dark:text-white">
+        <div className="bg-white dark:bg-dark-secondary flex items-center justify-between px-5 py-4 rounded-e-lg w-full">
+          <h3 className="dark:text-white flex font-semibold items-center text-base">
             {status}{" "}
             <span
-              className="ml-2 inline-block rounded-full bg-gray-200 p-1 text-center text-sm leading-none dark:bg-dark-tertiary"
+              className="bg-gray-200 dark:bg-dark-tertiary inline-block leading-none ml-2 p-1 rounded-full text-center text-sm"
               style={{ width: "1.5rem", height: "1.5rem" }}
             >
               {taskCount}
             </span>
           </h3>
-          <div className="flex items-center gap-1">
-            <button className="flex h-6 w-5 items-center justify-center dark:text-neutral-500">
+          <div className="flex gap-1 items-center">
+            <button className="dark:text-neutral-500 flex h-6 items-center justify-center w-5">
               <EllipsisVertical size={26} />
             </button>
             <button
-              className="flex h-6 w-6 items-center justify-center rounded bg-gray-200 dark:bg-dark-tertiary dark:text-white"
+              className="bg-gray-200 dark:bg-dark-tertiary dark:text-white flex h-6 items-center justify-center rounded w-6"
               onClick={() => setIsModalNewTaskOpen(true)}
             >
               <Plus size={16} />
@@ -173,14 +173,14 @@ const Task = ({ task }: TaskProps) => {
       }
     >
 
-      <div className="h-auto px-4 pt-4 md:px-6 md:pt-6">
+      <div className="h-auto md:pt-6 md:px-6 pt-4 px-4">
         <div className="flex items-start justify-between">
           {/* priority && tag */}
-          <div className="flex flex-1 flex-wrap items-center gap-2">
+          <div className="flex flex-1 flex-wrap gap-2 items-center">
             {task.priority && <PriorityTag priority={task.priority} />}
             <div className="flex gap-2">
               {taskTagsSplit.map((tag) => (
-                <div key={tag} className="rounded-full bg-blue-100 px-2 py-1 text-xs">
+                <div key={tag} className="bg-blue-100 px-2 py-1 rounded-full text-xs">
                   {" "}
                   {tag}
                 </div>
@@ -188,25 +188,25 @@ const Task = ({ task }: TaskProps) => {
             </div>
           </div>
           {/* Ellips */}
-          <button className="flex h-6 w-4 items-center justify-center dark:text-neutral-500">
+          <button className="dark:text-neutral-500 flex h-6 items-center justify-center w-4">
             <EllipsisVertical size={26} />
           </button>
         </div>
         {/*-----------*/}
 
-        <div className="my-3 flex justify-between items-center">
-          <h4 className="text-md font-bold dark:text-white">{task.title}</h4>
+        <div className="flex items-center justify-between my-3">
+          <h4 className="dark:text-white font-bold text-md">{task.title}</h4>
           {task.points && (
-            <div className="text-xs font-semibold dark:text-white">
+            <div className="dark:text-white font-semibold text-xs">
               {task.points} pts
             </div>
           )}
-          <div className="text-sm flex flex-col text-gray-400 dark:text-neutral-500">
+          <div className="dark:text-neutral-500 flex flex-col text-gray-400 text-sm">
             {formattedStartDate && <span>{formattedStartDate} </span>}
             {formattedDueDate && <span>{formattedDueDate}</span>}
           </div>
         </div>
-        <p className="text-sm text-gray-600 dark:text-neutral-500">
+        <p className="dark:text-neutral-500 text-gray-600 text-sm">
           {task.description}
         </p>
         {task.attachments && task.attachments.length > 0 && (
@@ -215,28 +215,28 @@ const Task = ({ task }: TaskProps) => {
             alt={`/${task.attachments[0].fileName}`}
             width={200}
             height={200}
-            className="h-auto w-full mt-4 "
+            className="h-auto mt-4 w-full"
           />
         )}
-        <div className="mt-4 border-t border-gray-200 dark:border-stroke-dark" />
+        <div className="border-gray-200 border-t dark:border-stroke-dark mt-4" />
       </div>
 
 
 
       {/* assignee + commments + shape icon */}
-      <div className="p-2 flex items-center justify-between ">
+      <div className="flex items-center justify-between p-2">
         {/* understand this relly mater */}
-        <div className="flex -space-x-[4px]  overflow-hidden">
+        <div className="-space-x-[4px] flex overflow-hidden">
 
           {
             task.assignee &&
             <Image
               key={`${task.assignee.id}`}
               src={`/${task.assignee?.profilePictureUrl}`}
-              alt={`/${task.assignee.name}`}
+              alt={`/${task.assignee.username}`}
               width={30}
               height={30}
-              className="rounded-full h-8 w-8 border-2 border-white object-cover dark:border-dark-secondary"
+              className="border-2 border-white dark:border-dark-secondary h-8 object-cover rounded-full w-8"
             />
           }
           {
@@ -244,17 +244,17 @@ const Task = ({ task }: TaskProps) => {
             <Image
               key={`${task.author.id}`}
               src={`/${task.author?.profilePictureUrl}`}
-              alt={`/${task.author.name}`}
+              alt={`/${task.author.username}`}
               width={30}
               height={30}
-              className="rounded-full h-8 w-8 border-2 border-white object-cover dark:border-dark-secondary"
+              className="border-2 border-white dark:border-dark-secondary h-8 object-cover rounded-full w-8"
             />
           }
 
         </div>
-        <div className="flex items-center text-gray-500 dark:text-neural-500">
+        <div className="dark:text-neural-500 flex items-center text-gray-500">
           <MessageSquareMore size={20} />
-          <span className="ml-1 text-sm dark:text-neural-400">
+          <span className="dark:text-neural-400 ml-1 text-sm">
             {numberOfComments}
           </span>
         </div>

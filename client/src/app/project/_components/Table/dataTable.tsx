@@ -19,7 +19,7 @@ import {
 import { Status, Task } from "@/state/api";
 interface DataTableProps {
     data: Task[]
-    columns: ColumnDef<Task, any>[],
+    columns: ColumnDef<any>[],
 }
 export function DataTable({
     columns,
@@ -59,7 +59,7 @@ export function DataTable({
                             <TableRow
                                 key={row.id}
                                 data-state={row.getIsSelected() && "selected"}
-                                className={index % 2 === 0 ? 'bg-gray-100/50 dark:bg-dark-bg' : ''}
+                                className={index % 2 === 0 ? 'bg-gray-100/70 dark:bg-dark-bg' : ''}
                             >
                                 {row.getVisibleCells().map((cell) => (
                                     <TableCell key={cell.id} >
@@ -70,7 +70,8 @@ export function DataTable({
                                                 cell.column.id === 'status'
                                                     ?
                                                     <span
-                                                        className={`px-2 py-1 rounded-full bg-[${statusColor[data[index].status as Status]}] text-white text-sm text-nowrap`}
+                                                        className={`px-2 py-1 rounded-full  text-white text-sm text-nowrap`}
+                                                        style={{ backgroundColor: statusColor[data[index].status as Status] }}
                                                     >
                                                         {data[index].status}
                                                     </span>
@@ -89,6 +90,29 @@ export function DataTable({
                         </TableRow>
                     )}
                 </TableBody>
+                <TableCaption>
+                    <div className="flex gap-10 items-center justify-center">
+                        <div className="flex hover:cursor-pointer items-center space-x-2">
+                            <button
+                                className="border px-2 py-1 rounded"
+                                onClick={() => table.previousPage()}
+                                // disabled={!table.getCanPreviousPage()}
+                            >
+                                Previous
+                            </button>
+                            <button
+                                className="border px-2 py-1 rounded"
+                                onClick={() => table.nextPage()}
+                                // disabled={!table.getCanNextPage()}
+                            >
+                                Next
+                            </button>
+                        </div>
+                        <span>
+                            Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+                        </span>
+                    </div>
+                </TableCaption>
             </Table>
         </div>
     );
