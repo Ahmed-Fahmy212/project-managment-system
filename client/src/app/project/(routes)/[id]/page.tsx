@@ -7,6 +7,7 @@ import ProjectHeader from ".././../projectHeader";
 import Board from "../../_components/BoardView/index";
 import ListView from "../../_components/ListView";
 import TaskTable from "../../_components/Table";
+import { Timeline } from "../../_components/TimeLine";
 
 
 type Props = {
@@ -29,7 +30,7 @@ const Project = ({ params }: Props) => {
             )
             }
             {activeTab === "Timeline" && (
-                <div><h1>Timeline</h1></div>
+                <Timeline id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
             )
             }
             {activeTab === "Table" && (

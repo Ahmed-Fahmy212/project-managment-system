@@ -33,7 +33,7 @@ const Navbar = () => {
       <div className="flex items-center">
         <button
           title="Toggle DarkMode"
-          onClick={() => dispatch(setIsDarkMode(!isDarkMode))}
+          onClick={ () => dispatch(setIsDarkMode(!isDarkMode))}
           className={
             isDarkMode
               ? `rounded p-2 dark:hover:bg-gray-700`
