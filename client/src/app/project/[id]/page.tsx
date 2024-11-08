@@ -1,5 +1,5 @@
 "use client";
-
+import { parseAsString, useQueryState } from "nuqs";
 import { useState } from "react";
 import ProjectHeader from "../projectHeader";
 import Board from "../BoardView/index";
@@ -13,10 +13,11 @@ type Props = {
 }
 const Project = ({ params }: Props) => {
     const { id } = params;
-    const [activeTab, setActiveTab] = useState("Board")
+    const [activeTab , setActiveTab] = useQueryState("page",parseAsString.withDefault("Board"));
+
     const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
     return (
-        <div className="flex flex-col flex-1 overflow-hidden">
+        <div className="flex flex-1 flex-col overflow-hidden">
             <ProjectHeader activeTab={activeTab} setActiveTab={setActiveTab} />
             {activeTab === "Board" && (
                 <Board id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
