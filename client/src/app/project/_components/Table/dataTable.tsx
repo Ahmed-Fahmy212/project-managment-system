@@ -38,9 +38,9 @@ export function DataTable({
         getPaginationRowModel: getPaginationRowModel()
     })
     return (
-        <div className="border overflow-x-auto p-4 rounded-md">
-            <Table>
-                <TableHeader>
+        <div className="border overflow-x-auto p-4 rounded">
+            <Table >
+                <TableHeader >
                     {table.getHeaderGroups().map(headerGroup => (
                         <TableRow key={headerGroup.id}>
                             {headerGroup.headers.map(header => (
@@ -64,19 +64,24 @@ export function DataTable({
                                 {row.getVisibleCells().map((cell) => (
                                     <TableCell key={cell.id} >
                                         {cell.column.id === 'author'
-                                            ? data[index].author?.username
-                                            : cell.column.id === 'assignee'
-                                                ? data[index].assignee?.username :
-                                                cell.column.id === 'status'
-                                                    ?
-                                                    <span
-                                                        className={`px-2 py-1 rounded-full  text-white text-sm text-nowrap`}
-                                                        style={{ backgroundColor: statusColor[data[index].status as Status] }}
-                                                    >
-                                                        {data[index].status}
-                                                    </span>
+                                            ? data[index].author?.username :
+                                            cell.column.id === 'title' ? (
+                                                <span className="text-nowrap">
+                                                    {data[index].title}
+                                                </span>
+                                                )
+                                                : cell.column.id === 'assignee'
+                                                    ? data[index].assignee?.username :
+                                                    cell.column.id === 'status'
+                                                        ?
+                                                        <span
+                                                            className={`px-2 py-2 rounded-md justify-center content-center text-white text-sm text-nowrap`}
+                                                            style={{ backgroundColor: statusColor[data[index].status as Status] }}
+                                                        >
+                                                            {data[index].status}
+                                                        </span>
 
-                                                    : flexRender(cell.column.columnDef.cell, cell.getContext())
+                                                        : flexRender(cell.column.columnDef.cell, cell.getContext())
                                         }
                                     </TableCell>
                                 ))}
@@ -96,14 +101,14 @@ export function DataTable({
                             <button
                                 className="border px-2 py-1 rounded"
                                 onClick={() => table.previousPage()}
-                                // disabled={!table.getCanPreviousPage()}
+                            // disabled={!table.getCanPreviousPage()}
                             >
                                 Previous
                             </button>
                             <button
                                 className="border px-2 py-1 rounded"
                                 onClick={() => table.nextPage()}
-                                // disabled={!table.getCanNextPage()}
+                            // disabled={!table.getCanNextPage()}
                             >
                                 Next
                             </button>
