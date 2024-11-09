@@ -1,12 +1,10 @@
-import { Request, Response } from "express";
-import prisma from '../../prisma/client'
+import { NextFunction, Request, Response } from "express";
 import { BadRequestException } from "../exceptions/BadRequestException";
-import { StatusCodes, ReasonPhrases } from 'http-status-codes'
 import { Project } from "@prisma/client";
 import response from "../util/responce";
-import { ProjectData } from "../interface/interface";
+import { ProjectBody, UpdateProjectBody } from "../types/project";
 import { ProjectService } from "../services";
-
+import zod from 'zod'
 export const projects = {
   getProjects: async (
     req: Request,
@@ -30,29 +28,23 @@ export const projects = {
 
   createProject: async (
     req: Request,
-    res: Response
-  ): Promise<void> => {
-    const { name, description, startDate, endDate }: ProjectData = req.body;
-    if (!name || !description || !startDate || !endDate) {
-      throw new BadRequestException(`Missing required fields ${name ? "" : "name"} ${description ? "" : "description"} ${startDate ? "" : "startDate"} ${endDate ? "" : "endDate"}`);
-    }
-    const newProject = await prisma.project.create({
-      data: {
-        name,
-        description,
-        startDate,
-        endDate,
-      },
-    });
-    response.created(res, newProject);
+    res: Response,
+    next: NextFunction
+  ): Promise<any> => {
+    try {
+      const validatedData = ProjectBody.parse(req.body);
+      const createdProject = await ProjectService.createProject(validatedData);
+      return response.success(res, createdProject);
+    } catch (err) { next(err) }
   },
   updateProject: async (
     req: Request,
     res: Response
   ): Promise<void> => {
+    //TODO validate case is string too long
     const { id } = req.params;
-    const { name, description, startDate, endDate }: Partial<ProjectData> = req.body;
-    const project = await ProjectService.updateProject(parseInt(id), { name, description, startDate, endDate });
+    const body: zod.infer<typeof UpdateProjectBody> = req.body;
+    const project = await ProjectService.updateProject(parseInt(id), body);
     response.success(res, project);
   },
   deleteProject: async (
