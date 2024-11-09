@@ -1,8 +1,6 @@
-import { useAppSelector } from "@/app/redux";
 import { Task, useGetTasksQuery } from "@/state/api";
 import Header from "../../../../components/Header";
 import { useMemo, useState } from "react";
-import { Gantt } from "gantt-task-react";
 type Props = {
     id: string;
     setIsModalNewTaskOpen: (isOpen: boolean) => void;
