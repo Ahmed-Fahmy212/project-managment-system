@@ -8,9 +8,9 @@ const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
 const dotenv_1 = __importDefault(require("dotenv"));
+require("express-async-errors");
 const api_1 = __importDefault(require("./api"));
 const errorHandlerMiddleware_1 = __importDefault(require("./middleware/errorHandlerMiddleware"));
-require("express-async-errors");
 const logger_1 = require("./util/logger");
 // Configs
 dotenv_1.default.config();
@@ -18,6 +18,7 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use(helmet_1.default.crossOriginResourcePolicy({ policy: 'cross-origin' }));
+//hanndle this 
 app.use((0, morgan_1.default)((tokens, req, res) => {
     return [
         `${tokens.status(req, res)}`,
@@ -35,6 +36,7 @@ app.get('*', (req, res) => {
         },
     });
 });
+// add email alert
 app.use(errorHandlerMiddleware_1.default);
 const port = parseInt(process.env.PORT || "8000");
 app.listen(port, () => {
