@@ -9,81 +9,56 @@ export const projects = {
   getProjects: async (
     req: Request,
     res: Response,
-    next: NextFunction
   ): Promise<void> => {
-    try {
-      const projects = await ProjectService.getAllProjects();
-      response.success(res, projects);
-    } catch (err) {
-      next(err);
-    }
+    const projects = await ProjectService.getAllProjects();
+    response.success(res, projects);
   },
 
   getOneProject: async (
     req: Request,
     res: Response,
-    next: NextFunction
   ): Promise<void> => {
-    try {
-      const { id } = req.params;
-      if (!id) {
-        throw new BadRequestException("Missing required field: id");
-      }
-      const project = await ProjectService.getProjectById(parseInt(id));
-      response.success(res, project);
-    } catch (err) {
-      next(err);
+    const { id } = req.params;
+    if (!id) {
+      throw new BadRequestException("Missing required field: id");
     }
+    const project = await ProjectService.getProjectById(parseInt(id));
+    response.success(res, project);
   },
 
   createProject: async (
     req: Request,
     res: Response,
-    next: NextFunction
   ): Promise<void> => {
-    try {
-      const validatedData = ProjectBody.parse(req.body);
-      const createdProject = await ProjectService.createProject(validatedData);
-      response.success(res, createdProject);
-    } catch (err) {
-      next(err);
-    }
+    const validatedData = ProjectBody.parse(req.body);
+    const createdProject = await ProjectService.createProject(validatedData);
+    response.success(res, createdProject);
+
   },
 
   updateProject: async (
     req: Request,
     res: Response,
-    next: NextFunction
   ): Promise<void> => {
-    try {
-      const { id } = req.params;
-      const body: zod.infer<typeof UpdateProjectBody> = req.body;
-      const project = await ProjectService.updateProject(parseInt(id), body);
-      response.success(res, project);
-    } catch (err) {
-      next(err);
-    }
+    const { id } = req.params;
+    const body: zod.infer<typeof UpdateProjectBody> = req.body;
+    const project = await ProjectService.updateProject(parseInt(id), body);
+    response.success(res, project);
+
   },
 
   deleteProject: async (
     req: Request,
     res: Response,
-    next: NextFunction
   ): Promise<void> => {
-    try {
-      const { id } = req.params;
-      if (!id) {
-        throw new BadRequestException("Missing required field: id");
-      }
-      const project = await ProjectService.deleteProject(parseInt(id));
-      if (project === null) {
-        response.success(res, { data: "Project deleted successfully" });
-      }
-      throw new BadRequestException("Project didn't delete");
-    } catch (err) {
-      next(err);
+    const { id } = req.params;
+    if (!id) {
+      throw new BadRequestException("Missing required field: id");
     }
+    const project = await ProjectService.deleteProject(parseInt(id));
+    if (project === null) {
+      response.success(res, { data: "Project deleted successfully" });
+    }
+    throw new BadRequestException("Project didn't delete");
   }
 }
-
-export default projects;
