@@ -1,4 +1,4 @@
-import { ProjectBody, UpdateProjectBody } from '../types/project';
+import { ProjectBody, UpdateProjectBody } from '../types/project.zod';
 import { Project } from '@prisma/client';
 import prisma from '../../prisma/client';
 import zod from 'zod';
@@ -19,10 +19,10 @@ export const ProjectService = {
     async getProjectById(id: number): Promise<Project | null> {
         return await prisma.project.findUnique({
             where: { id, isDeleted: false },
-        }) ;
+        });
     },
     async getAllProjects(): Promise<Project[]> {
-        return await prisma.project.findMany({ where: { isDeleted: false } }) ;
+        return await prisma.project.findMany({ where: { isDeleted: false } });
     },
     async updateProject(id: number, data: zod.infer<typeof UpdateProjectBody>): Promise<Project> {
         return await prisma.project.update({

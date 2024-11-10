@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import prisma from "../../prisma/client";
 import { Project, Task } from "@prisma/client";
 import zod from "zod";
-import { TaskDataSchema } from "../types/tasks";
+import { TaskDataSchema } from "../types/tasks.zod";
 import { NotFoundException } from "../exceptions/NotFoundException";
 
 
@@ -42,7 +42,7 @@ export const TaskService = {
         const newTask = await prisma.task.create({
             data: body
         });
-        if(!newTask) {
+        if (!newTask) {
             throw new NotFoundException("Task didn`t created");
         }
         return newTask;

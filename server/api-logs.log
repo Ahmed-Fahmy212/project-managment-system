@@ -1,0 +1,3169 @@
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        'content-type': 'application/json',
+        'user-agent': 'PostmanRuntime/7.42.0',
+        accept: '*/*',
+        'cache-control': 'no-cache',
+        'postman-token': 'bed44179-6e53-484a-bc79-f2c4ba947f35',
+        host: 'localhost:8000',
+        'accept-encoding': 'gzip, deflate, br',
+        connection: 'keep-alive',
+        'content-length': '86'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 400 },
+    responseTime: 5
+  },
+  level: 'info',
+  message: 'POST /projects 400 5ms',
+  timestamp: '2024-11-10T11:02:01.154Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 427
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 427ms',
+  timestamp: '2024-11-10T11:02:25.958Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"9d6-7WKfdEKU3V8Ui81IEHv/7tFIDHs"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 700
+  },
+  level: 'info',
+  message: 'GET /projects 200 700ms',
+  timestamp: '2024-11-10T11:02:26.123Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"a9f-10MelsXS+bX1ck0sOMD3tNIw+1U"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 88
+  },
+  level: 'info',
+  message: 'GET /projects 304 88ms',
+  timestamp: '2024-11-10T11:11:04.590Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 99
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 99ms',
+  timestamp: '2024-11-10T11:11:04.605Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"a9f-10MelsXS+bX1ck0sOMD3tNIw+1U"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 25
+  },
+  level: 'info',
+  message: 'GET /projects 304 25ms',
+  timestamp: '2024-11-10T11:13:11.394Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 34
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 34ms',
+  timestamp: '2024-11-10T11:13:11.404Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"a9f-10MelsXS+bX1ck0sOMD3tNIw+1U"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 3
+  },
+  level: 'info',
+  message: 'GET /projects 304 3ms',
+  timestamp: '2024-11-10T11:13:24.289Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 8
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 8ms',
+  timestamp: '2024-11-10T11:13:24.295Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '113',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 260
+  },
+  level: 'info',
+  message: 'POST /projects 200 260ms',
+  timestamp: '2024-11-10T11:13:33.823Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'GET /projects 200 2ms',
+  timestamp: '2024-11-10T11:13:33.839Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"b76-KWyr772DBO8WVltz/ssFvjlaCZw"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 3
+  },
+  level: 'info',
+  message: 'GET /projects 304 3ms',
+  timestamp: '2024-11-10T11:15:17.412Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 5
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 5ms',
+  timestamp: '2024-11-10T11:15:17.415Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '110',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 13
+  },
+  level: 'info',
+  message: 'POST /projects 200 13ms',
+  timestamp: '2024-11-10T11:15:29.716Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'GET /projects 200 2ms',
+  timestamp: '2024-11-10T11:15:29.736Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"c4a-urLmi5sVxFWm1+V+bBGAR3Vblrc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 49
+  },
+  level: 'info',
+  message: 'GET /projects 304 49ms',
+  timestamp: '2024-11-10T11:16:58.976Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 16
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 16ms',
+  timestamp: '2024-11-10T11:16:59.025Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"c4a-urLmi5sVxFWm1+V+bBGAR3Vblrc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'GET /projects 304 2ms',
+  timestamp: '2024-11-10T11:17:13.353Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 5
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 5ms',
+  timestamp: '2024-11-10T11:17:13.359Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"c4a-urLmi5sVxFWm1+V+bBGAR3Vblrc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'GET /projects 304 2ms',
+  timestamp: '2024-11-10T11:17:13.498Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 4
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 4ms',
+  timestamp: '2024-11-10T11:17:13.503Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"c4a-urLmi5sVxFWm1+V+bBGAR3Vblrc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 158
+  },
+  level: 'info',
+  message: 'GET /projects 304 158ms',
+  timestamp: '2024-11-10T11:19:20.553Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 215
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 215ms',
+  timestamp: '2024-11-10T11:19:20.616Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '119',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 117
+  },
+  level: 'info',
+  message: 'POST /projects 200 117ms',
+  timestamp: '2024-11-10T11:21:15.452Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'GET /projects 200 2ms',
+  timestamp: '2024-11-10T11:21:15.475Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 271
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 271ms',
+  timestamp: '2024-11-10T11:24:47.707Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"d27-kBXLt3lSBNhRnIVIM55Mwhl+HLM"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 289
+  },
+  level: 'info',
+  message: 'GET /projects 304 289ms',
+  timestamp: '2024-11-10T11:24:47.724Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"d27-kBXLt3lSBNhRnIVIM55Mwhl+HLM"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 77
+  },
+  level: 'info',
+  message: 'GET /projects 304 77ms',
+  timestamp: '2024-11-10T11:31:16.459Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 90
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 90ms',
+  timestamp: '2024-11-10T11:31:16.474Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"d27-kBXLt3lSBNhRnIVIM55Mwhl+HLM"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 3
+  },
+  level: 'info',
+  message: 'GET /projects 304 3ms',
+  timestamp: '2024-11-10T11:31:17.961Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 15
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 15ms',
+  timestamp: '2024-11-10T11:31:17.973Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"d27-kBXLt3lSBNhRnIVIM55Mwhl+HLM"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 3
+  },
+  level: 'info',
+  message: 'GET /projects 304 3ms',
+  timestamp: '2024-11-10T11:31:54.343Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 5
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 5ms',
+  timestamp: '2024-11-10T11:31:54.347Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"d27-kBXLt3lSBNhRnIVIM55Mwhl+HLM"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 3
+  },
+  level: 'info',
+  message: 'GET /projects 304 3ms',
+  timestamp: '2024-11-10T11:31:55.422Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 5
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 5ms',
+  timestamp: '2024-11-10T11:31:55.425Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"d27-kBXLt3lSBNhRnIVIM55Mwhl+HLM"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'GET /projects 304 2ms',
+  timestamp: '2024-11-10T11:34:09.247Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 4
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 4ms',
+  timestamp: '2024-11-10T11:34:09.254Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"d27-kBXLt3lSBNhRnIVIM55Mwhl+HLM"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'GET /projects 304 2ms',
+  timestamp: '2024-11-10T11:34:10.570Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 4
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 4ms',
+  timestamp: '2024-11-10T11:34:10.577Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"d27-kBXLt3lSBNhRnIVIM55Mwhl+HLM"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 98
+  },
+  level: 'info',
+  message: 'GET /projects 304 98ms',
+  timestamp: '2024-11-10T11:38:01.263Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 185
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 185ms',
+  timestamp: '2024-11-10T11:38:01.349Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"d27-kBXLt3lSBNhRnIVIM55Mwhl+HLM"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 4
+  },
+  level: 'info',
+  message: 'GET /projects 304 4ms',
+  timestamp: '2024-11-10T11:38:11.523Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 4
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 4ms',
+  timestamp: '2024-11-10T11:38:11.529Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '41',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 3
+  },
+  level: 'info',
+  message: 'POST /projects 200 3ms',
+  timestamp: '2024-11-10T11:41:21.787Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 4
+  },
+  level: 'info',
+  message: 'GET /projects 200 4ms',
+  timestamp: '2024-11-10T11:41:21.814Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '35',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'POST /projects 200 2ms',
+  timestamp: '2024-11-10T11:42:04.815Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'GET /projects 200 2ms',
+  timestamp: '2024-11-10T11:42:04.925Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '82',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 55
+  },
+  level: 'info',
+  message: 'POST /projects 200 55ms',
+  timestamp: '2024-11-10T11:43:08.387Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 3
+  },
+  level: 'info',
+  message: 'GET /projects 200 3ms',
+  timestamp: '2024-11-10T11:43:08.417Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"f46-n1G6e4GT8rWOamlUkwyRW/2tkCk"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 4
+  },
+  level: 'info',
+  message: 'GET /projects 304 4ms',
+  timestamp: '2024-11-10T11:48:01.957Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 15
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 15ms',
+  timestamp: '2024-11-10T11:48:01.983Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"f46-n1G6e4GT8rWOamlUkwyRW/2tkCk"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'GET /projects 304 2ms',
+  timestamp: '2024-11-10T11:48:02.144Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 5
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 5ms',
+  timestamp: '2024-11-10T11:48:02.165Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"f46-n1G6e4GT8rWOamlUkwyRW/2tkCk"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 57
+  },
+  level: 'info',
+  message: 'GET /projects 304 57ms',
+  timestamp: '2024-11-10T11:48:28.498Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 69
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 69ms',
+  timestamp: '2024-11-10T11:48:28.511Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"f46-n1G6e4GT8rWOamlUkwyRW/2tkCk"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 3
+  },
+  level: 'info',
+  message: 'GET /projects 304 3ms',
+  timestamp: '2024-11-10T11:48:30.630Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 4
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 4ms',
+  timestamp: '2024-11-10T11:48:30.649Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"f46-n1G6e4GT8rWOamlUkwyRW/2tkCk"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 224
+  },
+  level: 'info',
+  message: 'GET /projects 304 224ms',
+  timestamp: '2024-11-10T13:13:23.757Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 213
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 213ms',
+  timestamp: '2024-11-10T13:13:23.765Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"f46-n1G6e4GT8rWOamlUkwyRW/2tkCk"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 31
+  },
+  level: 'info',
+  message: 'GET /projects 304 31ms',
+  timestamp: '2024-11-10T13:14:58.121Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 44
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 44ms',
+  timestamp: '2024-11-10T13:14:58.137Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '174',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/tasks',
+      query: {}
+    },
+    res: { statusCode: 400 },
+    responseTime: 6
+  },
+  level: 'info',
+  message: 'POST /tasks 400 6ms',
+  timestamp: '2024-11-10T13:16:05.838Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 9
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 9ms',
+  timestamp: '2024-11-10T13:16:06.006Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"f46-n1G6e4GT8rWOamlUkwyRW/2tkCk"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 10
+  },
+  level: 'info',
+  message: 'GET /projects 304 10ms',
+  timestamp: '2024-11-10T13:17:35.903Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 11
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 11ms',
+  timestamp: '2024-11-10T13:17:35.906Z'
+}
+{
+  meta: {
+    req: {
+      url: '/projects',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"f46-n1G6e4GT8rWOamlUkwyRW/2tkCk"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/projects',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 92
+  },
+  level: 'info',
+  message: 'GET /projects 304 92ms',
+  timestamp: '2024-11-10T13:19:22.517Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 96
+  },
+  level: 'info',
+  message: 'GET /tasks/1 304 96ms',
+  timestamp: '2024-11-10T13:19:22.529Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1/status',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '25',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'PATCH',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1/status',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 173
+  },
+  level: 'info',
+  message: 'PATCH /tasks/1/status 200 173ms',
+  timestamp: '2024-11-10T13:20:54.210Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3644-yWL588IhYQ64It1+7A+trVgQkxc"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 5
+  },
+  level: 'info',
+  message: 'GET /tasks/1 200 5ms',
+  timestamp: '2024-11-10T13:20:54.331Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1/status',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '25',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'PATCH',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1/status',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 3
+  },
+  level: 'info',
+  message: 'PATCH /tasks/1/status 200 3ms',
+  timestamp: '2024-11-10T13:20:55.884Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3640-MNYsQZxt1goCaFMoAjSqLtWSw28"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 5
+  },
+  level: 'info',
+  message: 'GET /tasks/1 200 5ms',
+  timestamp: '2024-11-10T13:20:55.910Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1/status',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '25',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'PATCH',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1/status',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'PATCH /tasks/1/status 200 2ms',
+  timestamp: '2024-11-10T13:20:58.373Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3640-g4+56zsNJb0phZ3BnWZXcM0zIZY"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 6
+  },
+  level: 'info',
+  message: 'GET /tasks/1 200 6ms',
+  timestamp: '2024-11-10T13:20:58.419Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/5/status',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '25',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'PATCH',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/5/status',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 3
+  },
+  level: 'info',
+  message: 'PATCH /tasks/5/status 200 3ms',
+  timestamp: '2024-11-10T13:21:01.292Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3640-RZRv0zqVzzHeos1KJt/oGTXTSjs"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 5
+  },
+  level: 'info',
+  message: 'GET /tasks/1 200 5ms',
+  timestamp: '2024-11-10T13:21:01.336Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/3/status',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '25',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'PATCH',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/3/status',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'PATCH /tasks/3/status 200 2ms',
+  timestamp: '2024-11-10T13:21:03.813Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"363c-fTn1fFrhsQ9H18WnerSZr5qpZWI"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 5
+  },
+  level: 'info',
+  message: 'GET /tasks/1 200 5ms',
+  timestamp: '2024-11-10T13:21:03.859Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1/status',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '25',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'PATCH',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1/status',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 3
+  },
+  level: 'info',
+  message: 'PATCH /tasks/1/status 200 3ms',
+  timestamp: '2024-11-10T13:21:06.670Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3638-88Wv5/qA21fLUuQqLOLZkRlqzH4"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 5
+  },
+  level: 'info',
+  message: 'GET /tasks/1 200 5ms',
+  timestamp: '2024-11-10T13:21:06.681Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1/status',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '25',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'PATCH',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1/status',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'PATCH /tasks/1/status 200 2ms',
+  timestamp: '2024-11-10T13:21:17.703Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3638-3C36xWwvB8z6R2qahOXTrDTj9dw"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 4
+  },
+  level: 'info',
+  message: 'GET /tasks/1 200 4ms',
+  timestamp: '2024-11-10T13:21:17.748Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1/status',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '25',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'PATCH',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1/status',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'PATCH /tasks/1/status 200 2ms',
+  timestamp: '2024-11-10T13:21:19.813Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3638-Vj7OaDRrX5R3waN6jPA3CAwB0aI"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 4
+  },
+  level: 'info',
+  message: 'GET /tasks/1 200 4ms',
+  timestamp: '2024-11-10T13:21:19.857Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1/status',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '25',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'PATCH',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1/status',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'PATCH /tasks/1/status 200 2ms',
+  timestamp: '2024-11-10T13:21:20.537Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3638-KwvR69rI2YEiMiby/1RHaVnQnkk"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 4
+  },
+  level: 'info',
+  message: 'GET /tasks/1 200 4ms',
+  timestamp: '2024-11-10T13:21:20.547Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1/status',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '25',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'PATCH',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1/status',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'PATCH /tasks/1/status 200 2ms',
+  timestamp: '2024-11-10T13:21:21.145Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3638-iH3yDljAuIqB4eXAo6TEh8go8Yk"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 6
+  },
+  level: 'info',
+  message: 'GET /tasks/1 200 6ms',
+  timestamp: '2024-11-10T13:21:21.185Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1/status',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '22',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'PATCH',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1/status',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 16
+  },
+  level: 'info',
+  message: 'PATCH /tasks/1/status 200 16ms',
+  timestamp: '2024-11-10T13:21:21.730Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3638-EV90awclNr/NH8AR/audV+B1eGU"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 4
+  },
+  level: 'info',
+  message: 'GET /tasks/1 200 4ms',
+  timestamp: '2024-11-10T13:21:21.739Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1/status',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '25',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'PATCH',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1/status',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'PATCH /tasks/1/status 200 2ms',
+  timestamp: '2024-11-10T13:21:23.923Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3635-y5tWamymZcaY2qB3nMSX9nOcatY"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 5
+  },
+  level: 'info',
+  message: 'GET /tasks/1 200 5ms',
+  timestamp: '2024-11-10T13:21:23.935Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1/status',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'content-length': '22',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'content-type': 'application/json',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd'
+      },
+      method: 'PATCH',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1/status',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 3
+  },
+  level: 'info',
+  message: 'PATCH /tasks/1/status 200 3ms',
+  timestamp: '2024-11-10T13:21:25.171Z'
+}
+{
+  meta: {
+    req: {
+      url: '/tasks/1',
+      headers: {
+        host: 'localhost:8000',
+        connection: 'keep-alive',
+        'sec-ch-ua-platform': '"Windows"',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Brave";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        accept: '*/*',
+        'sec-gpc': '1',
+        'accept-language': 'en-US,en',
+        origin: 'http://localhost:3000',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        referer: 'http://localhost:3000/',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'if-none-match': 'W/"3638-cctrAhGBkDQiYQMpq8lRfPx3ZR8"'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/tasks/1',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 4
+  },
+  level: 'info',
+  message: 'GET /tasks/1 200 4ms',
+  timestamp: '2024-11-10T13:21:25.181Z'
+}
