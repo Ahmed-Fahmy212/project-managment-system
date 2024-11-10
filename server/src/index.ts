@@ -5,9 +5,9 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import AppRoutes from './api';
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware';
-import 'express-async-errors';
 import { WinstonLogger } from './util/logger';
 
+import 'express-async-errors';
 // Configs
 dotenv.config();
 const app = express();
@@ -15,6 +15,7 @@ app.use(express.json());
 app.use(cors());
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 
+//hanndle this 
 app.use(morgan((tokens, req, res) => {
   return [
     `${tokens.status(req, res)}`,
@@ -35,6 +36,7 @@ app.get('*', (req, res) => {
     },
   });
 })
+// add email alert
 app.use(errorHandlerMiddleware)
 
 const port = parseInt(process.env.PORT || "8000");

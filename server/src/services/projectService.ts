@@ -2,13 +2,17 @@ import { ProjectBody, UpdateProjectBody } from '../types/project';
 import { Project } from '@prisma/client';
 import prisma from '../../prisma/client';
 import zod from 'zod';
+import { HttpException } from '../exceptions/HttpExceptions';
 
 export const ProjectService = {
     async createProject(data: zod.infer<typeof ProjectBody>): Promise<Project> {
-            const createdProject = await prisma.project.create({
-                data
-            });
-            return createdProject;
+        const createdProject = await prisma.project.create({
+            data
+        });
+        if (!createdProject) {
+            throw new Error('Project didn`t created');
+        }
+        return createdProject;
 
     },
     async getProjectById(id: number): Promise<Project | null> {
