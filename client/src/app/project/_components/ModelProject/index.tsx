@@ -2,6 +2,7 @@ import Modal from "@/components/Modal";
 import { useCreateProjectMutation } from "@/state/api";
 import React, { useState } from "react";
 import { format } from "date-fns";
+import toast from "react-hot-toast";
 
 type Props = {
     isOpen: boolean;
@@ -16,17 +17,30 @@ const ModalNewProject = ({ isOpen, onClose }: Props) => {
     const [endDate, setEndDate] = useState("");
 
     const handleSubmit = async () => {
-        if (!projectName || !startDate || !endDate) return;
+        if (!projectName) return;
+        try {
+            const formattedStartDate = startDate ? new Date(startDate).toISOString() :  new Date().toISOString();
+            const formattedEndDate = endDate ? new Date(endDate).toISOString() : undefined;
 
-        const formattedStartDate = format(new Date(startDate));
-        const formattedEndDate = format(new Date(endDate));
+            await createProject({
+                name: projectName,
+                description,
+                startDate: formattedStartDate,
+                endDate: formattedEndDate,
+            });
 
-        await createProject({
-            name: projectName,
-            description,
-            startDate: formattedStartDate,
-            endDate: formattedEndDate,
-        });
+            if (!isLoading) {
+                toast.success("Project created successfully.");
+                onClose();
+                setProjectName("");
+                setDescription("");
+                setStartDate("");
+                setEndDate("");
+            }
+        } catch (error) {
+            toast.error("An error occurred. Please try again.");
+            return error;
+        }
     };
 
     const isFormValid = () => {
@@ -76,6 +90,7 @@ const ModalNewProject = ({ isOpen, onClose }: Props) => {
                     className={` mt-4 flex w-full justify-center rounded-md border border-transparent bg-blue-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 ${!isFormValid() || isLoading ? "cursor-not-allowed opacity-50" : ""
                         }`}
                     disabled={!isFormValid() || isLoading}
+
                 >
                     {isLoading ? "Creating..." : "Create Project"}
                 </button>

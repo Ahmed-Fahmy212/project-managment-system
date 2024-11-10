@@ -24,12 +24,12 @@ const Modal = ({ name, isOpen, onClose,children}: ModalProps) => {
             className="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50"
             onClick={handleOutsideClick}
         >
-            <div className="dark:bg-dark-secondary bg-white font-medium dark:text-white rounded-lg shadow-lg max-w-96 p-4">
+            <div className="rounded dark:bg-dark-secondary bg-white font-medium dark:text-white  shadow-2xl max-w-[420px] p-4">
                 <Header
                     name={name}
                     isSmallText
                     buttonComponent={
-                        <button title="Close" className="hover:bg-slate-400" onClick={onClose}>
+                        <button title="Close" className="hover:bg-slate-400 duration-150 p-2 rounded-full" onClick={onClose}>
                             <X className="h-6 w-6" />
                         </button>
                     }
