@@ -3,11 +3,11 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import 'express-async-errors';
 import AppRoutes from './api';
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware';
 import { WinstonLogger } from './util/logger';
 
-import 'express-async-errors';
 // Configs
 dotenv.config();
 const app = express();
