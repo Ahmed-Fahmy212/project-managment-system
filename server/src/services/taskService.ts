@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import prisma from "../../prisma/client";
 import { Project, Task } from "@prisma/client";
+import zod from "zod";
+import { TaskDataSchema } from "../types/tasks";
+import { NotFoundException } from "../exceptions/NotFoundException";
+
 
 export const TaskService = {
     getTasks: async (projectId: number): Promise<Task[]> => {
@@ -32,59 +36,23 @@ export const TaskService = {
         });
         return task;
     },
-    // createTask: async (
-    //     req: Request,
-    //     res: Response,
-    //     body: {
-    //         title: string;
-    //         description: string;
-    //         status: string;
-    //         priority: string;
-    //         tags: string[];
-    //         startDate: Date;
-    //         dueDate: Date;
-    //         points: number;
-    //         projectId: number;
-    //         authorUserId: number;
-    //         assignedUserId: number;
-    //     }
-    // ): Promise<void> => {
-    //     const {
-    //         title,
-    //         description,
-    //         status,
-    //         priority,
-    //         tags,
-    //         startDate,
-    //         dueDate,
-    //         points,
-    //         projectId,
-    //         authorUserId,
-    //         assignedUserId,
-    //     } = body;
-    //     const newTask = await prisma.task.create({
-    //         data: {
-    //             title,
-    //             description,
-    //             status,
-    //             priority,
-    //             tags,
-    //             startDate,
-    //             dueDate,
-    //             points,
-    //             projectId,
-    //             authorUserId,
-    //             assignedUserId,
-    //         },
-    //     });
-    //     return res.status(201).json(newTask || []);
-    // },
+    createTask: async (
+        body: zod.infer<typeof TaskDataSchema>
+    ) => {
+        const newTask = await prisma.task.create({
+            data: body
+        });
+        if(!newTask) {
+            throw new NotFoundException("Task didn`t created");
+        }
+        return newTask;
+    },
 
     // updateTaskStatus: async (
     //     req: Request,
     //     res: Response,
     //     body: { status: string }
-    // ): Promise<void> => {
+    // ) => {
     //     const { taskId } = req.params;
     //     const { status } = body;
     //     const updatedTask = await prisma.task.update({
@@ -101,7 +69,7 @@ export const TaskService = {
     // getUserTasks: async (
     //     req: Request,
     //     res: Response
-    // ): Promise<void> => {
+    // ) => {
     //     const { userId } = req.params;
     //     const tasks = await prisma.task.findMany({
     //         where: {
