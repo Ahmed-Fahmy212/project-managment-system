@@ -8,6 +8,7 @@ import Board from "../../_components/BoardView/index";
 import ListView from "../../_components/ListView";
 import TaskTable from "../../_components/Table";
 import { Timeline } from "../../_components/TimeLine";
+import ModalNewTask from "../../_components/ModalTask";
 
 
 type Props = {
@@ -20,6 +21,7 @@ const Project = ({ params }: Props) => {
     const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
     return (
         <div className="flex flex-1 flex-col overflow-hidden">
+            < ModalNewTask isOpen={isModalNewTaskOpen} onClose={() => setIsModalNewTaskOpen(false)} projectId={Number(id)} />
             <ProjectHeader activeTab={activeTab} setActiveTab={setActiveTab} />
             {activeTab === "Board" && (
                 <Board id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
