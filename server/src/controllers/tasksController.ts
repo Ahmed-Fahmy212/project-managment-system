@@ -1,33 +1,24 @@
 import { NextFunction, Request, Response } from "express";
 import prisma from '../../prisma/client'
 import { BadRequestException } from "../exceptions/BadRequestException";
-import { StatusCodes, ReasonPhrases } from 'http-status-codes'
-import { Task } from "@prisma/client";
 import response from "../util/responce";
-import { TaskData } from "../interface/interface";
 import { TaskService } from "../services";
+import { TaskDataSchema } from "../types/tasks";
 
 export const tasks = {
   getTasks: async (
     req: Request,
     res: Response,
-    next: NextFunction
-  ): Promise<any> => {
-    try {
-
-      const projectId = req.params.projectId;
-      const parsedProjectId = parseInt(projectId);
-      if (!projectId || isNaN(parsedProjectId)) {
-        throw new BadRequestException("Invalid or missing required field: projectId");
-      }
-      const tasks = await TaskService.getTasks(parsedProjectId);
-      response.success(res, tasks);
+  ): Promise<void> => {
+    const projectId = req.params.projectId;
+    const parsedProjectId = parseInt(projectId);
+    if (!projectId) {
+      throw new BadRequestException("Invalid or missing required field: projectId");
     }
-    catch (error) {
-      next(error)
-    }
-  },
-
+    const tasks = await TaskService.getTasks(parsedProjectId);
+    response.success(res, tasks);
+  }
+  ,
   getOneTask: async (
     req: Request,
     res: Response
@@ -41,24 +32,18 @@ export const tasks = {
     response.success(res, project);
   },
 
-  // createTask: async (
-  //   req: Request,
-  //   res: Response
-  // ): Promise<void> => {
-  //   const data: TaskData = req.body;
-  //   const { id, ...taskData } = data
-  //   const newTask = await prisma.project.create({
-  //     data: {
-  //       ...taskData,
-  //       name: data.title,
-  //     },
-  //   });
-  //   response.created(res, newTask);
-  // },
+  createTask: async (
+    req: Request,
+    res: Response
+  ) : Promise<void>=> {
+    const data = TaskDataSchema.parse(req.body);
+    const newTask = await TaskService.createTask(data);
+    response.created(res, newTask);
+  },
   // updateTask: async (
   //   req: Request,
   //   res: Response
-  // ): Promise<void> => {
+  // ) => {
   //   const { id } = req.params;
   //   const { name, description, startDate, endDate }: Partial<TaskData> = req.body;
   //   const project = await TaskService.updateTask(parseInt(id), { name, description, startDate, endDate });
@@ -68,7 +53,7 @@ export const tasks = {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<void> => {
+  ) : Promise<void>=> {
     const { taskId } = req.params as { taskId: string };
     //TODO convert into enum use fkn zod
     const { status } = req.body as { status: string };
@@ -90,7 +75,7 @@ export const tasks = {
   // deleteTask: async (
   //   req: Request,
   //   res: Response
-  // ): Promise<void> => {
+  // ) => {
   //   const { id } = req.params;
   //   if (!id) {
   //     throw new BadRequestException("Missing required field: id");
@@ -103,4 +88,3 @@ export const tasks = {
   // }
 }
 
-export default tasks;
