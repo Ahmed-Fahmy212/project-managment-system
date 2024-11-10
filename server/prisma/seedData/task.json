@@ -1,7 +1,5 @@
 [
-  {
-    "id": 1,
-    "title": "Task 1",
+  {    "title": "Task 1",
     "description": "Design the main module.",
     "status": "Work In Progress",
     "priority": "Urgent",
@@ -12,9 +10,7 @@
     "authorUserId": 1,
     "assignedUserId": 2
   },
-  {
-    "id": 2,
-    "title": "Task 2",
+  {    "title": "Task 2",
     "description": "Implement the navigation algorithm.",
     "status": "To Do",
     "priority": "High",
@@ -25,9 +21,7 @@
     "authorUserId": 3,
     "assignedUserId": 4
   },
-  {
-    "id": 3,
-    "title": "Task 3",
+  {    "title": "Task 3",
     "description": "Develop renewable energy solutions.",
     "status": "Work In Progress",
     "priority": "Urgent",
@@ -38,9 +32,7 @@
     "authorUserId": 5,
     "assignedUserId": 6
   },
-  {
-    "id": 4,
-    "title": "Task 4",
+  {    "title": "Task 4",
     "description": "Outline new software development workflows.",
     "status": "To Do",
     "priority": "High",
@@ -51,9 +43,7 @@
     "authorUserId": 7,
     "assignedUserId": 8
   },
-  {
-    "id": 5,
-    "title": "Task 5",
+  {    "title": "Task 5",
     "description": "Research AI models for prediction.",
     "status": "Work In Progress",
     "priority": "Urgent",
@@ -64,9 +54,7 @@
     "authorUserId": 9,
     "assignedUserId": 10
   },
-  {
-    "id": 6,
-    "title": "Task 6",
+  {    "title": "Task 6",
     "description": "Biotech product testing.",
     "status": "To Do",
     "priority": "Backlog",
@@ -77,9 +65,7 @@
     "authorUserId": 11,
     "assignedUserId": 12
   },
-  {
-    "id": 7,
-    "title": "Task 7",
+  {    "title": "Task 7",
     "description": "AI optimization for golf equipment.",
     "status": "Work In Progress",
     "priority": "Urgent",
@@ -90,9 +76,7 @@
     "authorUserId": 13,
     "assignedUserId": 14
   },
-  {
-    "id": 8,
-    "title": "Task 8",
+  {    "title": "Task 8",
     "description": "Overhaul of the database for hotel management.",
     "status": "To Do",
     "priority": "High",
@@ -103,9 +87,7 @@
     "authorUserId": 15,
     "assignedUserId": 16
   },
-  {
-    "id": 9,
-    "title": "Task 9",
+  {    "title": "Task 9",
     "description": "Upgrade telecom infrastructure.",
     "status": "Work In Progress",
     "priority": "Urgent",
@@ -117,7 +99,6 @@
     "assignedUserId": 18
   },
   {
-    "id": 10,
     "title": "Task 10",
     "description": "Enhance security protocols.",
     "status": "To Do",
@@ -130,7 +111,6 @@
     "assignedUserId": 20
   },
   {
-    "id": 11,
     "title": "Task 11",
     "description": "Finalize AI training parameters.",
     "status": "Work In Progress",
@@ -143,7 +123,6 @@
     "assignedUserId": 3
   },
   {
-    "id": 12,
     "title": "Task 12",
     "description": "Update server security protocols.",
     "status": "To Do",
@@ -156,7 +135,6 @@
     "assignedUserId": 4
   },
   {
-    "id": 13,
     "title": "Task 13",
     "description": "Redesign user interface for better UX.",
     "status": "Work In Progress",
@@ -169,7 +147,6 @@
     "assignedUserId": 6
   },
   {
-    "id": 14,
     "title": "Task 14",
     "description": "Implement real-time data analytics.",
     "status": "To Do",
@@ -182,7 +159,6 @@
     "assignedUserId": 8
   },
   {
-    "id": 15,
     "title": "Task 15",
     "description": "Develop end-to-end encryption solution.",
     "status": "Work In Progress",
@@ -195,7 +171,6 @@
     "assignedUserId": 10
   },
   {
-    "id": 16,
     "title": "Task 16",
     "description": "Optimize cloud storage usage.",
     "status": "To Do",
@@ -208,7 +183,6 @@
     "assignedUserId": 12
   },
   {
-    "id": 17,
     "title": "Task 17",
     "description": "Test software for hardware compatibility.",
     "status": "Work In Progress",
@@ -221,7 +195,6 @@
     "assignedUserId": 14
   },
   {
-    "id": 18,
     "title": "Task 18",
     "description": "Create new data visualization tools.",
     "status": "To Do",
@@ -234,7 +207,6 @@
     "assignedUserId": 16
   },
   {
-    "id": 19,
     "title": "Task 19",
     "description": "Build prototype for new IoT devices.",
     "status": "Work In Progress",
@@ -247,7 +219,6 @@
     "assignedUserId": 18
   },
   {
-    "id": 20,
     "title": "Task 20",
     "description": "Update legacy systems to new tech standards.",
     "status": "To Do",
@@ -260,7 +231,6 @@
     "assignedUserId": 20
   },
   {
-    "id": 21,
     "title": "Task 21",
     "description": "Establish new network security framework.",
     "status": "Work In Progress",
@@ -273,7 +243,6 @@
     "assignedUserId": 3
   },
   {
-    "id": 22,
     "title": "Task 22",
     "description": "Revise application deployment strategies.",
     "status": "To Do",
@@ -286,7 +255,6 @@
     "assignedUserId": 4
   },
   {
-    "id": 23,
     "title": "Task 23",
     "description": "Conduct market analysis for product fit.",
     "status": "Work In Progress",
@@ -299,7 +267,6 @@
     "assignedUserId": 6
   },
   {
-    "id": 24,
     "title": "Task 24",
     "description": "Optimize user feedback collection mechanism.",
     "status": "To Do",
@@ -312,7 +279,6 @@
     "assignedUserId": 8
   },
   {
-    "id": 25,
     "title": "Task 25",
     "description": "Integrate new API for third-party services.",
     "status": "Work In Progress",
@@ -325,7 +291,6 @@
     "assignedUserId": 10
   },
   {
-    "id": 26,
     "title": "Task 26",
     "description": "Update internal tooling for development teams.",
     "status": "To Do",
@@ -338,7 +303,6 @@
     "assignedUserId": 12
   },
   {
-    "id": 27,
     "title": "Task 27",
     "description": "Prepare cloud migration strategy document.",
     "status": "Work In Progress",
@@ -351,7 +315,6 @@
     "assignedUserId": 14
   },
   {
-    "id": 28,
     "title": "Task 28",
     "description": "Design scalable database architecture.",
     "status": "To Do",
@@ -364,7 +327,6 @@
     "assignedUserId": 16
   },
   {
-    "id": 29,
     "title": "Task 29",
     "description": "Prototype new mobile technology.",
     "status": "Work In Progress",
@@ -377,7 +339,6 @@
     "assignedUserId": 18
   },
   {
-    "id": 30,
     "title": "Task 30",
     "description": "Enhance data encryption levels.",
     "status": "To Do",
@@ -390,7 +351,6 @@
     "assignedUserId": 20
   },
   {
-    "id": 31,
     "title": "Task 31",
     "description": "Refactor backend code for better maintainability.",
     "status": "Work In Progress",
@@ -403,7 +363,6 @@
     "assignedUserId": 1
   },
   {
-    "id": 32,
     "title": "Task 32",
     "description": "Expand the network infrastructure to support increased traffic.",
     "status": "To Do",
@@ -416,7 +375,6 @@
     "assignedUserId": 3
   },
   {
-    "id": 33,
     "title": "Task 33",
     "description": "Create a new client dashboard interface.",
     "status": "Work In Progress",
@@ -429,7 +387,6 @@
     "assignedUserId": 5
   },
   {
-    "id": 34,
     "title": "Task 34",
     "description": "Develop an automated testing framework for new software releases.",
     "status": "To Do",
@@ -442,7 +399,6 @@
     "assignedUserId": 7
   },
   {
-    "id": 35,
     "title": "Task 35",
     "description": "Optimize database queries to improve application performance.",
     "status": "Work In Progress",
@@ -455,7 +411,6 @@
     "assignedUserId": 9
   },
   {
-    "id": 36,
     "title": "Task 36",
     "description": "Implement end-user training for new system features.",
     "status": "To Do",
@@ -468,7 +423,6 @@
     "assignedUserId": 11
   },
   {
-    "id": 37,
     "title": "Task 37",
     "description": "Conduct a comprehensive security audit of the existing infrastructure.",
     "status": "Work In Progress",
@@ -481,7 +435,6 @@
     "assignedUserId": 13
   },
   {
-    "id": 38,
     "title": "Task 38",
     "description": "Revise mobile app to incorporate new payment integrations.",
     "status": "To Do",
@@ -494,7 +447,6 @@
     "assignedUserId": 15
   },
   {
-    "id": 39,
     "title": "Task 39",
     "description": "Update cloud configuration to optimize costs.",
     "status": "Work In Progress",
@@ -507,7 +459,6 @@
     "assignedUserId": 17
   },
   {
-    "id": 40,
     "title": "Task 40",
     "description": "Implement automated backup procedures for critical data.",
     "status": "To Do",
