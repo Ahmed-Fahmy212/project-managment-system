@@ -2,6 +2,7 @@ generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
+
 // add cascade and softdelete
 datasource db {
   provider = "postgresql"
@@ -9,14 +10,15 @@ datasource db {
 }
 
 // apply soft delete well 
-model User { 
+//TODO handle this scehma 
+model User {
   id                Int       @id @default(autoincrement())
   cognitoId         String    @unique
   username          String    @unique
   profilePictureUrl String?
   teamId            Int?
   deletedAt         DateTime?
-  isDeleted         Boolean? @default(false)
+  isDeleted         Boolean?  @default(false)
   updatedAt         DateTime  @updatedAt
 
   authoredTasks   Task[]           @relation("TaskAuthor")
@@ -37,6 +39,8 @@ model User {
   deletedAssignments  TaskAssignment[] @relation("TaskAssignmentDeletedBy")
   deletedAttachments  Attachment[]     @relation("AttachmentDeletedBy")
   deletedComments     Comment[]        @relation("CommentDeletedBy")
+
+  @@index([teamId])
 }
 
 model Team {
@@ -45,7 +49,7 @@ model Team {
   productOwnerUserId   Int?
   projectManagerUserId Int?
   deletedAt            DateTime?
-  isDeleted            Boolean?@default(false)
+  isDeleted            Boolean?  @default(false)
   deletedById          Int?
   updatedAt            DateTime  @updatedAt
 
@@ -61,7 +65,7 @@ model Project {
   startDate   DateTime?
   endDate     DateTime?
   deletedAt   DateTime?
-  isDeleted   Boolean?@default(false)
+  isDeleted   Boolean?  @default(false)
   deletedById Int?
   updatedAt   DateTime  @updatedAt
 
@@ -81,6 +85,8 @@ model ProjectTeam {
   team      Team    @relation(fields: [teamId], references: [id])
   project   Project @relation(fields: [projectId], references: [id])
   deletedBy User?   @relation("ProjectTeamDeletedBy", fields: [deletedById], references: [id])
+
+  @@index([teamId, projectId], name: "unique_team_project")
 }
 
 model Task {
@@ -108,6 +114,10 @@ model Task {
   attachments     Attachment[]
   comments        Comment[]
   deletedBy       User?            @relation("TaskDeletedBy", fields: [deletedById], references: [id])
+
+  @@index([projectId])
+  @@index([authorUserId])
+  @@index([assignedUserId])
 }
 
 model TaskAssignment {
@@ -121,6 +131,9 @@ model TaskAssignment {
   user      User  @relation(fields: [userId], references: [id])
   task      Task  @relation(fields: [taskId], references: [id])
   deletedBy User? @relation("TaskAssignmentDeletedBy", fields: [deletedById], references: [id])
+
+  @@index([userId])
+  @@index([taskId])
 }
 
 model Attachment {
@@ -136,6 +149,9 @@ model Attachment {
   task       Task  @relation(fields: [taskId], references: [id])
   uploadedBy User  @relation(fields: [uploadedById], references: [id])
   deletedBy  User? @relation("AttachmentDeletedBy", fields: [deletedById], references: [id])
+
+  @@index([taskId])
+  @@index([uploadedById])
 }
 
 model Comment {
@@ -150,4 +166,7 @@ model Comment {
   task      Task  @relation(fields: [taskId], references: [id])
   user      User  @relation(fields: [userId], references: [id])
   deletedBy User? @relation("CommentDeletedBy", fields: [deletedById], references: [id])
+
+  @@index([taskId])
+  @@index([userId])
 }
