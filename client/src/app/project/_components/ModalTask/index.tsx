@@ -11,7 +11,7 @@ type Props = {
 };
 
 const ModalNewTask = ({ isOpen, onClose, id = null, projectId }: Props) => {
-    const [createTask, { isLoading }] = useCreateTaskMutation();
+    const [createTask, { isLoading, error }] = useCreateTaskMutation();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [status, setStatus] = useState<Status>(Status.ToDo);
@@ -42,7 +42,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null, projectId }: Props) => {
             authorUserId: authorUserId,
             assignedUserId: parseInt(assignedUserId)
         });
-        if (!isLoading) {
+        if (!isLoading && !error) {
             toast.success("Task created successfully.");
             onClose();
             setTitle("");
@@ -60,7 +60,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null, projectId }: Props) => {
     };
 
     const isFormValid = () => {
-        return title && authorUserId ;
+        return title && authorUserId;
     };
     // stolen
     const selectStyles =

@@ -20,7 +20,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     isLoading,
     error,
   } = useGetTasksQuery({ projectId: Number(id) });
-
+  // const {}
   const [updateTaskStatus] = useUpdateTaskMutation();
 
   const handleDraggEnd = (event: DragEndEvent) => {
@@ -29,7 +29,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
 
     const taskId = active.id as number;
     const newStatus = over.id as string;
-    if (taskId && newStatus) updateTaskStatus({ taskId, status: newStatus });
+     updateTaskStatus({ taskId, status: newStatus });
     // updateTaskStatus({ taskId, status: newStatus });
   }
   if (error) {
