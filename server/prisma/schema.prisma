@@ -105,6 +105,8 @@ model Task {
   deletedAt      DateTime?
   deletedById    Int?
   updatedAt      DateTime  @updatedAt
+  nextTaskId     Int?
+  prevTaskId     Int? 
 
   project         Project          @relation(fields: [projectId], references: [id])
   author          User             @relation("TaskAuthor", fields: [authorUserId], references: [id])

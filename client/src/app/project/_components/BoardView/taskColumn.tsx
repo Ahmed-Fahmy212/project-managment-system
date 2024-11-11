@@ -72,9 +72,11 @@ export const TaskColumn = ({
                     </div>
                 </div>
             </div>
+            {/*  O(2n) = O(n) ------------------------- O(nlog(n))*/}
             {tasks
                 //TODO i think this bad
-                .filter((task) => task.status === status)
+                .filter((task) => task.status === status) // [{},{},{}] =>  
+                .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
                 .map((task) => (
                     <Task task={task} />
                 ))}

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import prisma from "../../prisma/client";
 import { Project, Task } from "@prisma/client";
 import zod from "zod";
-import { TaskDataSchema } from "../types/tasks.zod";
+import { TaskDataSchema, UpdatedTaskData } from "../types/tasks.zod";
 import { NotFoundException } from "../exceptions/NotFoundException";
 
 
@@ -48,23 +48,29 @@ export const TaskService = {
         return newTask;
     },
 
-    // updateTaskStatus: async (
-    //     req: Request,
-    //     res: Response,
-    //     body: { status: string }
-    // ) => {
-    //     const { taskId } = req.params;
-    //     const { status } = body;
-    //     const updatedTask = await prisma.task.update({
-    //         where: {
-    //             id: Number(taskId),
-    //         },
-    //         data: {
-    //             status: status,
-    //         },
-    //     });
-    //     return res.json(updatedTask || []);
-    // },
+    updateTaskStatus: async (
+        taskId: number,
+        body: zod.infer<typeof UpdatedTaskData>
+    ) => {
+        const Task = await prisma.task.findUnique({
+            where: {
+                id: taskId,
+            },
+        });
+        if (Task?.status === body.status) {
+            return Task;
+        }
+        const updatedTask = await prisma.task.update({
+            where: {
+                id: Number(taskId),
+            },
+            data: {
+                status: body.status,
+                updatedAt: new Date(),
+            },
+        });
+        return updatedTask;
+    },
 
     // getUserTasks: async (
     //     req: Request,

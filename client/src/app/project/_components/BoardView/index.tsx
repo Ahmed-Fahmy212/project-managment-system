@@ -29,10 +29,14 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
 
     const taskId = active.id as number;
     const newStatus = over.id as string;
-
-    updateTaskStatus({ taskId, status: newStatus });
+    if (taskId && newStatus) updateTaskStatus({ taskId, status: newStatus });
+    // updateTaskStatus({ taskId, status: newStatus });
   }
   if (error) {
+    if (error.status === "FETCH_ERROR") {
+      toast.error("server not working")
+      return <div className="flex justify-center items-center text-xl">server not working ...</div>
+    }
     toast.error(JSON.stringify(error))
   }
   return (
@@ -41,10 +45,10 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       <DndContext onDragEnd={handleDraggEnd}>
         {/* array of columns now has full hight remaining in component previous */}
         <div className="gap-4 grid grid-cols-footer pl-4">
-          {/*  map column ---- tasksk */}
+
+          {/* make this {key : [value]{} and remove O(2n) down*/} 
           {taskStatus.map((status) => (
             <TaskColumn
-
               status={status}
               tasks={tasks?.data || []}
               setIsModalNewTaskOpen={setIsModalNewTaskOpen}

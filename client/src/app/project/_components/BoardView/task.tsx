@@ -57,7 +57,7 @@ export const Task = ({ task }: TaskProps) => {
     return (
         <div
             ref={setNodeRef} {...listeners} {...attributes}
-            className={`mb-4 rounded-md bg-white shadow dark:bg-dark-secondary flex flex-col`}
+            className={`mb-4 rounded-md bg-white shadow dark:bg-dark-secondary flex flex-col hover:bg-gray-100 `}
             style={style}
         >
 
@@ -97,7 +97,7 @@ export const Task = ({ task }: TaskProps) => {
                 <p className="dark:text-neutral-500 text-gray-600 text-sm">
                     {task.description}
                 </p>
-                {task.attachments && task.attachments.length > 0 && (
+                {/* {task.attachments && task.attachments.length > 0 && (
                     <Image
                         src={`/${task.attachments[0].fileURL}`}
                         alt={`/${task.attachments[0].fileName}`}
@@ -105,7 +105,7 @@ export const Task = ({ task }: TaskProps) => {
                         height={200}
                         className="h-auto mt-4 w-full"
                     />
-                )}
+                )} */}
                 <div className="border-gray-200 border-t dark:border-stroke-dark mt-4" />
             </div>
 

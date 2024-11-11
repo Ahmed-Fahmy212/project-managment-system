@@ -53,6 +53,7 @@ export interface Task {
     author?: User;
     assignee?: User;
     comments?: Comment[];
+    updatedAt: string;
     attachments?: Attachment[];
 }
 export interface SearchResults {
@@ -77,19 +78,20 @@ export const api = createApi({
 
     endpoints: (bu) => ({
         getProjects: bu.query<{ data: Project[] }, void>({
-        query: () => "projects",
+            query: () => "projects",
             providesTags: ["Projects"],
         }),
+        // input logs
         createProject: bu.mutation<Project, Partial<Project>>({
-            query: (body) => ({
+            query: (body: Omit<Project, "id">) => ({
                 url: "projects",
                 method: "POST",
                 body,
             }),
             invalidatesTags: ["Projects"],
         }),
-        getTasks: bu.query<{data :Task[]}, { projectId: number }>({
-            query: ({projectId}) => `tasks/${projectId}`,
+        getTasks: bu.query<{ data: Task[] }, { projectId: number }>({
+            query: ({ projectId }) => `tasks/${projectId}`,
             providesTags: (result) => result ? result.data.map(({ id }) => ({ type: "Tasks", id }))
                 : [{ type: "Tasks" as const }],
         }),
@@ -114,4 +116,4 @@ export const api = createApi({
     }),
 })
 
-export const { useGetProjectsQuery, useCreateProjectMutation, useCreateTaskMutation, useGetTasksQuery , useUpdateTaskMutation} = api
+export const { useGetProjectsQuery, useCreateProjectMutation, useCreateTaskMutation, useGetTasksQuery, useUpdateTaskMutation } = api

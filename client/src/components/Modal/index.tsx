@@ -21,9 +21,9 @@ const Modal = ({ name, isOpen, onClose,children}: ModalProps) => {
 
     return ReactDOM.createPortal(
         <div
-            className="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50"
+            className="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50  z-50"
             onClick={handleOutsideClick}
-        >
+        >   
             <div className="rounded dark:bg-dark-secondary bg-white font-medium dark:text-white  shadow-2xl max-w-[420px] p-4">
                 <Header
                     name={name}

@@ -101,6 +101,7 @@ const Sidebar = () => {
       {showProjects &&
         projects?.map((project) => (
           <SidebarLink
+            nested="true"
             key={project.id}
             href={`/projects/${project.id}`}
             icon={Briefcase}
@@ -121,12 +122,13 @@ const Sidebar = () => {
           <ChevronDown className="h-5 w-5" />
         )}
       </button>
+      {/* handle bug here */}
       {showPriority && (
         <>
-          <SidebarLink icon={AlertCircle} label="Priority" href="/priority" />
-          <SidebarLink icon={ShieldAlert} label="Security" href="/security" />
-          <SidebarLink icon={AlertTriangle} label="Alerts" href="/alerts" />
-          <SidebarLink icon={Layers3} label="Layers" href="/layers" />
+          <SidebarLink nested="true" icon={AlertCircle} label="Priority" href="/priority" />
+          <SidebarLink nested="true" icon={ShieldAlert} label="Security" href="/security" />
+          <SidebarLink nested="true" icon={AlertTriangle} label="Alerts" href="/alerts" />
+          <SidebarLink nested="true" icon={Layers3} label="Layers" href="/layers" />
         </>
       )}
       {/* project list */}
@@ -134,12 +136,14 @@ const Sidebar = () => {
   );
 };
 interface SidebarLinkProps {
+  nested?: string;
   href: string;
   icon: LucideIcon;
   label: string;
   // isCollapsed: boolean;
 }
 const SidebarLink = ({
+  nested,
   href,
   icon: Icon,
   label: title,
@@ -157,11 +161,10 @@ const SidebarLink = ({
   return (
     <Link href={href} className="w-full">
       <div
-        className={`transition-color relative flex cursor-pointer items-center gap-3 rounded p-2 transition duration-300 hover:bg-gray-100 dark:bg-black dark:hover:bg-gray-700 ${
-          isActive ? `bg-gray-100 text-gray-900 dark:bg-gray-600` : ""
-        } `}
+        className={`transition-color relative flex cursor-pointer items-center gap-3 rounded p-2 transition duration-300 hover:bg-gray-100 dark:bg-black dark:hover:bg-gray-700 ${isActive ? `bg-gray-100 text-gray-900 dark:bg-gray-600` : ""
+          } ${nested ? "pl-8  " : ""}`}
       >
-        <Icon className={`} h-6 w-6 dark:text-gray-200`} />
+        <Icon className={` h-6 w-6 dark:text-gray-200`} />
         <p className={`text-sm dark:text-gray-200`}>{title}</p>
       </div>
     </Link>

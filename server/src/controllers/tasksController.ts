@@ -3,7 +3,7 @@ import prisma from '../../prisma/client'
 import { BadRequestException } from "../exceptions/BadRequestException";
 import response from "../util/responce";
 import { TaskService } from "../services";
-import { TaskDataSchema } from "../types/tasks.zod";
+import { TaskDataSchema,UpdatedTaskData } from "../types/tasks.zod";
 
 export const tasks = {
   getTasks: async (
@@ -54,23 +54,10 @@ export const tasks = {
     res: Response,
     next: NextFunction
   ): Promise<void> => {
-    const { taskId } = req.params as { taskId: string };
-    //TODO convert into enum use fkn zod
-    const { status } = req.body as { status: string };
-    //TODO move to service 
-    try {
-      const updatedTask = await prisma.task.update({
-        where: {
-          id: Number(taskId),
-        },
-        data: {
-          status: status,
-        },
-      });
-      response.success(res, updatedTask)
-    } catch (error: any) {
-      next(error)
-    }
+    const { taskId } = req.params;
+    const body = UpdatedTaskData.parse(req.body);
+    const data = await TaskService.updateTaskStatus(parseInt(taskId), body);
+    response.success(res, data);
   }
   // deleteTask: async (
   //   req: Request,

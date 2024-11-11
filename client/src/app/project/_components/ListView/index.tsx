@@ -22,7 +22,7 @@ const ListView = ({ id, setIsModalNewTaskOpen }: Props) => {
     <div className="overflow-y-hidden pb-8 px-5 xl:px-6">
       <div className="pt-4 px-5">
         <Header
-          name="List"
+          name="List tasks new"
           buttonComponent={
             <button
               className="bg-blue-950 flex font-semibold hover:bg-black hover:duration-300 items-center px-3 py-2 rounded text-white"
@@ -34,11 +34,11 @@ const ListView = ({ id, setIsModalNewTaskOpen }: Props) => {
           isSmallText
         />
       </div>
-        <div className="h-full overflow-y-scroll p-4 scrollbar">
-          <div className="gap-4 grid grid-cols-1 lg:gap-6 lg:grid-cols-3 md:grid-cols-2">
-            {tasks?.data?.map((task: Task) => <TaskCard key={task.id} task={task} />)}
-          </div>
+      <div className="h-full overflow-y-scroll p-4 scrollbar">
+        <div className="gap-4 grid grid-cols-1 lg:gap-6 lg:grid-cols-3 md:grid-cols-2">
+            {tasks?.data?.slice().sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()).map((task: Task) => <TaskCard key={task.id} task={task} />)}
         </div>
+      </div>
 
     </div>
   );
