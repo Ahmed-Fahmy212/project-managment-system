@@ -67,7 +67,17 @@ export interface Team {
     productOwnerUserId?: number;
     projectManagerUserId?: number;
 }
-
+export interface Column {
+    id: number;
+    title: string;
+    color: string;
+    projectId: number;
+    deletedAt: string | null;  // ISO string or null
+    deletedById: number | null;
+    updatedAt: string | null;  // ISO string or null
+    updatedBy: string | null;
+    task: Task[];
+  }
 export const api = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/" }),
     reducerPath: "api",

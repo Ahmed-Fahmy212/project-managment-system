@@ -69,7 +69,10 @@ model Project {
   deletedById Int?
   updatedAt   DateTime  @updatedAt
 
+ // remove if didn`t 
   tasks        Task[]
+  columns      Cloumn[]
+
   projectTeams ProjectTeam[]
   deletedBy    User?         @relation("ProjectDeletedBy", fields: [deletedById], references: [id])
 }
@@ -105,9 +108,11 @@ model Task {
   deletedAt      DateTime?
   deletedById    Int?
   updatedAt      DateTime  @updatedAt
-  nextTaskId     Int?
-  prevTaskId     Int? 
+  // nextTaskId     Int?
+  // prevTaskId     Int? 
+  columnId       Int       @default(1)
 
+  Column          Cloumn?          @relation(fields: [columnId], references: [id])
   project         Project          @relation(fields: [projectId], references: [id])
   author          User             @relation("TaskAuthor", fields: [authorUserId], references: [id])
   // make this join table 
@@ -120,6 +125,21 @@ model Task {
   @@index([projectId])
   @@index([authorUserId])
   @@index([assignedUserId])
+}
+
+model Cloumn {
+  id        Int    @id @default(autoincrement())
+  title     String
+  color     String
+  // remove optional
+  projectId Int @default(1)
+
+  deletedAt   DateTime?
+  deletedById Int?
+  updatedAt   DateTime?  @updatedAt
+  updatedBy   Int?
+  project     Project @relation(fields: [projectId], references: [id])
+  task Task[]
 }
 
 model TaskAssignment {

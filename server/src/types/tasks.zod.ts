@@ -14,8 +14,8 @@ export const TaskDataSchema = z.object({
     points: z.number().optional(),
     assignedUserId: z.number().optional(),
 
-    nextTaskId: z.number().optional(),
-    prevTaskId: z.number().optional(),
+    // nextTaskId: z.number().optional(),
+    // prevTaskId: z.number().optional(),
 });
 
 export const UpdatedTaskData = TaskDataSchema.partial().extend({

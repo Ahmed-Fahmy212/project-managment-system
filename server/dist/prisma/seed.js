@@ -25,7 +25,7 @@ function deleteAllData(orderedFileNames) {
         for (const modelName of modelNames) {
             const model = prisma[modelName];
             try {
-                yield model.deleteMany({});
+                // await model.deleteMany({});
                 console.log(`Cleared data from ${modelName}`);
             }
             catch (error) {
@@ -43,6 +43,7 @@ function main() {
             "projectTeam.json",
             "user.json",
             "task.json",
+            "column.json",
             "attachment.json",
             "comment.json",
             "taskAssignment.json",

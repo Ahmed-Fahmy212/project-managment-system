@@ -59,7 +59,7 @@ export const TaskService = {
         });
         if (Task?.status === body.status) {
             return Task;
-        }
+            }
         const updatedTask = await prisma.task.update({
             where: {
                 id: Number(taskId),
@@ -70,8 +70,8 @@ export const TaskService = {
             },
         });
         return updatedTask;
-    },
-
+    
+    }
     // getUserTasks: async (
     //     req: Request,
     //     res: Response
