@@ -57,7 +57,7 @@ export const Task = ({ task }: TaskProps) => {
     return (
         <div
             ref={setNodeRef} {...listeners} {...attributes}
-            className={`mb-4 rounded-md bg-white shadow dark:bg-dark-secondary flex flex-col hover:bg-gray-100 `}
+            className={`mb-4 rounded-md bg-white shadow dark:bg-dark-secondary dark:hover:bg-transparent duration-100 flex flex-col hover:bg-gray-100 `}
             style={style}
         >
 
