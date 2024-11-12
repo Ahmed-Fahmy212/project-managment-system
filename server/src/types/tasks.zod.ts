@@ -4,6 +4,7 @@ export const TaskDataSchema = z.object({
     title: z.string(),
     projectId: z.number(),
     authorUserId: z.number(),
+    columnId : z.number(),
     
     description: z.string().optional(),
     tags: z.string().optional(),
