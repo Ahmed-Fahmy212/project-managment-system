@@ -35,4 +35,20 @@ body,
     border-radius: 100vh;
     border: 3px solid #ffffff;
   }
+
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 100vh;
+  background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0f172a;
+  border-radius: 100vh;
 }
