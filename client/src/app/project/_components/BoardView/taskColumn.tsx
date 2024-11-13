@@ -24,17 +24,25 @@ import { DropdownMenuShortcut } from "@/components/ui/dropdown-menu";
 import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
 import { addColumn } from "@/state/column,api";
 import ColumnForm from "./columnForm";
+import { Task } from "@/state/api";
+type ColumnBody = {
+    title: string;
+    color: string;
+    projectId: number;
+};
 
 type TaskColumnProps = {
     id: number;
     status: string;
-    tasks: any[];
+    tasks: Task[];
+    statusColor: string;
     setIsModalNewTaskOpen: (isopen: boolean) => void;
-    addColumnMutation: (column: { title: string; color: string; projectId: number }) => Promise<void>;
+    addColumnMutation: (column: ColumnBody) => Promise<any>;
 };
 export const TaskColumn = ({
     id,
     status,
+    statusColor,
     tasks,
     setIsModalNewTaskOpen,
     addColumnMutation
@@ -60,14 +68,7 @@ export const TaskColumn = ({
     //     }),
     // }));
     // remove this 
-    const taskCount = tasks.filter((item) => item.status === status).length;
-
-    const statusColor: any = {
-        "To Do": "#2563EB",
-        "Work In Progress": "#059669",
-        "Under Review": "#D97706",
-        "Completed": "#000000",
-    };
+    // const taskCount = tasks.filter((item) => item.status === status).length;
 
     return (
         <div
@@ -77,8 +78,8 @@ export const TaskColumn = ({
         >
             <div className="flex mb-3 w-full">
                 <div
-                    className={`w-2 !bg-[${statusColor[status]}] rounded-s-lg`}
-                    style={{ backgroundColor: statusColor[status] }}
+                    className={`w-2 !bg-[${statusColor}] rounded-s-lg`}
+                    style={{ backgroundColor: statusColor }}
                 />
                 <div className="bg-white dark:bg-dark-secondary flex items-center justify-between px-5 py-4 rounded-e-lg w-full">
                     <h3 className="dark:text-white flex font-semibold items-center text-base">
@@ -87,7 +88,7 @@ export const TaskColumn = ({
                             className="bg-gray-200 dark:bg-dark-tertiary inline-block leading-none ml-2 p-1 rounded-full text-center text-sm"
                             style={{ width: "1.5rem", height: "1.5rem" }}
                         >
-                            {taskCount}
+                            {/* {taskCount} */}
                         </span>
                     </h3>
                     <div className="flex gap-1 items-center">
@@ -135,15 +136,15 @@ export const TaskColumn = ({
                 </div>
             </div>
             {/*  O(2n) = O(n) ------------------------- O(nlog(n))*/}
-            {
+            {/* {
                 tasks
                     //todo Remove and make it single endpoint according to update single element or find a way insdie this nested column->tasks
                     .filter((task) => task.status === status) // [{},{},{}] =>  
                     // .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
                     .map((task) => (
                         <TaskComponent task={task} />
-                    ))
-            }
+                    )) */}
+            {/* } */}
 
         </div >
     );

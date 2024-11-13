@@ -10,6 +10,12 @@ import axios from 'axios';
 import { json } from "stream/consumers";
 import { addColumn, getColumns } from "@/state/column,api";
 import ColumnForm from "./columnForm";
+// import { Column as ColumnWithTasks } from "./api";
+type ColumnBody = {
+  title: string;
+  color: string;
+  projectId: number;
+};
 
 type BoardViewProps = {
   id: string;
@@ -17,25 +23,28 @@ type BoardViewProps = {
 };
 
 const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
+  const projectId = Number(id);
   const [isNewColumnFormOpen, setIsNewColumnFormOpen] = useState(false);
-  const { data: columnsWithTasks, isPending, error, isFetching } = useQuery({
-    queryKey: ['columnsWithTasks', Number(id)],//todo remove id
-    // queryFn: async () => await getColumns(Number(id)),
-    queryFn: () => getColumns(Number(id)),
-  }
-  )
   const queryClient = useQueryClient()
 
+  const { data: columnsWithTasks, isPending, error, isFetching } = useQuery({
+    queryKey: ['columnsWithTasks', projectId],
+    queryFn: () => getColumns(projectId),
+  }
+  )
   const { mutateAsync: addColumnMutation } = useMutation({
-    mutationFn: (newColumn: any) => addColumn(newColumn),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['columnsWithTasks', Number(id)] })
+    mutationFn: (newColumn: ColumnBody) => addColumn(newColumn),
+    onSuccess: (newColumn) => {
+      queryClient.setQueryData(['columnsWithTasks', projectId], (oldData: Column[] | undefined) => {
+        return oldData ? [...oldData, newColumn] : [newColumn];
+      });
     }
-  })
-
+  });
+  // custom function tohanle all this 
   if (isPending) return <div>Loading...</div>
   if (isFetching) return <div>Updating...</div>
   if (error) {
+    // handle axios
     if (error.status === "FETCH_ERROR") {
       toast.error("server not working")
       return <div className="flex justify-center items-center text-xl">server not working ...</div>
@@ -57,16 +66,17 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     <div className="flex-1 overflow-y-scroll">
       <DndContext onDragEnd={handleDraggEnd}>
         <div className="gap-4 grid grid-cols-footer pl-4">
-          {columnsWithTasks?.data?.map((column: Column) => (
+          {columnsWithTasks?.map((column: Column) => (
             <TaskColumn
               id={column.id}
               status={column.title}
+              statusColor={column.color}
               tasks={column.task}
               setIsModalNewTaskOpen={setIsModalNewTaskOpen}
               addColumnMutation={addColumnMutation}
             />
           ))}
-           <ColumnForm projectId={Number(id)} AddColumnMutation={addColumnMutation}  /> 
+          <ColumnForm projectId={projectId} AddColumnMutation={addColumnMutation} />
         </div>
       </DndContext>
     </div>

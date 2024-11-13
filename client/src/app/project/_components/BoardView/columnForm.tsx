@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 interface ColumnFormProps {
     projectId: number;
     isSmallItem?: boolean;
-    AddColumnMutation: (column: { title: string, color: string, projectId: number }) => Promise<void>
+    AddColumnMutation: (column: { title: string, color: string, projectId: number }) => Promise<any>
 }
 
 const ColumnForm: React.FC<ColumnFormProps> = ({ projectId, isSmallItem, AddColumnMutation }) => {
