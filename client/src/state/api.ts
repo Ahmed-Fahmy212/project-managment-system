@@ -73,11 +73,12 @@ export interface Column {
     title: string;
     color: string;
     projectId: number;
+    // ignore this from back + add is remove if deleted 
     deletedAt: string | null;
     deletedById: number | null;
     updatedAt: string | null;
     updatedBy: string | null;
-    task: Task[];
+    // task: Task[];
 }
 
 //==================================================== Redux Toolkit Query ====================================================
