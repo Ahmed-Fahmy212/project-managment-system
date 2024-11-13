@@ -39,10 +39,10 @@ const ColumnForm: React.FC<ColumnFormProps> = ({ projectId, isSmallItem, AddColu
                 )
             }
             {!isSmallItem && <button
-                className="rounded py-2 flex gap-2 items-center sm:mt-4 sm:p-0 xl:px-2 ring-rose-500 duration-300 hover:ring-2 cursor-pointer w-[311px] h-[49px] bg-white dark:bg-dark-secondary dark:text-white"
+                className=" rounded py-2 flex gap-2 items-center sm:mt-4 sm:p-0 xl:px-2 ring-rose-500 duration-300 hover:ring-2 cursor-pointer w-[311px] h-[49px] bg-white dark:bg-dark-secondary dark:text-white"
                 onClick={() => { setIsFormVisible(true) }}
             >
-                <Plus className="bg-gray-200 dark:bg-dark-tertiary dark:text-white text-white flex gap-2" />
+                <Plus className="ml-2 bg-gray-200 dark:bg-dark-tertiary dark:text-white text-white flex gap-2" />
                 New column
             </button>}
 
