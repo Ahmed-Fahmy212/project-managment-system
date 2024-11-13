@@ -1,12 +1,13 @@
-'use client';
-
 import { useState } from "react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { CSS } from '@dnd-kit/utilities'
 import ColumnForm from "./columnForm";
 import { useSortable } from "@dnd-kit/sortable";
 import { EllipsisVertical, Plus } from "lucide-react";
-import { DraggableAttributes } from "@dnd-kit/core";
+import { Task } from "./task";
+import { Task as TaskType } from "@/state/api";
+
+
 type ColumnBody = {
     title: string;
     color: string;
@@ -17,43 +18,45 @@ type TaskColumnProps = {
     column: ColumnBody & { projectId: number, id: number, order: number };
     setIsModalNewTaskOpen: (isopen: boolean) => void;
     addColumnMutation: (column: ColumnBody) => Promise<any>;
+    tasks?: TaskType[]
 };
 
 
 export const TaskColumn = ({
     column,
     setIsModalNewTaskOpen,
-    addColumnMutation
+    addColumnMutation,
+    tasks = []
 }: TaskColumnProps) => {
     const { title, color: statusColor, projectId } = column;
-    const [open, setOpen] = useState(false);
-    const { setNodeRef, attributes, listeners, transform, transition, isDragging, isOver } = useSortable({
+    const [openDropdownMenu, setOpenDropdownMenu] = useState(false);
+    const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
         id: column.id,
         data: {
             type: "Column",
             column: column
         }
     });
+
+
     const style = {
         transition: transition,
         transform: CSS.Transform.toString(transform),
     }
     if (isDragging) {
-        // console.log("dragging");
         return (<div className="border pt-4 border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} ></div>)
     }
     return (
-        // don`t effect in original position or layout of element
         <div
             ref={setNodeRef}
-            className={`rounded py-2 min-h-full  sm:py-4 xl:px-2 
+            className={`rounded py-2 h-[720px] sm:py-4 xl:px-2 
            `} style={style}
             {...attributes}
             {...listeners}
         >
             <div className="flex mb-3 w-full">
                 <div
-                    className={`w-2 !bg-[${statusColor}] rounded-s-lg`}
+                    className={`w-2 rounded-s-lg`}
                     style={{ backgroundColor: statusColor }}
                 />
                 <div className="bg-white dark:bg-dark-secondary flex items-center justify-between px-5 py-4 rounded-e-lg w-full">
@@ -68,11 +71,11 @@ export const TaskColumn = ({
                     </h3>
                     <div className="flex gap-1 items-center">
                         <div>
-                            {/* //TODO this is bad */}
-                            <DropdownMenu open={open} onOpenChange={setOpen}>
+                            <DropdownMenu onOpenChange={setOpenDropdownMenu} open={openDropdownMenu}>
+                                <DropdownMenuTrigger asChild></DropdownMenuTrigger>
                                 <DropdownMenuTrigger asChild>
                                     <button className="dark:text-neutral-500 flex h-6 items-center justify-center w-5"
-                                        onClick={() => setOpen(!open)}>
+                                        onClick={() => setOpenDropdownMenu(!openDropdownMenu)}>
                                         <EllipsisVertical />
                                     </button>
                                 </DropdownMenuTrigger>
@@ -111,15 +114,18 @@ export const TaskColumn = ({
                 </div>
             </div>
             {/*  O(2n) = O(n) ------------------------- O(nlog(n))*/}
-            {/* {
-                tasks
-                    //todo Remove and make it single endpoint according to update single element or find a way insdie this nested column->tasks
-                    .filter((task) => task.status === status) // [{},{},{}] =>  
-                    // .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
-                    .map((task) => (
-                        <TaskComponent task={task} />
-                    )) */}
-            {/* } */}
+            {
+                tasks.map((task) => (
+                    <Task task={task} />
+                ))
+            }
+            <button
+                onClick={() => setIsModalNewTaskOpen(true)}
+                className="hover:bg-gray-100 dark:bg-dark-bg dark:text-white dark:border-gray-500 py-3 w-full flex items-center justify-center border-2 border-dotted dark:border-solid dark:border  dark:hover:border-rose-900 rounded duration-100 "
+            >
+                <Plus size={16} />
+                Add new task
+            </button>
 
         </div >
     );

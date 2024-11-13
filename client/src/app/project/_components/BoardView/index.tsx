@@ -5,10 +5,12 @@ import { TaskColumn } from './taskColumn'
 import { arrayMove, SortableContext, useSortable } from '@dnd-kit/sortable'
 import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getColumns, updateColumns } from "@/state/column,api";
+import { getColumns, updateColumns } from "@/state/column.api";
 import ColumnForm from "./columnForm";
 import { createPortal } from "react-dom";
-import { ColumnBody, addColumn, UpdateData } from "@/state/column,api";
+import { ColumnBody, addColumn, UpdateData } from "@/state/column.api";
+import { getTasks } from "@/state/tasks.api";
+
 type BoardViewProps = {
   id: string;
   setIsModalNewTaskOpen: (isOpen: boolean) => void;
@@ -25,6 +27,10 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     queryFn: () => getColumns(projectId),
   }
   )
+  const { data: tasks, isPending: isPendingTasks, error: tasksError, isFetching: isFetchingTasks } = useQuery({
+    queryKey: ['tasks', projectId],
+    queryFn: () => getTasks(projectId),
+  })
   const queryClient = useQueryClient()
   const { mutateAsync: addColumnMutation } = useMutation({
     mutationFn: (newColumn: ColumnBody) => addColumn(newColumn),
@@ -34,6 +40,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       });
     }
   });
+
 
   const { isPending: isPendingUpdate, mutateAsync: updateColumnsMutation, isError } = useMutation({
     mutationFn: (orders: UpdateData) => updateColumns(orders),
@@ -86,6 +93,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       previoueColumnOrder: activeColumnOrder,
       projectId
     });
+    activeColumn && setActiveColumn(undefined);
   }
   const handleDraggStart = (event: DragStartEvent) => {
     console.log(event)
@@ -101,12 +109,13 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
         <div className="gap-4 grid grid-cols-footer pl-4">
           <SortableContext items={columnsIds}>
             {columns?.map((column: Column) => (
-                <TaskColumn
-                  column={column}
-                  setIsModalNewTaskOpen={setIsModalNewTaskOpen}
-                  addColumnMutation={addColumnMutation}
-                />
-              ))
+              <TaskColumn
+                column={column}
+                setIsModalNewTaskOpen={setIsModalNewTaskOpen}
+                addColumnMutation={addColumnMutation}
+                tasks={tasks?.filter((task) => task.columnId === column.id)}
+              />
+            ))
             }
             <ColumnForm projectId={projectId} AddColumnMutation={addColumnMutation} />
           </SortableContext>
@@ -118,6 +127,8 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
                   column={activeColumn}
                   setIsModalNewTaskOpen={setIsModalNewTaskOpen}
                   addColumnMutation={addColumnMutation}
+                  tasks={tasks?.filter((task) => task.columnId === activeColumn.id)}
+                  
                 />
               )
             }

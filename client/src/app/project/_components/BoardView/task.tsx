@@ -1,4 +1,3 @@
-import { Status, useGetTasksQuery, useUpdateTaskMutation } from "@/state/api";
 import { Task as Tasks } from "@/state/api";
 import { format } from "date-fns";
 import Image from "next/image";
@@ -13,16 +12,9 @@ type TaskProps = {
 
 
 export const Task = ({ task }: TaskProps) => {
-    // const [{ isDragging }, drag] = useDrag(() => ({
-    //     type: "task",
-    //     item: { id: task.id },
-    //     collect: (monitor: any) => ({
-    //         isDragging: !!monitor.isDragging(),
-    //     }),
-    // }));
-    const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-        id: task.id as number
-    })
+    // const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    //     id: task.id as number
+    // })
     const taskTagsSplit = task.tags ? task.tags.split(",") : [];
 
     const formattedStartDate = task.startDate
@@ -51,14 +43,10 @@ export const Task = ({ task }: TaskProps) => {
         </div>
     );
 
-    const style = transform ? { transform: `translate(${transform.x}px, ${transform.y}px)` } : undefined
-
 
     return (
         <div
-            ref={setNodeRef} {...listeners} {...attributes}
             className={`mb-4 rounded-md bg-white shadow dark:bg-dark-secondary dark:hover:bg-transparent duration-100 flex flex-col hover:bg-gray-100 `}
-            style={style}
         >
 
             <div className="h-auto md:pt-6 md:px-6 pt-4 px-4">
