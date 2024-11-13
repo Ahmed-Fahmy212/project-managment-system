@@ -34,31 +34,24 @@ export const ColumnService = {
         return CreatedColumn;
     },
 
-    updateColumn: async (data: zod.infer<typeof UpdatedColumnData>): Promise<{ previousColData: Column, TargetColData: Column }> =>{
-        const { fromPlace: previousId, toPlace: targetId } = data;
-        // use in front optimistic update for poor connection 
+    updateColumn: async (data: zod.infer<typeof UpdatedColumnData>): Promise<{ previousColData: { id: number, order: number | null }, TargetColData: { id: number, order: number | null } }> => { // remove null in db after this migration
+        const { targetColumnId, previouseColumnId, projectId, previoueColumnOrder } = data;
         const [updatedColumns] = await prisma.$transaction(async (trx) => {
-            const previousColumn = await trx.cloumn.findFirstOrThrow({
-                where: { id: previousId },
-                select: { order: true },
-            });
 
             const targetColumn = await trx.cloumn.findFirstOrThrow({
-                where: { id: targetId },
+                where: { id: targetColumnId },
                 select: { order: true },
             });
 
-            if (!previousColumn || !targetColumn) {
-                throw new NotFoundException("Column not found");
-            }
-
-            const previousColData = await trx.cloumn.update({
-                where: { id: previousId },
-                data: { order: targetColumn.order },
-            });
             const TargetColData = await trx.cloumn.update({
-                where: { id: targetId },
-                data: { order: previousColumn.order },
+                where: { id: targetColumnId, projectId },
+                data: { order: previoueColumnOrder },
+                select: { id: true, order: true },
+            });
+            const previousColData = await trx.cloumn.update({
+                where: { id: previouseColumnId, projectId },
+                data: { order: targetColumn.order },
+                select: { id: true, order: true },
             });
             return [{ previousColData, TargetColData }];
         });

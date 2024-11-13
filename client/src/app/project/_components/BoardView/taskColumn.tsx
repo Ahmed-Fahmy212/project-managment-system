@@ -6,7 +6,7 @@ import { CSS } from '@dnd-kit/utilities'
 import ColumnForm from "./columnForm";
 import { useSortable } from "@dnd-kit/sortable";
 import { EllipsisVertical, Plus } from "lucide-react";
-
+import { DraggableAttributes } from "@dnd-kit/core";
 type ColumnBody = {
     title: string;
     color: string;
@@ -14,7 +14,7 @@ type ColumnBody = {
 };
 
 type TaskColumnProps = {
-    column: ColumnBody & { projectId: number, id: number };
+    column: ColumnBody & { projectId: number, id: number, order: number };
     setIsModalNewTaskOpen: (isopen: boolean) => void;
     addColumnMutation: (column: ColumnBody) => Promise<any>;
 };
@@ -39,7 +39,7 @@ export const TaskColumn = ({
         transform: CSS.Transform.toString(transform),
     }
     if (isDragging) {
-        console.log("dragging");
+        // console.log("dragging");
         return (<div className="border pt-4 border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} ></div>)
     }
     return (
