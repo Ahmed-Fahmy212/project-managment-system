@@ -1,5 +1,7 @@
 import Modal from "@/components/Modal";
-import { Priority, Status, useCreateTaskMutation } from "@/state/api";
+import { Priority, Status, Task } from "@/state/api";
+import { createTask, TaskDataBody } from "@/state/tasks.api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -8,20 +10,24 @@ type Props = {
     onClose: () => void;
     id?: string | null;
     projectId: number;
+
 };
 
 const ModalNewTask = ({ isOpen, onClose, id = null, projectId }: Props) => {
-    const [createTask, { isLoading, error }] = useCreateTaskMutation();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [status, setStatus] = useState<Status>(Status.ToDo);
+    const [columnId, setColumnId] = useState<number>();
     const [priority, setPriority] = useState<Priority>(Priority.BackLog);
     const [tags, setTags] = useState("");
     const [startDate, setStartDate] = useState("");
     const [dueDate, setDueDate] = useState("");
+    const [isPending, setIsPending] = useState(true);
+
     const authorUserId = 1;
     // const [authorUserId, setAuthorUserId] = useState("");
     const [assignedUserId, setAssignedUserId] = useState("");
+
 
     const handleSubmit = async () => {
         if (!title || !authorUserId || !(id !== null || projectId)) return;
@@ -29,20 +35,31 @@ const ModalNewTask = ({ isOpen, onClose, id = null, projectId }: Props) => {
         const formattedStartDate = startDate ? new Date(startDate).toISOString() : new Date().toISOString();
         const formattedEndDate = dueDate ? new Date(dueDate).toISOString() : undefined;
 
-
-        await createTask({
-            projectId,
+        const queryClient = useQueryClient()
+        const { mutateAsync: createTaskMutation, error, isPending } = useMutation({
+            mutationFn: (TaskBody: TaskDataBody) => createTask(TaskBody),
+            onSuccess: (newData) => {
+                queryClient.setQueryData(['tasks', projectId], (oldData: Task[] | undefined) => {
+                    return oldData ? [...oldData, newData] : [newData];
+                });
+            }
+        })
+        await createTaskMutation({
             title,
+            projectId: Number(projectId),
+            authorUserId: authorUserId,
             description,
-            status,
-            priority,
             tags,
             startDate: formattedStartDate,
             dueDate: formattedEndDate,
-            authorUserId: authorUserId,
-            assignedUserId: parseInt(assignedUserId)
+            status: status,
+            priority: priority,
+            assignedUserId: assignedUserId ? Number(assignedUserId) : undefined,
+            columnId: 0
         });
-        if (!isLoading && !error) {
+
+        if (!isPending && !error) {
+            setIsPending(false)
             toast.success("Task created successfully.");
             onClose();
             setTitle("");
@@ -91,6 +108,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null, projectId }: Props) => {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                 />
+                {/* //TODO add fetch columns to get the types of status */}
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-2">
                     <select
                         className={selectStyles}
@@ -126,6 +144,13 @@ const ModalNewTask = ({ isOpen, onClose, id = null, projectId }: Props) => {
                     placeholder="Tags (comma separated)"
                     value={tags}
                     onChange={(e) => setTags(e.target.value)}
+                />
+                <input
+                    type="column"
+                    className={inputStyles}
+                    placeholder="columnId"
+                    value={columnId}
+                    onChange={(e) => setColumnId(Number(e.target.value))}
                 />
 
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-2">
@@ -168,11 +193,11 @@ const ModalNewTask = ({ isOpen, onClose, id = null, projectId }: Props) => {
                 )}
                 <button
                     type="submit"
-                    className={`focus-offset-2 mt-4 flex w-full justify-center rounded-md border border-transparent bg-blue-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 ${!isFormValid() || isLoading ? "cursor-not-allowed opacity-50" : ""
+                    className={`focus-offset-2 mt-4 flex w-full justify-center rounded-md border border-transparent bg-blue-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 ${!isFormValid() || isPending ? "cursor-not-allowed opacity-50" : ""
                         }`}
-                    disabled={!isFormValid() || isLoading}
+                    disabled={!isFormValid() || isPending}
                 >
-                    {isLoading ? "Creating..." : "Create Task"}
+                    {isPending ? "Creating..." : "Create Task"}
                 </button>
             </form>
         </Modal>
