@@ -55,7 +55,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null, projectId }: Props) => {
             status: status,
             priority: priority,
             assignedUserId: assignedUserId ? Number(assignedUserId) : undefined,
-            columnId: 0
+            columnId: columnId !== undefined ? columnId : 1
         });
 
         if (!isPending && !error) {
@@ -70,6 +70,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null, projectId }: Props) => {
             setDescription("");
             setStartDate("");
             setDueDate("");
+            setColumnId(1);
             // setAuthorUserId("");
             setAssignedUserId("");
             setStartDate("");
