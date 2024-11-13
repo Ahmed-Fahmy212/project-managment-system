@@ -24,7 +24,6 @@ import { toast } from "react-hot-toast";
 export const getColumns = async (projectId: number): Promise<ColumnWithTasks[]> => {
     try {
         const data = await axios.get(`http://localhost:8000/columns/${Number(projectId)}`);
-        console.log("💛💛data", data.data)
         return data.data.data;
     } catch (error) {
         toast.error("Failed to fetch columns");

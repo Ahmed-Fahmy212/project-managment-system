@@ -51,6 +51,7 @@ export interface Task {
     projectId: number;
     authorUserId?: number;
     assignedUserId?: number;
+    columnId: number;
     author?: User;
     assignee?: User;
     comments?: Comment[];
