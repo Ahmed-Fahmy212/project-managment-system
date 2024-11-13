@@ -1,30 +1,12 @@
 'use client';
-import {
-    Cloud,
-    Github,
-    Keyboard,
-    LifeBuoy,
-    LogOut,
-    Mail,
-    MessageSquare,
-    PlusCircle,
-    Settings,
-    User,
-    UserPlus,
-    Users,
-} from "lucide-react"
-import { Task as TaskComponent } from './task'
-import { CreditCard, EllipsisVertical, MessageSquareMore, Plus } from "lucide-react";
-import toast from "react-hot-toast";
-import { DndContext, DragEndEvent, useDroppable } from '@dnd-kit/core'
+
 import { useState } from "react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { DropdownMenuShortcut } from "@/components/ui/dropdown-menu";
-import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
-import { addColumn } from "@/state/column,api";
+import { CSS } from '@dnd-kit/utilities'
 import ColumnForm from "./columnForm";
-import { Task } from "@/state/api";
+import { useSortable } from "@dnd-kit/sortable";
+import { EllipsisVertical, Plus } from "lucide-react";
+
 type ColumnBody = {
     title: string;
     color: string;
@@ -32,49 +14,41 @@ type ColumnBody = {
 };
 
 type TaskColumnProps = {
-    id: number;
-    status: string;
-    tasks: Task[];
-    statusColor: string;
+    column: ColumnBody & { projectId: number, id: number };
     setIsModalNewTaskOpen: (isopen: boolean) => void;
     addColumnMutation: (column: ColumnBody) => Promise<any>;
 };
+
+
 export const TaskColumn = ({
-    id,
-    status,
-    statusColor,
-    tasks,
+    column,
     setIsModalNewTaskOpen,
     addColumnMutation
 }: TaskColumnProps) => {
-    // id is not used
-    const { setNodeRef, isOver } = useDroppable({
-        id: status
-    })
-
+    const { title, color: statusColor, projectId } = column;
     const [open, setOpen] = useState(false);
+    const { setNodeRef, attributes, listeners, transform, transition } = useSortable({
+        id: column.id,
+        data: {
+            type: "Column",
+            column: column
+        }
+    });
 
-
-    // const tasksMutation = useMutation({
-    //     mutationFn: (newTask) => {
-    //         return axios.post(`http://localhost:8000/tasks`, newTask)
-    //     },
-    // })
-    // const [{ isOver }, drop] = useDrop(() => ({
-    //     accept: "task",
-    //     drop: (item: { id: number }) => moveTask(item.id, status),
-    //     collect: (monitor: any) => ({
-    //         isOver: !!monitor.isOver(),
-    //     }),
-    // }));
-    // remove this 
-    // const taskCount = tasks.filter((item) => item.status === status).length;
-
+    // ${isOver ?
+    //     "bg-blue-200 dark:bg-black transition duration-500" : ""}
+    const style = {
+        transition: transition,
+        transform: CSS.Transform.toString(transform),
+    }
     return (
+        // don`t effect in original position or layout of element
         <div
             ref={setNodeRef}
-            className={`rounded py-2 h-full  sm:py-4 xl:px-2 ${isOver ?
-                "bg-blue-200 dark:bg-black transition duration-500" : ""}`}
+            className={`rounded py-2 h-full  sm:py-4 xl:px-2`}
+            style={style}
+            {...attributes}
+            {...listeners}
         >
             <div className="flex mb-3 w-full">
                 <div
@@ -83,7 +57,7 @@ export const TaskColumn = ({
                 />
                 <div className="bg-white dark:bg-dark-secondary flex items-center justify-between px-5 py-4 rounded-e-lg w-full">
                     <h3 className="dark:text-white flex font-semibold items-center text-base">
-                        {status}{" "}
+                        {title}{" "}
                         <span
                             className="bg-gray-200 dark:bg-dark-tertiary inline-block leading-none ml-2 p-1 rounded-full text-center text-sm"
                             style={{ width: "1.5rem", height: "1.5rem" }}
@@ -106,7 +80,7 @@ export const TaskColumn = ({
                                         {/* <button className="hover:bg-gray-100 dark:hover:bg-gray-700 text-black dark:text-white"> */}
                                         <div className="w-full h-full relative">
 
-                                        <ColumnForm projectId={Number(id)} AddColumnMutation={addColumnMutation} isSmallItem />
+                                            <ColumnForm projectId={projectId} AddColumnMutation={addColumnMutation} isSmallItem />
                                         </div>
                                         {/* </button> */}
                                     </DropdownMenuItem>
