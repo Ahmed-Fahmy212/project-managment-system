@@ -1,12 +1,12 @@
 import axios from "axios";
 import { Column as ColumnWithTasks } from "./api";
 
-type Column = {
+export type ColumnBody = {
     title: string;
     color: string;
     projectId: number;
 };
-export const addColumn = async (column: Column): Promise<ColumnWithTasks> => {
+export const addColumn = async (column: ColumnBody): Promise<ColumnWithTasks> => {
     const newColumn = {
         title: column.title,
         color: column.color,
@@ -21,7 +21,7 @@ export const addColumn = async (column: Column): Promise<ColumnWithTasks> => {
 //----------------------------------------------------------------------------------------------
 import { toast } from "react-hot-toast";
 
-export const getColumns = async (projectId: number): Promise< ColumnWithTasks[] > => {
+export const getColumns = async (projectId: number): Promise<ColumnWithTasks[]> => {
     try {
         const data = await axios.get(`http://localhost:8000/columns/${Number(projectId)}`);
         console.log("💛💛data", data.data)
@@ -30,4 +30,15 @@ export const getColumns = async (projectId: number): Promise< ColumnWithTasks[] 
         toast.error("Failed to fetch columns");
         throw error;
     }
+}
+//----------------------------------------------------------------------------------------------
+export type UpdateData = {
+    previouseColumnId: number;
+    targetColumnId: number;
+    previoueColumnOrder: number;
+    projectId: number;
+}
+export const updateColumns = async (UpdateData: UpdateData): Promise<{ previousColData: { id: number, order: number | null }, TargetColData: { id: number, order: number | null } }> => {// oreder null just for dummy db will remove 
+    const data = await axios.patch(`http://localhost:8000/columns`, UpdateData);
+    return data.data.data;
 }
