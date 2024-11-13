@@ -27,26 +27,27 @@ export const TaskColumn = ({
 }: TaskColumnProps) => {
     const { title, color: statusColor, projectId } = column;
     const [open, setOpen] = useState(false);
-    const { setNodeRef, attributes, listeners, transform, transition } = useSortable({
+    const { setNodeRef, attributes, listeners, transform, transition, isDragging, isOver } = useSortable({
         id: column.id,
         data: {
             type: "Column",
             column: column
         }
     });
-
-    // ${isOver ?
-    //     "bg-blue-200 dark:bg-black transition duration-500" : ""}
     const style = {
         transition: transition,
         transform: CSS.Transform.toString(transform),
+    }
+    if (isDragging) {
+        console.log("dragging");
+        return (<div className="border pt-4 border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} ></div>)
     }
     return (
         // don`t effect in original position or layout of element
         <div
             ref={setNodeRef}
-            className={`rounded py-2 h-full  sm:py-4 xl:px-2`}
-            style={style}
+            className={`rounded py-2 min-h-full  sm:py-4 xl:px-2 
+           `} style={style}
             {...attributes}
             {...listeners}
         >
