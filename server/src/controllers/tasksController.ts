@@ -52,11 +52,9 @@ export const tasks = {
   updateTaskStatus: async (
     req: Request,
     res: Response,
-    next: NextFunction
   ): Promise<void> => {
-    const { taskId } = req.params;
-    const body = UpdatedTaskData.parse(req.body);
-    const data = await TaskService.updateTaskStatus(parseInt(taskId), body);
+    const body = await UpdatedTaskData.parseAsync(req.body);
+    const data = await TaskService.updateTaskStatus(body);
     response.success(res, data);
   }
   // deleteTask: async (

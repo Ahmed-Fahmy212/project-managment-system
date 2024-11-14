@@ -1,11 +1,9 @@
-import { Status, useGetTasksQuery, useUpdateTaskMutation } from "@/state/api";
 import { Task as Tasks } from "@/state/api";
 import { format } from "date-fns";
 import Image from "next/image";
 import { EllipsisVertical, MessageSquareMore, Plus } from "lucide-react";
-import toast from "react-hot-toast";
-import { DndContext, DragEndEvent, useDraggable } from '@dnd-kit/core'
-
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 type TaskProps = {
     task: Tasks;
@@ -13,16 +11,13 @@ type TaskProps = {
 
 
 export const Task = ({ task }: TaskProps) => {
-    // const [{ isDragging }, drag] = useDrag(() => ({
-    //     type: "task",
-    //     item: { id: task.id },
-    //     collect: (monitor: any) => ({
-    //         isDragging: !!monitor.isDragging(),
-    //     }),
-    // }));
-    const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-        id: task.id as number
-    })
+    // const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
+    //     id: task.id,
+    //     data: {
+    //         type: "Task",
+    //         task: task
+    //     }
+    // });
     const taskTagsSplit = task.tags ? task.tags.split(",") : [];
 
     const formattedStartDate = task.startDate
@@ -50,15 +45,20 @@ export const Task = ({ task }: TaskProps) => {
             {priority}
         </div>
     );
-
-    const style = transform ? { transform: `translate(${transform.x}px, ${transform.y}px)` } : undefined
-
+    // const style = {
+    //     transition: transition,
+    //     transform: CSS.Transform.toString(transform),
+    // }
+    // if (isDragging) {
+    //     return (<div className="border h-[172px] border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} />)
+    // }            // ref={setNodeRef}
 
     return (
         <div
-            ref={setNodeRef} {...listeners} {...attributes}
-            className={`mb-4 rounded-md bg-white shadow dark:bg-dark-secondary flex flex-col hover:bg-gray-100 `}
-            style={style}
+            // {...attributes}
+            // {...listeners}
+            // style={style}
+            className={`mb-4 rounded-md bg-white shadow dark:bg-dark-secondary dark:hover:bg-transparent duration-100 flex flex-col hover:bg-gray-100 `}
         >
 
             <div className="h-auto md:pt-6 md:px-6 pt-4 px-4">

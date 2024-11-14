@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
 export interface Project {
     id: number;
     name: string;
@@ -40,7 +41,9 @@ export interface Attachment {
 export interface Task {
     id: number;
     title: string;
+    order: number;
     description?: string;
+    //TODO remove this
     status?: Status;
     priority: Priority;
     tags?: string;
@@ -50,6 +53,7 @@ export interface Task {
     projectId: number;
     authorUserId?: number;
     assignedUserId?: number;
+    columnId: number;
     author?: User;
     assignee?: User;
     comments?: Comment[];
@@ -67,7 +71,21 @@ export interface Team {
     productOwnerUserId?: number;
     projectManagerUserId?: number;
 }
+export interface Column {
+    id: number;
+    title: string;
+    color: string;
+    projectId: number;
+    order: number;
+    // ignore this from back + add is remove if deleted 
+    deletedAt: string | null;
+    deletedById: number | null;
+    updatedAt: string | null;
+    updatedBy: string | null;
+    task?: Task[];
+}
 
+//==================================================== Redux Toolkit Query ====================================================
 export const api = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/" }),
     reducerPath: "api",
@@ -82,6 +100,7 @@ export const api = createApi({
             providesTags: ["Projects"],
         }),
         // input logs
+
         createProject: bu.mutation<Project, Partial<Project>>({
             query: (body: Omit<Project, "id">) => ({
                 url: "projects",
@@ -117,3 +136,4 @@ export const api = createApi({
 })
 
 export const { useGetProjectsQuery, useCreateProjectMutation, useCreateTaskMutation, useGetTasksQuery, useUpdateTaskMutation } = api
+//========================================================== React Query ====================================================

@@ -51,7 +51,7 @@ const config: Config = {
 		},
 		gridTemplateColumns: {
 			'16': 'repeat(16, minmax(0, 1fr))',
-			footer: 'repeat(4, 311px)'
+			footer: 'repeat(53, 311px)'
 		}
 	},
 	plugins: [

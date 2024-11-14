@@ -17,24 +17,25 @@ type Props = {
 const Project = ({ params }: Props) => {
     const { id } = params;
     const [activeTab, setActiveTab] = useQueryState("page", parseAsString.withDefault("Board"));
-
+    // nessecary to know when use client and when don`t 
     const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
     return (
         <div className="flex flex-1 flex-col overflow-hidden">
             < ModalNewTask isOpen={isModalNewTaskOpen} onClose={() => setIsModalNewTaskOpen(false)} projectId={Number(id)} />
+            
             <ProjectHeader activeTab={activeTab} setActiveTab={setActiveTab} />
             {activeTab === "Board" && (
-                <Board id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
+                <Board id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen}  />
             )
             }
             {activeTab === "List" && (
                 <ListView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
             )
             }
-            {activeTab === "Timeline" && (
+            {/* {activeTab === "Timeline" && (
                 <Timeline id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
-            )
-            }
+            ) */}
+            {/* } */}
             {activeTab === "Table" && (
                 <TaskTable id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
             )
