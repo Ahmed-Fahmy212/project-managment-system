@@ -28,7 +28,6 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   const projectId = Number(id);
   const [activeColumn, setActiveColumn] = useState<Column | null>();
   const [activeTask, setActiveTask] = useState<TaskType | null>();
-  const [columnsIds, setColumnsIds] = useState<number[]>([])
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -71,10 +70,6 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
 
         if (activeIndex === -1 || targetIndex === -1) return oldData;
         const rearrangedColumnsOrder = arrayMove(oldData, activeIndex, targetIndex)
-        const setrearrangedColumnsOrder = rearrangedColumnsOrder.map((col) => (col.order));
-
-        console.log(`💛💛💛rearrangedColumnsOrder :${setrearrangedColumnsOrder}`);
-        setColumnsIds(setrearrangedColumnsOrder)
         return rearrangedColumnsOrder
       });
     },
@@ -130,7 +125,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
 
     if (activeColumnId === overColumnId) return;
     if (!activeColumnOrder || !activeColumnId || !overColumnId) return;
-    
+
 
     console.log('💚activeColumnId', activeColumnId)
     console.log('💚overColumnId', overColumnId)
@@ -143,7 +138,6 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       previoueColumnOrder: activeColumnOrder,
       projectId
     });
-
   }
   const handleDraggStart = (event: DragStartEvent) => {
     if (event.active.data.current?.type === 'Column') {
@@ -190,14 +184,9 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   }
   // const newIds = columns?.map(column => column.order);
   // if (newIds && JSON.stringify(newIds) !== JSON.stringify(columnsIds)) {
-  if (columnsIds.length === 0 ) {
-    const Ids = columns?.map(column => column.order)
-    setColumnsIds(Ids);
-  }
-  console.log('💛💛💛columnsIds:', columnsIds);
-  //   setColumnsIds(newIds);
-  // }
-
+  
+  const columnsIds = columns?.map(column => column.order);
+  console.log('🤍columnsIds', columnsIds)
   return (
     <div className="flex-1 overflow-y-scroll">
       <DndContext onDragEnd={handleDraggEnd} onDragStart={handleDraggStart} onDragOver={handleDraggOver} sensors={sensors}
