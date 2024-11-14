@@ -41,7 +41,9 @@ export interface Attachment {
 export interface Task {
     id: number;
     title: string;
+    order: number;
     description?: string;
+    //TODO remove this
     status?: Status;
     priority: Priority;
     tags?: string;

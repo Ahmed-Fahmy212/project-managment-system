@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Column as ColumnWithTasks } from "./api";
+import { Column as ColumnWithTasks, Task } from "./api";
 
 export type ColumnBody = {
     title: string;
@@ -24,7 +24,10 @@ import { toast } from "react-hot-toast";
 export const getColumns = async (projectId: number): Promise<ColumnWithTasks[]> => {
     try {
         const data = await axios.get(`http://localhost:8000/columns/${Number(projectId)}`);
-        return data.data.data;
+        const columns = data.data.data;
+        const sortedColumns = columns.sort((a: ColumnWithTasks, b: ColumnWithTasks) => a.order - b.order);
+        console.log("💛💛sortedColumns",sortedColumns)
+        return sortedColumns;
     } catch (error) {
         toast.error("Failed to fetch columns");
         throw error;
@@ -36,8 +39,15 @@ export type UpdateData = {
     targetColumnId: number;
     previoueColumnOrder: number;
     projectId: number;
-}
-export const updateColumns = async (UpdateData: UpdateData): Promise<{ previousColData: { id: number, order: number | null }, TargetColData: { id: number, order: number | null } }> => {// oreder null just for dummy db will remove 
-    const data = await axios.patch(`http://localhost:8000/columns`, UpdateData);
-    return data.data.data;
+};
+
+export const updateColumns = async (UpdateData: UpdateData): Promise<{ previousColData: { id: number, order: number }, targetColData: { id: number, order: number } }> => {
+    try {
+        const data = await axios.patch(`http://localhost:8000/columns`, UpdateData);
+        return data.data.data;
+
+    } catch (error) {
+        toast.error("Failed to update columns");
+        throw error;
+    }
 }

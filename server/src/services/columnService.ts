@@ -7,7 +7,7 @@ import { NotFoundException } from "../exceptions/NotFoundException";
 import { ColumnDataSchema, UpdatedColumnData } from "../types/column.zod";
 export const ColumnService = {
     getAllColumns: async (): Promise<Column[]> => {
-        return await prisma.cloumn.findMany();
+        return await prisma.cloumn.findMany({ orderBy: { order: 'asc' } });
     },
 
     getColumnWithTasks: async (projectId: number): Promise<Column[]> => {
@@ -34,14 +34,14 @@ export const ColumnService = {
         return CreatedColumn;
     },
 
-    updateColumn: async (data: zod.infer<typeof UpdatedColumnData>): Promise<{ previousColData: { id: number, order: number | null }, TargetColData: { id: number, order: number | null } }> => { // remove null in db after this migration
+    updateColumn: async (data: zod.infer<typeof UpdatedColumnData>): Promise<{ previousColData: { id: number, order: number }, TargetColData: { id: number, order: number } }> => {
         const { targetColumnId, previouseColumnId, projectId, previoueColumnOrder } = data;
         const [updatedColumns] = await prisma.$transaction(async (trx) => {
-
             const targetColumn = await trx.cloumn.findFirstOrThrow({
                 where: { id: targetColumnId },
                 select: { order: true },
             });
+
 
             const TargetColData = await trx.cloumn.update({
                 where: { id: targetColumnId, projectId },

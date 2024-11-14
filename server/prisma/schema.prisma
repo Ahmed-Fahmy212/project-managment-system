@@ -108,10 +108,9 @@ model Task {
   deletedAt      DateTime?
   deletedById    Int?
   updatedAt      DateTime  @updatedAt
-  // nextTaskId     Int?
-  // prevTaskId     Int? 
   columnId       Int       @default(1)
-
+  order         Int       @default(autoincrement())
+  
   Column          Cloumn?          @relation(fields: [columnId], references: [id])
   project         Project          @relation(fields: [projectId], references: [id])
   author          User             @relation("TaskAuthor", fields: [authorUserId], references: [id])
@@ -122,7 +121,11 @@ model Task {
   comments        Comment[]
   deletedBy       User?            @relation("TaskDeletedBy", fields: [deletedById], references: [id])
 
+//TODO make sure of thes indexes
   @@index([projectId])
+  @@index([columnId])
+  @@index([columnId, projectId])
+  // @@index([columnId, order])
   @@index([authorUserId])
   @@index([assignedUserId])
 }
@@ -131,9 +134,8 @@ model Cloumn {
   id        Int    @id @default(autoincrement())
   title     String
   color     String
-  order     Int?    @default(autoincrement())
-  //TODO remove optional
-  projectId Int    @default(1)
+  order     Int   @default(autoincrement())
+  projectId Int    
 
   deletedAt   DateTime?
   deletedById Int?

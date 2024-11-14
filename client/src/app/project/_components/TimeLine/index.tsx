@@ -37,12 +37,12 @@ export const Timeline = ({ id, setIsModalNewTaskOpen }: Props) => {
     const calendar = useNextCalendarApp({
         views: [createViewDay(), createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
         events: [
-            {
-              id: '1',
-              title: 'Event 1',
-              start: '2024-10-11',
-              end: '2024-10-12',
-            },
+            // {
+            //   id: '1',
+            //   title: 'Event 1',
+            //   start: '2024-10-11',
+            //   end: '2024-10-12',
+            // },
           ],
         
     }, plugins)

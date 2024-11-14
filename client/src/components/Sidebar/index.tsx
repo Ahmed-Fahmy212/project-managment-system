@@ -29,7 +29,6 @@ import { useGetProjectsQuery } from "@/state/api";
 const Sidebar = () => {
   const [showProjects, setShowProjects] = useState(false);
   const [showPriority, setShowPriority] = useState(false);
-
   const { data } = useGetProjectsQuery();
   // todo fix three calls
   const projects = data?.data;

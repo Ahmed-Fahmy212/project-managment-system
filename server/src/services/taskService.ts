@@ -39,6 +39,14 @@ export const TaskService = {
     createTask: async (
         body: zod.infer<typeof TaskDataSchema>
     ) => {
+        const column = await prisma.cloumn.findUnique({
+            where: {
+                id: body.columnId,
+            },
+        });
+        if (!column) {
+            throw new NotFoundException("Column not found in the project");
+        }
         const newTask = await prisma.task.create({
             data: body
         });
@@ -49,28 +57,60 @@ export const TaskService = {
     },
 
     updateTaskStatus: async (
-        taskId: number,
         body: zod.infer<typeof UpdatedTaskData>
-    ) => {
-        const Task = await prisma.task.findUnique({
-            where: {
-                id: taskId,
-            },
-        });
-        if (Task?.status === body.status) {
-            return Task;
+    ): Promise<{ previouseTaskData: Task, targetTaskData: Task }> => {
+        const { targetTaskId, previouseTaskId, previouseTaskOrder, previousColumnId, targetColumnId } = body;
+        const updatedTask = await prisma.$transaction(async (trx) => {
+            const targetTaskOrder = await trx.task.findUniqueOrThrow({
+                where: {
+                    id: targetTaskId,
+                },
+            });
+            if (targetColumnId) {
+                const updateTargetTaskColumn = await trx.task.update({
+                    where: {
+                        id: targetTaskId,
+                        columnId: targetColumnId,
+                    },
+                    data: {
+                        columnId: previousColumnId,
+                        order: previouseTaskOrder,
+                    },
+                });
+                const updatePreviouseTaskColumn = await trx.task.update({
+                    where: {
+                        id: previouseTaskId,
+                        columnId: previousColumnId,
+                    },
+                    data: {
+                        columnId: targetColumnId,
+                        order: targetTaskOrder.order,
+                    },
+                });
+                return { targetTaskData: updateTargetTaskColumn, previouseTaskData: updatePreviouseTaskColumn };
             }
-        const updatedTask = await prisma.task.update({
-            where: {
-                id: Number(taskId),
-            },
-            data: {
-                status: body.status,
-                updatedAt: new Date(),
-            },
-        });
+            const targetTaskData = await trx.task.update({
+                where: {
+                    id: targetTaskId,
+                },
+                data: {
+                    order: previouseTaskOrder,
+
+                },
+            })
+            const previouseTaskData = await trx.task.update({
+                where: {
+                    id: previouseTaskId,
+                },
+                data: {
+                    order: targetTaskOrder.order,
+                },
+            })
+            return { targetTaskData, previouseTaskData };
+        }
+        )
         return updatedTask;
-    
+
     }
     // getUserTasks: async (
     //     req: Request,

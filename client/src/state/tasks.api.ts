@@ -39,3 +39,23 @@ export const createTask = async (task: TaskDataBody): Promise<Task> => {
         throw error;
     }
 }
+//------------------------------------------------------------------------------------
+export type UpdateTasksData = {
+    title?: string;
+    targetTaskId: number;
+    previouseTaskId: number;
+    previouseTaskOrder: number;
+
+    targetColumnId?: number;
+    previousColumnId?: number;
+} & Partial<TaskDataBody>
+
+export const updateTasks = async (updateData: UpdateTasksData): Promise<{ previouseTaskData: Task, targetTaskData: Task }> => {
+    try {
+        const data = await axios.patch(`http://localhost:8000/tasks`, updateData);
+        return data.data.data;
+    } catch (error) {
+        toast.error("Failed to update tasks");
+        throw error;
+    }
+}

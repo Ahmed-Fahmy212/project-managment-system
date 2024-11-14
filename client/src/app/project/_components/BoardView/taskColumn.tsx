@@ -2,7 +2,7 @@ import { useState } from "react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { CSS } from '@dnd-kit/utilities'
 import ColumnForm from "./columnForm";
-import { useSortable } from "@dnd-kit/sortable";
+import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { EllipsisVertical, Plus } from "lucide-react";
 import { Task } from "./task";
 import { Task as TaskType } from "@/state/api";
@@ -38,7 +38,8 @@ export const TaskColumn = ({
         }
     });
 
-
+    const taskIds = tasks.map((task) => task.id);
+    // console.log("🤍array taskIds", taskIds)
     const style = {
         transition: transition,
         transform: CSS.Transform.toString(transform),
@@ -115,9 +116,11 @@ export const TaskColumn = ({
             </div>
             {/*  O(2n) = O(n) ------------------------- O(nlog(n))*/}
             {
-                tasks.map((task) => (
-                    <Task task={task} />
-                ))
+                // <SortableContext items={taskIds}>
+                //     {tasks.map((task) => (
+                //         <Task task={task} />
+                //     ))}
+                // </SortableContext>
             }
             <button
                 onClick={() => setIsModalNewTaskOpen(true)}
