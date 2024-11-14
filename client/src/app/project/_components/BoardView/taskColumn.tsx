@@ -3,8 +3,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { CSS } from '@dnd-kit/utilities'
 import ColumnForm from "./columnForm";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
-import { SortableContext, useSortable } from "@dnd-kit/sortable";
-import { EllipsisVertical, Plus } from "lucide-react";
+import { EllipsisVertical, GripVertical, Plus } from "lucide-react";
 import { Task } from "./task";
 import { Task as TaskType } from "@/state/api";
 
@@ -51,17 +50,26 @@ export const TaskColumn = ({
     return (
         <div
             ref={setNodeRef}
-            className={`rounded py-2 h-[720px] sm:py-4 xl:px-2 
+            className={`rounded py-2 h-[720px] sm:py-4 xl:px-2 hover:cursor-default
            `} style={style}
-            {...attributes}
-            {...listeners}
+           {...attributes}
+
+
         >
             <div className="flex mb-3 w-full">
                 <div
-                    className={`w-2 rounded-s-lg`}
+                    className={`w-3 rounded-s `}
                     style={{ backgroundColor: statusColor }}
                 />
-                <div className="bg-white dark:bg-dark-secondary flex items-center justify-between px-5 py-4 rounded-e-lg w-full">
+                <div
+                    className={`hover:cursor-grab bg-white dark:bg-dark-secondary dark:text-white flex items-center justify-between px-1 rounded-e-lg`}
+                    {...listeners}
+                >
+                    <GripVertical />
+                    </div>
+                <div className="bg-white dark:bg-dark-secondary flex items-center justify-between pl-2 pr-5 py-4 rounded-e-lg w-full"
+                  
+                >
                     <h3 className="dark:text-white flex font-semibold items-center text-base">
                         {title}{" "}
                         <span
@@ -117,11 +125,11 @@ export const TaskColumn = ({
             </div>
             {/*  O(2n) = O(n) ------------------------- O(nlog(n))*/}
             {
-                // <SortableContext items={taskIds}>
-                //     {tasks.map((task) => (
-                //         <Task task={task} />
-                //     ))}
-                // </SortableContext>
+                // <SortableContext items={taskIds}>{
+                tasks.map((task) => (
+                    <Task task={task} />
+                ))
+                //} </SortableContext>
             }
             <button
                 onClick={() => setIsModalNewTaskOpen(true)}

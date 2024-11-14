@@ -82,7 +82,7 @@ export interface Column {
     deletedById: number | null;
     updatedAt: string | null;
     updatedBy: string | null;
-    // task: Task[];
+    task?: Task[];
 }
 
 //==================================================== Redux Toolkit Query ====================================================

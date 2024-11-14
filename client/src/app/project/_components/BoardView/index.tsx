@@ -1,7 +1,7 @@
 'use client'
-import { Column, Task as TaskType, Task as TaskType } from "@/state/api";
+import { Column, Task as TaskType } from "@/state/api";
 import toast from "react-hot-toast";
-import { DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent } from '@dnd-kit/core'
+import { DndContext, DragEndEvent, DragMoveEvent, DragOverEvent, DragOverlay, DragStartEvent } from '@dnd-kit/core'
 import { TaskColumn } from './taskColumn'
 import { arrayMove, horizontalListSortingStrategy, SortableContext, sortableKeyboardCoordinates, useSortable } from '@dnd-kit/sortable'
 import { useMemo, useState } from "react";
@@ -122,7 +122,6 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
 
     const activeColumnId = active.id as number;
     const activeColumnOrder = active.data.current?.column?.order as number;
-    const activeColumnOrder = active.data.current?.column?.order as number;
     const overColumnId = over.id as number;
 
     if (activeColumnId === overColumnId) return;
@@ -141,16 +140,20 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       projectId
     });
   }
+  //------------------------------------------------- Handle events -------------------------------------------------
   const handleDraggStart = (event: DragStartEvent) => {
     if (event.active.data.current?.type === 'Column') {
+      console.log('🤍event.active.data.current.column', event.active.data.current.column)
       setActiveColumn(event.active.data.current.column);
       return;
     }
     if (event.active.data.current?.type === 'Task') {
+      console.log('🤍event.active.data.current?.type', event.active.data.current?.type)
       setActiveTask(event.active.data.current.task)
       return;
     }
   }
+
   const handleDraggOver = (event: DragOverEvent) => {
     const { active, over } = event;
     if (!over) return;
@@ -184,14 +187,23 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       // over another task in another column
     }
   }
-  // const newIds = columns?.map(column => column.order);
-  // if (newIds && JSON.stringify(newIds) !== JSON.stringify(columnsIds)) {
-  
+  const handleDraggMove = (event: DragMoveEvent) => {
+  const {active, over} = event;
+  if(active.id.toString().includes('Column') && over?.id.toString().includes('Column') && active.id !== over.id){
+    console.log('🤍active', active)
+  }}
+  //------------------------------------------------------------------------------------
   const columnsIds = columns?.map(column => column.order);
   console.log('🤍columnsIds', columnsIds)
   return (
     <div className="flex-1 overflow-y-scroll">
-      <DndContext onDragEnd={handleDraggEnd} onDragStart={handleDraggStart} onDragOver={handleDraggOver} sensors={sensors}
+      <DndContext
+        onDragEnd={handleDraggEnd}
+        // onDragMove={handleDraggMove}
+        onDragStart={handleDraggStart}
+        // onDragOver={handleDraggOver} 
+        sensors={sensors}
+        collisionDetection={closestCenter}
       >
         <div className="gap-4 grid grid-cols-footer pl-4">
           <SortableContext items={columnsIds} >
@@ -214,8 +226,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
                   column={activeColumn}
                   setIsModalNewTaskOpen={setIsModalNewTaskOpen}
                   addColumnMutation={addColumnMutation}
-                  tasks={tasks?.filter((task) => task.columnId === activeColumn.id)}
-
+                  tasks={activeColumn.task}
                 />
               )
             }
