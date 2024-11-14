@@ -7,11 +7,11 @@ export const ColumnDataSchema = z.object({
 });
 
 export const UpdatedColumnData = ColumnDataSchema.partial().extend({
-    projectId: z.number(),
-    
-    previouseColumnId: z.number(),
-    targetColumnId: z.number(),
-    previoueColumnOrder: z.number(),
+    newOrder: z.array(z.object({
+        id: z.number(),
+        order: z.number(),
+    })),
+    projectId: z.number()
 });
 export const DeleteColumnData = z.object({
     deletedById: z.string(),

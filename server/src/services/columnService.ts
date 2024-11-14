@@ -34,31 +34,22 @@ export const ColumnService = {
         return CreatedColumn;
     },
 
-    updateColumn: async (data: zod.infer<typeof UpdatedColumnData>): Promise<{ previousColData: { id: number, order: number }, TargetColData: { id: number, order: number } }> => {
-        const { targetColumnId, previouseColumnId, projectId, previoueColumnOrder } = data;
-        const [updatedColumns] = await prisma.$transaction(async (trx) => {
-            const targetColumn = await trx.cloumn.findFirstOrThrow({
-                where: { id: targetColumnId },
-                select: { order: true },
-            });
-
-
-            const TargetColData = await trx.cloumn.update({
-                where: { id: targetColumnId, projectId },
-                data: { order: previoueColumnOrder },
-                select: { id: true, order: true },
-            });
-            const previousColData = await trx.cloumn.update({
-                where: { id: previouseColumnId, projectId },
-                data: { order: targetColumn.order },
-                select: { id: true, order: true },
-            });
-            return [{ previousColData, TargetColData }];
+    updateColumn: async (data: zod.infer<typeof UpdatedColumnData>): Promise< Column[] > => {
+        const { projectId, newOrder: columns } = data;
+        const updatedColumns = await prisma.$transaction(async (trx) => {
+            // will fuck pools but will handle it later in sql
+            // and remove this and make update only for changed columns d
+            return Promise.all(
+                columns.map(({ id, order }) =>
+                    trx.cloumn.update({
+                        where: { id, projectId },
+                        data: { order },
+                    })
+                )
+            );
         });
-        if (!updatedColumns) {
-            throw new NotFoundException("Column not updated");
-        }
-        return updatedColumns;
+    
+        return updatedColumns ;
     },
 
     async deleteColumn(id: number): Promise<Column> {

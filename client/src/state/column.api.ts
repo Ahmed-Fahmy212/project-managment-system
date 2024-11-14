@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Column as ColumnWithTasks, Task } from "./api";
+import { Column, Column as ColumnWithTasks, Task } from "./api";
 
 export type ColumnBody = {
     title: string;
@@ -26,7 +26,7 @@ export const getColumns = async (projectId: number): Promise<ColumnWithTasks[]> 
         const data = await axios.get(`http://localhost:8000/columns/${Number(projectId)}`);
         const columns = data.data.data;
         const sortedColumns = columns.sort((a: ColumnWithTasks, b: ColumnWithTasks) => a.order - b.order);
-        console.log("💛💛sortedColumns",sortedColumns)
+        console.log("💛💛sortedColumns", sortedColumns)
         return sortedColumns;
     } catch (error) {
         toast.error("Failed to fetch columns");
@@ -35,13 +35,11 @@ export const getColumns = async (projectId: number): Promise<ColumnWithTasks[]> 
 }
 //----------------------------------------------------------------------------------------------
 export type UpdateData = {
-    previouseColumnId: number;
-    targetColumnId: number;
-    previoueColumnOrder: number;
+    newOrder: { id: number; order: number }[];
     projectId: number;
 };
 
-export const updateColumns = async (UpdateData: UpdateData): Promise<{ previousColData: { id: number, order: number }, targetColData: { id: number, order: number } }> => {
+export const updateColumns = async (UpdateData: UpdateData): Promise<Column[]> => {
     try {
         const data = await axios.patch(`http://localhost:8000/columns`, UpdateData);
         return data.data.data;

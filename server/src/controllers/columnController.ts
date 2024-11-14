@@ -52,6 +52,7 @@ export const columns = {
         req: Request,
         res: Response,
     ) => {
+        // will update order
         const validatedData = UpdatedColumnData.parse(req.body);
         //TODO calc time and num req for this 
         const updatedColumn = await ColumnService.updateColumn(validatedData);

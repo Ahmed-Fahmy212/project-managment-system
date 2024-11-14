@@ -66,12 +66,12 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       queryClient.setQueryData(['columns', projectId], (oldData: Column[] | undefined) => {
         if (!oldData) return oldData;
 
-        const activeIndex = oldData.findIndex(col => col.order === newData?.previousColData?.order);
-        const targetIndex = oldData.findIndex(col => col.order === newData?.targetColData?.order);
+        const updatedColumns = oldData.map((column) => {
+          const updatedColumn = newData?.find((newCol) => newCol.id === column.id);
+          return updatedColumn ? { ...updatedColumn } : column;
+        }).sort((a, b) => a.order - b.order);
 
-        if (activeIndex === -1 || targetIndex === -1) return oldData;
-        const rearrangedColumnsOrder = arrayMove(oldData, activeIndex, targetIndex)
-        return rearrangedColumnsOrder
+        return updatedColumns
       });
     },
   })
@@ -112,6 +112,20 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     return;
   }
   //------------------------------------------------------------------------------------
+  const reorderColumns = (columns: Column[], activeColumnId: number, overColumnId: number) => {
+    // find index of active column and over column
+    const activeIndex = columns.findIndex(column => column.id === activeColumnId);
+    const overIndex = columns.findIndex(column => column.id === overColumnId);
+    if (activeIndex === -1 || overIndex === -1) return columns;
+
+    // move active column to over column index
+    const reorderedColumn = [...columns];
+    const [removedColumn] = reorderedColumn.splice(activeIndex, 1);
+    reorderedColumn.splice(overIndex, 0, removedColumn);
+
+    // return array of new order array of id and new order
+    return reorderedColumn.map((column, index) => ({ id: column.id, order: index }));
+  }
 
   const handleDraggEnd = async (event: DragEndEvent) => {
     setActiveColumn(null);
@@ -121,24 +135,15 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     if (!over) return;
 
     const activeColumnId = active.id as number;
-    const activeColumnOrder = active.data.current?.column?.order as number;
     const overColumnId = over.id as number;
 
     if (activeColumnId === overColumnId) return;
-    if (!activeColumnOrder || !activeColumnId || !overColumnId) return;
+    if (!activeColumnId) return;
 
+    const newOrder = reorderColumns(columns, activeColumnId, overColumnId);
+    console.log('🤍newOrder', newOrder);
 
-    console.log('💚activeColumnId', activeColumnId)
-    console.log('💚overColumnId', overColumnId)
-    console.log('💚activeColumnOrder', activeColumnOrder)
-
-
-    await updateColumnsMutation({
-      previouseColumnId: activeColumnId,
-      targetColumnId: overColumnId,
-      previoueColumnOrder: activeColumnOrder,
-      projectId
-    });
+    await updateColumnsMutation({ newOrder, projectId });
   }
   //------------------------------------------------- Handle events -------------------------------------------------
   const handleDraggStart = (event: DragStartEvent) => {
@@ -187,13 +192,8 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       // over another task in another column
     }
   }
-  const handleDraggMove = (event: DragMoveEvent) => {
-  const {active, over} = event;
-  if(active.id.toString().includes('Column') && over?.id.toString().includes('Column') && active.id !== over.id){
-    console.log('🤍active', active)
-  }}
   //------------------------------------------------------------------------------------
-  const columnsIds = columns?.map(column => column.order);
+  const columnsIds = columns?.sort((a, b) => a.order - b.order);
   console.log('🤍columnsIds', columnsIds)
   return (
     <div className="flex-1 overflow-y-scroll">
@@ -226,7 +226,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
                   column={activeColumn}
                   setIsModalNewTaskOpen={setIsModalNewTaskOpen}
                   addColumnMutation={addColumnMutation}
-                  tasks={activeColumn.task}
+                  tasks={tasks?.filter((task) => task.columnId === activeColumn.id)}
                 />
               )
             }

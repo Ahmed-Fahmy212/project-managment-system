@@ -30492,3 +30492,57 @@
   message: 'GET /tasks/1 304 4ms',
   timestamp: '2024-11-14T15:06:49.959Z'
 }
+{
+  meta: {
+    req: {
+      url: '/columns',
+      headers: {
+        'content-type': 'application/json',
+        'user-agent': 'PostmanRuntime/7.42.0',
+        accept: '*/*',
+        'cache-control': 'no-cache',
+        'postman-token': 'a7d3a91f-a9b3-4cd3-95c3-e446dcdb4fae',
+        host: 'localhost:8000',
+        'accept-encoding': 'gzip, deflate, br',
+        connection: 'keep-alive',
+        'content-length': '124'
+      },
+      method: 'PATCH',
+      httpVersion: '1.1',
+      originalUrl: '/columns',
+      query: {}
+    },
+    res: { statusCode: 404 },
+    responseTime: 361
+  },
+  level: 'info',
+  message: 'PATCH /columns 404 361ms',
+  timestamp: '2024-11-14T20:52:35.024Z'
+}
+{
+  meta: {
+    req: {
+      url: '/columns',
+      headers: {
+        'content-type': 'application/json',
+        'user-agent': 'PostmanRuntime/7.42.0',
+        accept: '*/*',
+        'cache-control': 'no-cache',
+        'postman-token': 'effb256f-75d4-4bd8-adb3-f5422f8b5b08',
+        host: 'localhost:8000',
+        'accept-encoding': 'gzip, deflate, br',
+        connection: 'keep-alive',
+        'content-length': '125'
+      },
+      method: 'PATCH',
+      httpVersion: '1.1',
+      originalUrl: '/columns',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 38
+  },
+  level: 'info',
+  message: 'PATCH /columns 200 38ms',
+  timestamp: '2024-11-14T20:54:14.368Z'
+}

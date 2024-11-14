@@ -53,8 +53,6 @@ export const TaskColumn = ({
             className={`rounded py-2 h-[720px] sm:py-4 xl:px-2 hover:cursor-default
            `} style={style}
            {...attributes}
-
-
         >
             <div className="flex mb-3 w-full">
                 <div
