@@ -18,6 +18,9 @@ export const TaskService = {
                 comments: true,
                 attachments: true,
             },
+            orderBy:{
+                order:'desc'
+            }
         });
         return tasks || [];
     },
@@ -58,55 +61,41 @@ export const TaskService = {
 
     updateTaskStatus: async (
         body: zod.infer<typeof UpdatedTaskData>
-    ): Promise<{ previouseTaskData: Task, targetTaskData: Task }> => {
-        const { targetTaskId, previouseTaskId, previouseTaskOrder, previousColumnId, targetColumnId } = body;
+    ): Promise<{ previouseTaskData: Task[], targetTaskData: Task[] }> => {
+        const { newOrderPrev, newOrderTarget, projectId, columnId } = body;
+        // there is better way handle this 
         const updatedTask = await prisma.$transaction(async (trx) => {
-            const targetTaskOrder = await trx.task.findUniqueOrThrow({
-                where: {
-                    id: targetTaskId,
-                },
-            });
-            if (targetColumnId) {
-                const updateTargetTaskColumn = await trx.task.update({
+            let tasksPrev: Task[] = [], tasksTarge: Task[] = [];
+            for (let i = 0; i < newOrderPrev.length; i++) {
+                const updatedPrevTask = await trx.task.update({
                     where: {
-                        id: targetTaskId,
-                        columnId: targetColumnId,
+                        id: newOrderPrev[i].id,
+                        projectId: projectId,
                     },
                     data: {
-                        columnId: previousColumnId,
-                        order: previouseTaskOrder,
+                        order: newOrderPrev[i].order,
+                        columnId: columnId,
                     },
                 });
-                const updatePreviouseTaskColumn = await trx.task.update({
-                    where: {
-                        id: previouseTaskId,
-                        columnId: previousColumnId,
-                    },
-                    data: {
-                        columnId: targetColumnId,
-                        order: targetTaskOrder.order,
-                    },
-                });
-                return { targetTaskData: updateTargetTaskColumn, previouseTaskData: updatePreviouseTaskColumn };
+                tasksPrev.push(updatedPrevTask);
+                if (columnId && newOrderTarget && newOrderTarget[i]) {
+                    const updatedTargetTask = await trx.task.update({
+                        where: {
+                            id: newOrderTarget[i].id,
+                            projectId: projectId,
+                        },
+                        data: {
+                            order: newOrderTarget[i].order,
+                            columnId: columnId,
+                        },
+                    });
+                    tasksTarge.push(updatedTargetTask);
+                }
             }
-            const targetTaskData = await trx.task.update({
-                where: {
-                    id: targetTaskId,
-                },
-                data: {
-                    order: previouseTaskOrder,
+            const orderedTasksPrev = tasksPrev.sort((a, b) => a.order - b.order);
+            const orderedTasksTarget = tasksTarge.sort((a, b) => a.order - b.order);
+            return { previouseTaskData: orderedTasksPrev || [], targetTaskData: orderedTasksTarget || [] };
 
-                },
-            })
-            const previouseTaskData = await trx.task.update({
-                where: {
-                    id: previouseTaskId,
-                },
-                data: {
-                    order: targetTaskOrder.order,
-                },
-            })
-            return { targetTaskData, previouseTaskData };
         }
         )
         return updatedTask;
