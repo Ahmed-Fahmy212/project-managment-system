@@ -41,8 +41,8 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       queryClient.setQueryData(['columns', projectId], (oldData: Column[] | undefined) => {
         if (!oldData) return oldData;
 
-        const activeIndex = oldData.findIndex(col => col.id === newData?.previousColData.id);
-        const targetIndex = oldData.findIndex(col => col.id === newData?.TargetColData.id);
+        const activeIndex = oldData.findIndex(col => col.order === newData?.previousColData.order);
+        const targetIndex = oldData.findIndex(col => col.order === newData?.TargetColData.order);
 
         if (activeIndex === -1 || targetIndex === -1) return oldData;
         return arrayMove(oldData, activeIndex, targetIndex);

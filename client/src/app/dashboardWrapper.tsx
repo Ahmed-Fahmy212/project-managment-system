@@ -6,7 +6,7 @@ import Sidebar from "../components/Sidebar";
 import StoreProvider, { useAppSelector } from "./redux";
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 /////////////////////////////////////////////////////////////////////////////
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
@@ -50,6 +50,7 @@ const dashboardWrapper = ({ children }: { children: React.ReactNode }) => {
 
         <DashboardLayout> {children}</DashboardLayout>
 
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </StoreProvider>
   );

@@ -25,7 +25,9 @@ export const getColumns = async (projectId: number): Promise<ColumnWithTasks[]> 
     try {
         const data = await axios.get(`http://localhost:8000/columns/${Number(projectId)}`);
         console.log("💛💛data", data.data)
-        return data.data.data;
+        const sortedColumns = data.data.data.sort((a: ColumnWithTasks, b: ColumnWithTasks) => a.order - b.order);
+
+        return sortedColumns;
     } catch (error) {
         toast.error("Failed to fetch columns");
         throw error;
