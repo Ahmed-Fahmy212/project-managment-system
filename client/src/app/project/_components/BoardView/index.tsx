@@ -1,5 +1,5 @@
 'use client'
-import { Column, Task as TaskType } from "@/state/api";
+import { Column, Task as TaskType, Task as TaskType } from "@/state/api";
 import toast from "react-hot-toast";
 import { DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent } from '@dnd-kit/core'
 import { TaskColumn } from './taskColumn'
@@ -47,6 +47,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     queryKey: ['tasks', projectId],
     queryFn: () => getTasks(projectId),
   })
+  //------------------------------------------------------------------------------------
   //------------------------------------------------------------------------------------
   const queryClient = useQueryClient()
   const { mutateAsync: addColumnMutation } = useMutation({
@@ -120,6 +121,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     if (!over) return;
 
     const activeColumnId = active.id as number;
+    const activeColumnOrder = active.data.current?.column?.order as number;
     const activeColumnOrder = active.data.current?.column?.order as number;
     const overColumnId = over.id as number;
 
