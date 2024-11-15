@@ -135,17 +135,14 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
 
     const isActiveTask = active.data.current?.type === 'Task';
     const isOverTask = over.data.current?.type === 'Task';
-    console.log('🤍isActiveTask', isActiveTask, isOverTask)
+    // console.log('🤍isActiveTask', isActiveTask, isOverTask)
     if (isActiveTask && isOverTask && tasks) {
       const activeTaskIndex = tasks.findIndex(task => task.id === activeTaskId);
       const overTaskIndex = tasks.findIndex(task => task.id === overTaskId);
 
       if (activeTaskIndex === -1 || overTaskIndex === -1) return;
 
-      console.log(`Moving task ${activeTaskId} from index ${activeTaskIndex} to index ${overTaskIndex}`);
-      //validate this
-      // const overTask = tasks[overTaskIndex];
-      const overTask = tasks.find(task => task.id === overTaskId);
+      const overTask = tasks[overTaskIndex];
       if (activeTask?.columnId === overTask?.columnId) {
         const newOrderTasks = swapOrderTasks(tasks, activeTaskIndex, overTaskIndex);
         await updateTasksMutation({
@@ -176,7 +173,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
             {columns?.map((column: Column) => {
               // double check is tasks ordered in each column or not
               const tasksArray = tasks?.filter((task: TaskType) => task.columnId === column?.id);
-              console.log('💛💛tasksArray', tasksArray)
+              // console.log('💛💛tasksArray', tasksArray)
               return (
                 <TaskColumn
                   key={column.id}
