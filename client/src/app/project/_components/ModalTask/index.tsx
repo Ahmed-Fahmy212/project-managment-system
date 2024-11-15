@@ -1,6 +1,7 @@
 import Modal from "@/components/Modal";
-import { Priority, Status, Task } from "@/state/api";
-import { createTask, TaskDataBody } from "@/state/tasks.api";
+import { Priority, Status, Task, } from "@/state/api";
+import useCreateTaskMutation from "@/api/tasks.api";
+import { createTask, TaskDataBody } from "@/api/tasks.api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
@@ -35,16 +36,9 @@ const ModalNewTask = ({ isOpen, onClose, id = null, projectId }: Props) => {
         const formattedStartDate = startDate ? new Date(startDate).toISOString() : new Date().toISOString();
         const formattedEndDate = dueDate ? new Date(dueDate).toISOString() : undefined;
 
-        const queryClient = useQueryClient()
-        const { mutateAsync: createTaskMutation, error, isPending } = useMutation({
-            mutationFn: (TaskBody: TaskDataBody) => createTask(TaskBody),
-            onSuccess: (newData) => {
-                queryClient.setQueryData(['tasks', projectId], (oldData: Task[] | undefined) => {
-                    return oldData ? [...oldData, newData] : [newData];
-                });
-            }
-        })
-        await createTaskMutation({
+        const { mutateAsync: createTask, isError } = useCreateTaskMutation(projectId);
+
+        await createTask({
             title,
             projectId: Number(projectId),
             authorUserId: authorUserId,
@@ -57,8 +51,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null, projectId }: Props) => {
             assignedUserId: assignedUserId ? Number(assignedUserId) : undefined,
             columnId: columnId !== undefined ? columnId : 1
         });
-
-        if (!isPending && !error) {
+        if (isError) {
             setIsPending(false)
             toast.success("Task created successfully.");
             onClose();
@@ -75,6 +68,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null, projectId }: Props) => {
             setAssignedUserId("");
             setStartDate("");
         }
+
     };
 
     const isFormValid = () => {
@@ -196,9 +190,10 @@ const ModalNewTask = ({ isOpen, onClose, id = null, projectId }: Props) => {
                     type="submit"
                     className={`focus-offset-2 mt-4 flex w-full justify-center rounded-md border border-transparent bg-blue-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 ${!isFormValid() || isPending ? "cursor-not-allowed opacity-50" : ""
                         }`}
-                    disabled={!isFormValid() || isPending}
+                // disabled={!isFormValid() }
                 >
-                    {isPending ? "Creating..." : "Create Task"}
+                    {/* {isPending ? "Creating..." : "Create Task"} */}
+                    Create Task
                 </button>
             </form>
         </Modal>

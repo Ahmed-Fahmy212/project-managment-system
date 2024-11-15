@@ -28,7 +28,7 @@ const Project = ({ params }: Props) => {
                 <Board id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen}  />
             )
             }
-            {activeTab === "List" && (
+            {/* {activeTab === "List" && (
                 <ListView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
             )
             }
@@ -36,10 +36,9 @@ const Project = ({ params }: Props) => {
                 <Timeline id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
             ) */}
             {/* } */}
-            {activeTab === "Table" && (
-                <TaskTable id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
-            )
-            }
+            {/* {activeTab === "Table" && ( */}
+                {/* // <TaskTable id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} /> */}
+
         </div>
     )
 }

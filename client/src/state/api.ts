@@ -134,6 +134,6 @@ export const api = createApi({
         })
     }),
 })
-
-export const { useGetProjectsQuery, useCreateProjectMutation, useCreateTaskMutation, useGetTasksQuery, useUpdateTaskMutation } = api
+// removed and putted into react query 
+export const { useGetProjectsQuery, useCreateProjectMutation, useCreateTaskMutation, useUpdateTaskMutation } = api
 //========================================================== React Query ====================================================

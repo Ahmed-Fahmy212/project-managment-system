@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Task } from "./api";
+import { Task } from "../state/api";
 import toast from "react-hot-toast";
 
 
@@ -7,7 +7,9 @@ import toast from "react-hot-toast";
 export const getTasks = async (projectId: number): Promise<Task[]> => {
     try {
         const data = await axios.get(`http://localhost:8000/tasks/${projectId}`);
-        return data.data.data;
+        const sortedTasks = data.data.data.sort((a: Task, b: Task) => a.order - b.order);
+        console.log("🤍sortedTasks", sortedTasks)
+        return sortedTasks;
     } catch (error) {
         toast.error("Failed to fetch tasks");
         throw error;
@@ -41,21 +43,43 @@ export const createTask = async (task: TaskDataBody): Promise<Task> => {
 }
 //------------------------------------------------------------------------------------
 export type UpdateTasksData = {
-    title?: string;
-    targetTaskId: number;
-    previouseTaskId: number;
-    previouseTaskOrder: number;
-
-    targetColumnId?: number;
-    previousColumnId?: number;
+    columnId?: number;
+    projectId: number;
+    newOrder: { id: number; order: number }[];
+    activeTaskId?: number;
 } & Partial<TaskDataBody>
 
-export const updateTasks = async (updateData: UpdateTasksData): Promise<{ previouseTaskData: Task, targetTaskData: Task }> => {
+export const updateTasks = async ( updateData: UpdateTasksData): Promise<{ previouseTaskData: Task[], targetTaskData: Task[] }> => {
     try {
+        console.log("🤍updateData", updateData)
         const data = await axios.patch(`http://localhost:8000/tasks`, updateData);
+        // should sort it ?
         return data.data.data;
     } catch (error) {
         toast.error("Failed to update tasks");
         throw error;
     }
 }
+
+
+
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+const useCreateTaskMutationR = (projectId: number) => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (TaskBody: TaskDataBody) => createTask(TaskBody),
+        onSuccess: (newData) => {
+            queryClient.setQueryData(['tasks', projectId], (oldData: Task[] | undefined) => {
+                return oldData ? [...oldData, newData] : [newData];
+
+            });
+        },
+        onError: (error) => {
+            toast.error("Failed to create task");
+            console.error(error);
+        },
+    });
+};
+
+export default useCreateTaskMutationR;

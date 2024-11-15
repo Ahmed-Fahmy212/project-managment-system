@@ -11,13 +11,13 @@ type TaskProps = {
 
 
 export const Task = ({ task }: TaskProps) => {
-    // const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
-    //     id: task.id,
-    //     data: {
-    //         type: "Task",
-    //         task: task
-    //     }
-    // });
+    const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
+        id: task.id,
+        data: {
+            type: "Task",
+            task: task
+        }
+    });
     const taskTagsSplit = task.tags ? task.tags.split(",") : [];
 
     const formattedStartDate = task.startDate
@@ -45,19 +45,20 @@ export const Task = ({ task }: TaskProps) => {
             {priority}
         </div>
     );
-    // const style = {
-    //     transition: transition,
-    //     transform: CSS.Transform.toString(transform),
-    // }
-    // if (isDragging) {
-    //     return (<div className="border h-[172px] border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} />)
-    // }            // ref={setNodeRef}
+    const style = {
+        transition: transition,
+        transform: CSS.Transform.toString(transform),
+    }
+    if (isDragging) {
+        console.log("...Dragging")
+        return (<div className="border h-[172px] border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} />)
+    }
 
     return (
-        <div
-            // {...attributes}
-            // {...listeners}
-            // style={style}
+        <div ref={setNodeRef}
+            style={style}
+            {...attributes}
+            {...listeners}
             className={`mb-4 rounded-md bg-white shadow dark:bg-dark-secondary dark:hover:bg-transparent duration-100 flex flex-col hover:bg-gray-100 `}
         >
 

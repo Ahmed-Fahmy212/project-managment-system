@@ -18,6 +18,9 @@ export const TaskService = {
                 comments: true,
                 attachments: true,
             },
+            orderBy:{
+                order:'desc'
+            }
         });
         return tasks || [];
     },
@@ -54,64 +57,52 @@ export const TaskService = {
             throw new NotFoundException("Task didn`t created");
         }
         return newTask;
-    },
+        },
 
-    updateTaskStatus: async (
+        updateTaskStatus: async (
         body: zod.infer<typeof UpdatedTaskData>
-    ): Promise<{ previouseTaskData: Task, targetTaskData: Task }> => {
-        const { targetTaskId, previouseTaskId, previouseTaskOrder, previousColumnId, targetColumnId } = body;
-        const updatedTask = await prisma.$transaction(async (trx) => {
-            const targetTaskOrder = await trx.task.findUniqueOrThrow({
+        ): Promise<{ previouseTaskData: Task[] }> => {
+        const { newOrder, projectId, columnId ,activeTaskId} = body;
+        try {
+            const updatedTask = await prisma.$transaction(async (trx) => {
+            let tasksPrev: Task[] = [];
+            for (let i = 0; i < newOrder.length; i++) {
+                // will use index better
+                if (newOrder[i].id === activeTaskId) {
+                    const updatedTask = await trx.task.update({
+                        where: {
+                            id: newOrder[i].id,
+                            projectId: projectId,
+                        },
+                        data: {
+                            order: newOrder[i].order,
+                            columnId: columnId,
+                        },
+                    });
+                    tasksPrev.push(updatedTask);
+                    continue;
+                }
+                const updatedPrevTask = await trx.task.update({
                 where: {
-                    id: targetTaskId,
+                    id: newOrder[i].id,
+                    projectId: projectId,
                 },
-            });
-            if (targetColumnId) {
-                const updateTargetTaskColumn = await trx.task.update({
-                    where: {
-                        id: targetTaskId,
-                        columnId: targetColumnId,
-                    },
-                    data: {
-                        columnId: previousColumnId,
-                        order: previouseTaskOrder,
-                    },
+                data: {
+                    order: newOrder[i].order,
+                    // columnId: columnId,
+                },
                 });
-                const updatePreviouseTaskColumn = await trx.task.update({
-                    where: {
-                        id: previouseTaskId,
-                        columnId: previousColumnId,
-                    },
-                    data: {
-                        columnId: targetColumnId,
-                        order: targetTaskOrder.order,
-                    },
-                });
-                return { targetTaskData: updateTargetTaskColumn, previouseTaskData: updatePreviouseTaskColumn };
+                tasksPrev.push(updatedPrevTask);
             }
-            const targetTaskData = await trx.task.update({
-                where: {
-                    id: targetTaskId,
-                },
-                data: {
-                    order: previouseTaskOrder,
-
-                },
-            })
-            const previouseTaskData = await trx.task.update({
-                where: {
-                    id: previouseTaskId,
-                },
-                data: {
-                    order: targetTaskOrder.order,
-                },
-            })
-            return { targetTaskData, previouseTaskData };
+            const orderedTasksPrev = tasksPrev.sort((a, b) => a.order - b.order);
+            return { previouseTaskData: orderedTasksPrev || [] };
+            });
+            return updatedTask;
+        } catch (error) {
+            console.error("Error updating task status:", error);
+            throw new Error("Failed to update task status");
         }
-        )
-        return updatedTask;
-
-    }
+        }
     // getUserTasks: async (
     //     req: Request,
     //     res: Response
