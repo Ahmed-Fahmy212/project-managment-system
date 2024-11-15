@@ -38,7 +38,7 @@ export const TaskColumn = ({
         }
     });
 
-    const taskIds = tasks.map((task) => task.id);
+    const taskIds = tasks;
     // console.log("🤍array taskIds", taskIds)
     const style = {
         transition: transition,
@@ -123,11 +123,11 @@ export const TaskColumn = ({
             </div>
             {/*  O(2n) = O(n) ------------------------- O(nlog(n))*/}
             {
-                // <SortableContext items={taskIds}>{
+                <SortableContext items={taskIds}>{
                 tasks.map((task) => (
                     <Task task={task} />
                 ))
-                //} </SortableContext>
+                } </SortableContext>
             }
             <button
                 onClick={() => setIsModalNewTaskOpen(true)}
