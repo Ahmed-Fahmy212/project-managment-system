@@ -38,7 +38,7 @@ export const ColumnService = {
         const { projectId, newOrder: columns } = data;
         const updatedColumns = await prisma.$transaction(async (trx) => {
             // will fuck pools but will handle it later in sql
-            // and remove this and make update only for changed columns d
+            // return all sorted 
             return Promise.all(
                 columns.map(({ id, order }) =>
                     trx.cloumn.update({
@@ -48,7 +48,7 @@ export const ColumnService = {
                 )
             );
         });
-    
+        
         return updatedColumns ;
     },
 

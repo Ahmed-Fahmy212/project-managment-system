@@ -19,11 +19,8 @@ export const TaskDataSchema = z.object({
 export const UpdatedTaskData = TaskDataSchema.partial().extend({
     projectId: z.number(),
     columnId: z.number().optional(),
-    newOrderTarget: z.array(z.object({
-        id: z.number(),
-        order: z.number(),
-    })).optional(),
-    newOrderPrev: z.array(z.object({
+    activeTaskId: z.number().optional(),
+    newOrder: z.array(z.object({
         id: z.number(),
         order: z.number(),
     })),
