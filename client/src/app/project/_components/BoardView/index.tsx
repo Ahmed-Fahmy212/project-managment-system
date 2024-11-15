@@ -131,7 +131,6 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     const activeTaskId = active.id as number;
     const overTaskId = over.id as number;
 
-    // if (!activeTaskId) return;
     if (activeTaskId === overTaskId) return;
 
     const isActiveTask = active.data.current?.type === 'Task';
@@ -160,6 +159,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   }
   //------------------------------------------------------------------------------------
   const columnsIds = columns?.sort((a, b) => a.order - b.order);
+
   const tasksIds = tasks?.sort((a, b) => a.order - b.order);
   // console.log('🤍columnsIds', columnsIds)
   return (
@@ -173,26 +173,32 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       >
         <div className="gap-4 grid grid-cols-footer pl-4">
           <SortableContext items={columnsIds || []} >
-            {columns?.map((column: Column) => (
-              <TaskColumn
-                column={column}
-                setIsModalNewTaskOpen={setIsModalNewTaskOpen}
-                addColumnMutation={addColumnMutation}
-                tasks={tasks?.filter((task) => task.columnId === column.id)}
-              />
-            ))
-            }
+            {columns?.map((column: Column) => {
+              // double check is tasks ordered in each column or not
+              const tasksArray = tasks?.filter((task: TaskType) => task.columnId === column?.id);
+              console.log('💛💛tasksArray', tasksArray)
+              return (
+                <TaskColumn
+                  key={column.id}
+                  column={column}
+                  setIsModalNewTaskOpen={setIsModalNewTaskOpen}
+                  addColumnMutation={addColumnMutation}
+                  tasks={tasksArray}
+                />
+              );
+            })}
             <ColumnForm projectId={projectId} AddColumnMutation={addColumnMutation} />
           </SortableContext>
 
           {createPortal(
             <DragOverlay>{
               activeColumn && (
+                
                 <TaskColumn
                   column={activeColumn}
                   setIsModalNewTaskOpen={setIsModalNewTaskOpen}
                   addColumnMutation={addColumnMutation}
-                  tasks={tasksIds}
+                tasks={activeColumn.task?.sort((a, b) => a.order - b.order)}
                 />
               )
             }

@@ -45,13 +45,14 @@ export const TaskColumn = ({
         transform: CSS.Transform.toString(transform),
     }
     if (isDragging) {
-        return (<div className="border pt-4 border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} ></div>)
+        return (<div className="border pt-4 border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} />)
     }
     return (
         <div
             ref={setNodeRef}
             className={`rounded py-2 h-[720px] sm:py-4 xl:px-2 hover:cursor-default
-           `} style={style}
+           `}
+            style={style}
            {...attributes}
         >
             <div className="flex mb-3 w-full">
