@@ -46,9 +46,9 @@ export const Task = ({ task }: TaskProps) => {
         </div>
     );
     const style = {
+        transition: transition,
         transform: CSS.Transform.toString(transform),
-        transition: transition ? `transform 0.3s ease` : undefined,
-    };
+    }
     if (isDragging) {
         console.log("...Dragging")
         return (<div className="border h-[172px] border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} />)

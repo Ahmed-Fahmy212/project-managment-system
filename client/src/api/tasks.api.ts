@@ -45,12 +45,13 @@ export const createTask = async (task: TaskDataBody): Promise<Task> => {
 export type UpdateTasksData = {
     columnId?: number;
     projectId: number;
-    newOrderPrev: { id: number; order: number }[];
-    newOrderTarget?: { id: number; order: number }[];
+    newOrder: { id: number; order: number }[];
+    activeTaskId?: number;
 } & Partial<TaskDataBody>
 
-export const updateTasks = async (updateData: UpdateTasksData): Promise<{ previouseTaskData: Task[], targetTaskData: Task[] }> => {
+export const updateTasks = async ( updateData: UpdateTasksData): Promise<{ previouseTaskData: Task[], targetTaskData: Task[] }> => {
     try {
+        console.log("🤍updateData", updateData)
         const data = await axios.patch(`http://localhost:8000/tasks`, updateData);
         // should sort it ?
         return data.data.data;

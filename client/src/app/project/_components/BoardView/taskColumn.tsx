@@ -38,10 +38,10 @@ export const TaskColumn = ({
         }
     });
 
-    const taskIds = tasks;
+    const taskIds = tasks.sort((a, b) => a.order - b.order)
     // console.log("🤍array taskIds", taskIds)
     const style = {
-        transition: transition,
+        transition:'transform 0.2s ease',
         transform: CSS.Transform.toString(transform),
     }
     if (isDragging) {
