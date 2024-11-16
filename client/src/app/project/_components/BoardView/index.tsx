@@ -256,10 +256,10 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
 
       const overTask = tasks[overTaskIndex];
       if (activeTask?.columnId === overTask?.columnId) {
-        reorderedTasksRef.current.orderIds = arrayMove(tasks, activeTaskIndex, overTaskIndex);
+        reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overTaskIndex);
       }
       if (activeTask?.columnId !== overTask.columnId) {
-        reorderedTasksRef.current.orderIds = arrayMove(tasks, activeTaskIndex, overTaskIndex);
+        reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overTaskIndex);
         reorderedTasksRef.current.columnId = overTask.columnId
         reorderedTasksRef.current.activeTaskId = activeTaskId;
 
