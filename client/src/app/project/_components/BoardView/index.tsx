@@ -55,10 +55,67 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
 
   //------------------------------------------------------------------------------------
   const { data: tasks, isPending: isPendingTasks, error: tasksError, isFetching: isFetchingTasks } = useGetTasksQuery(projectId)
-  console.log('🤍tasks1', tasks)
   const queryClient = useQueryClient();
-  const { mutateAsync: addColumnMutation } = useAddColumnMutation(projectId)
-  const { isPending: isPendingUpdate, mutateAsync: updateColumnsMutation, isError: isColumnsError } = useUpdateColumnsMutation(projectId);
+  const { mutateAsync: addColumnMutation } = useMutation({
+    mutationFn: (newColumn: ColumnBody) => addColumn(newColumn),
+    onMutate: async (newColumn) => {
+      await queryClient.cancelQueries({ queryKey: ['columns', projectId] });
+
+      const previousColumns = queryClient.getQueryData(['columns', projectId]);
+      const newColumnWithId = { ...newColumn, id: Date.now() }; // Temporary ID for optimistic update
+
+      queryClient.setQueryData(['columns', projectId], (oldData: Column[] | undefined) => {
+        return oldData ? [...oldData, newColumnWithId] : [newColumnWithId];
+      });
+
+      return { previousColumns };
+    },
+    onError: (error, _, context) => {
+      queryClient.setQueryData(['columns', projectId], context?.previousColumns);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['columns', projectId] });
+    }
+    // ,
+    // onSuccess: (newColumn) => {
+    //   queryClient.setQueryData(['columns', projectId], (oldData: Column[] | undefined) => {
+    //     return oldData ? [...oldData.filter(column => column.id !== newColumn.id), newColumn] : [newColumn];
+    //   });
+    // }
+  });
+
+  const { isPending: isPendingUpdate, mutateAsync: updateColumnsMutation, isError: isColumnsError } = useMutation({
+    mutationFn: (newOrderColumns: { projectId: number, newOrder: orderID[] }) => updateColumns(newOrderColumns),
+    onMutate: async (newOrderColumns) => {
+      await queryClient.cancelQueries({ queryKey: ['columns', projectId] });
+
+      const previousColumns = queryClient.getQueryData(['columns', projectId]);
+      let updatedColumns
+      queryClient.setQueryData(['columns', projectId], (oldData: Column[] | undefined) => {
+        if (!oldData) return oldData;
+
+        updatedColumns = oldData
+          .map((column) => {
+            const updatedColumn = newOrderColumns.newOrder.find((newColumn) => newColumn.id === column.id);
+            return updatedColumn ? { ...column, ...updatedColumn } : column;
+          })
+          .sort((a, b) => (a.order || 0) - (b.order || 0));
+
+        return updatedColumns;
+      });
+
+      setActiveColumn(null);
+      setActiveTask(null);
+      return { previousColumns };
+    },
+    onError: (error, _, context) => {
+      queryClient.setQueryData(['columns', projectId], context?.previousColumns);
+    },
+    onSettled: (_, __, ___, context) => {
+      queryClient.invalidateQueries({ queryKey: ['columns', projectId] });
+    },
+  });
+
   const { mutateAsync: updateTasksMutation, error: tasksUpdateError, isPending: isPendingTasksUpdate } = useMutation({
     mutationFn: (tasksUpdate: UpdateTasksData) => updateTasks(tasksUpdate),
     onMutate: async (newOrderTasks) => {
@@ -77,8 +134,10 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
           const activeTask = updatedTasks.find(task => task.id === reorderedTasksRef.current.activeTaskId);
           if (activeTask) {
             activeTask.columnId = reorderedTasksRef.current.columnId;
+            setActiveTask({ ...activeTask });
           }
         }
+        
 
         return updatedTasks;
       });
@@ -88,6 +147,9 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     onError: (error, _, context) => {
       queryClient.setQueryData(['tasks', projectId], context?.previousTasks);
     },
+    onSettled: (_, __, ___, context) => {
+      queryClient.invalidateQueries({ queryKey: ['tasks', projectId] });
+    }
   });
   //------------------------------------------------------------------------------------
   if (!tasks) return <div>Loading...</div>;
@@ -146,6 +208,10 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     if (!columns) return;
     if (active.data.current?.type === 'Column' && over.data.current?.type === 'Column') {
       const newOrder = reorderColumns(columns, activeId, overId);
+      console.log('🤍newOrder', newOrder)
+      console.log('🤍reorderedColumnsRef.current.orderIds', reorderedColumnsRef.current.orderIds)
+      console.log('🤍🤍activeColumn', activeColumn)
+      console.log('🤍🤍activeTask', activeTask)
       reorderedColumnsRef.current = { orderIds: newOrder };
       await updateColumnsMutation({ projectId, newOrder });
 
@@ -161,14 +227,15 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   }
   //------------------------------------------------------------------------------------
   const handleDraggStart = (event: DragStartEvent) => {
+    console.log('🤍🤍🤍event.active.data.current?.type', event.active.data.current?.type)
+    if (event.active.data.current?.type === 'Task') {
+      console.log('🤍event.active.data.current?.task', event.active.data.current?.task)
+      setActiveTask(event.active.data.current.task)
+      return;
+    }
     if (event.active.data.current?.type === 'Column') {
       console.log('🤍event.active.data.current.column', event.active.data.current.column)
       setActiveColumn(event.active.data.current.column);
-      return;
-    }
-    if (event.active.data.current?.type === 'Task') {
-      console.log('🤍event.active.data.current?.type', event.active.data.current?.type)
-      setActiveTask(event.active.data.current.task)
       return;
     }
   }
@@ -202,8 +269,6 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
           columnId: reorderedTasksRef.current.columnId,
           activeTaskId: reorderedTasksRef.current.activeTaskId
         });
-        setActiveColumn(null);
-        setActiveTask(null);
       }
 
     }
@@ -212,7 +277,8 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
 
   //------------------------------------------------------------------------------------
   // const columnsIds = columns?.sort((a, b) => a.order - b.order);
-  const columnsIds = columns
+  const columnsIds = columns || []
+  const tasksIds = activeColumn?.task?.sort((a, b) => a.order - b.order) || []
   // console.log('🤍columnsIds', columnsIds)
   return (
     <div className="flex-1 overflow-y-scroll">
@@ -224,20 +290,18 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
         collisionDetection={closestCenter}
       >
         <div className="gap-4 grid grid-cols-footer pl-4">
-          <SortableContext items={columnsIds || []} >
+          {/* //case want update tasks just rerender --- cashe + com */}
+          <SortableContext items={columnsIds} >
             {columns?.map((column: Column) => {
-              // double check is tasks ordered in each column or not
-              console.log('🤍tasks2', tasks, Array.isArray(tasks));
-
-              const tasksArray = tasks.filter((task: TaskType) => task.columnId === column?.id);
-              // console.log('💛💛tasksArray', tasksArray)
+              // handled in more faster without conflict 
+              const crazyTask = tasks.filter((task: TaskType) => task.columnId === column?.id).sort((a, b) => a.order - b.order);
               return (
                 <TaskColumn
                   key={column.id}
                   column={column}
                   setIsModalNewTaskOpen={setIsModalNewTaskOpen}
                   addColumnMutation={addColumnMutation}
-                  tasks={tasksArray}
+                  tasks={crazyTask}
                 />
               );
             })}
@@ -252,7 +316,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
                   column={activeColumn}
                   setIsModalNewTaskOpen={setIsModalNewTaskOpen}
                   addColumnMutation={addColumnMutation}
-                  // tasks={tasks}
+                  tasks={tasksIds}
                 />
               )
             }

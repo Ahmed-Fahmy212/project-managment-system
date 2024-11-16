@@ -38,10 +38,10 @@ export const TaskColumn = ({
         }
     });
 
-    const taskIds = tasks.sort((a, b) => a.order - b.order)
-    // console.log("🤍array taskIds", taskIds)
+    const taskIds = tasks || []//.sort((a, b) => a.order - b.order)
+    // console.log("🤍taskIds", taskIds)
     const style = {
-        transition:'transform 0.2s ease',
+        transition: 'transform 0.2s ease',
         transform: CSS.Transform.toString(transform),
     }
     if (isDragging) {
@@ -50,10 +50,9 @@ export const TaskColumn = ({
     return (
         <div
             ref={setNodeRef}
-            className={`rounded py-2 h-[720px] sm:py-4 xl:px-2 hover:cursor-default
-           `}
+            className={`rounded py-2 h-[720px] sm:py-4 xl:px-2 hover:cursor-default`}
             style={style}
-           {...attributes}
+            {...attributes}
         >
             <div className="flex mb-3 w-full">
                 <div
@@ -65,9 +64,9 @@ export const TaskColumn = ({
                     {...listeners}
                 >
                     <GripVertical />
-                    </div>
+                </div>
                 <div className="bg-white dark:bg-dark-secondary flex items-center justify-between pl-2 pr-5 py-4 rounded-e-lg w-full"
-                  
+
                 >
                     <h3 className="dark:text-white flex font-semibold items-center text-base">
                         {title}{" "}
@@ -122,12 +121,11 @@ export const TaskColumn = ({
                     </div>
                 </div>
             </div>
-            {/*  O(2n) = O(n) ------------------------- O(nlog(n))*/}
-            {
+            { taskIds.length > 0 &&
                 <SortableContext items={taskIds}>{
-                tasks.map((task) => (
-                    <Task task={task} />
-                ))
+                    taskIds.map((task) => (
+                        <Task task={task} />
+                    ))
                 } </SortableContext>
             }
             <button
