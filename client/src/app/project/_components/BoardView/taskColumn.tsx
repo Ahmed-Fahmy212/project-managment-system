@@ -41,7 +41,7 @@ export const TaskColumn = ({
     const taskIds = tasks || []//.sort((a, b) => a.order - b.order)
     // console.log("🤍taskIds", taskIds)
     const style = {
-        transition: 'transform 0.2s ease',
+        transition: transition,
         transform: CSS.Transform.toString(transform),
     }
     if (isDragging) {
@@ -121,8 +121,9 @@ export const TaskColumn = ({
                     </div>
                 </div>
             </div>
-            { taskIds.length > 0 &&
-                <SortableContext items={taskIds}>{
+            {taskIds.length > 0 &&
+                <SortableContext items={taskIds}>
+                    {
                     taskIds.map((task) => (
                         <Task task={task} />
                     ))
