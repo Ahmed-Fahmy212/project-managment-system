@@ -16,29 +16,25 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { Status, Task } from "@/state/api";
+import { Column, Status, Task } from "@/state/api";
 import { useAppSelector } from "@/app/redux";
+import { useGetColumnsQuery } from "@/api/reactQuery/columnQuery";
 interface DataTableProps {
     data: Task[]
     columns: ColumnDef<any>[],
+    columnData: Column[]
 }
 export function DataTable({
     columns,
-    data
+    data,
+    columnData
 }: DataTableProps) {
-    const statusColor = {
-        "To Do": "#164e63",
-        "Work In Progress": "#059669",
-        "Under Review": "#D97706",
-        "Completed": "#000000",
-    };
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel()
     })
-
     // const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
 
     return (
@@ -73,14 +69,14 @@ export function DataTable({
                                                 <span className="text-nowrap">
                                                     {data[index].title}
                                                 </span>
-                                                )
+                                            )
                                                 : cell.column.id === 'assignee'
                                                     ? data[index].assignee?.username :
                                                     cell.column.id === 'status'
                                                         ?
                                                         <span
                                                             className={`px-3 py-2 rounded-full font-semibold justify-center content-center text-white text-sm text-nowrap`}
-                                                            style={{ backgroundColor: statusColor[data[index].status as Status] }}
+                                                            style={{ backgroundColor: columnData[data[index].columnId].color }}
                                                         >
                                                             {data[index].status}
                                                         </span>
