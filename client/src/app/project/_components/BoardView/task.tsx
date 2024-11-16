@@ -11,6 +11,7 @@ type TaskProps = {
 
 
 export const Task = ({ task }: TaskProps) => {
+    // console.log("🤍task", task.id, task.title,task.columnId)
     const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
         id: task.id,
         data: {
@@ -50,7 +51,8 @@ export const Task = ({ task }: TaskProps) => {
         transform: CSS.Transform.toString(transform),
     }
     if (isDragging) {
-        console.log("...Dragging")
+        // console.log("...Dragging")
+
         return (<div className="border h-[172px] border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} />)
     }
 
