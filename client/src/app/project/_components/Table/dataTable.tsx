@@ -35,7 +35,6 @@ export function DataTable({
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel()
     })
-    // const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
 
     return (
         <div className="border overflow-x-auto p-4 rounded dark:text-white">
@@ -76,9 +75,9 @@ export function DataTable({
                                                         ?
                                                         <span
                                                             className={`px-3 py-2 rounded-full font-semibold justify-center content-center text-white text-sm text-nowrap`}
-                                                            style={{ backgroundColor: columnData[data[index].columnId].color }}
+                                                            style={{ backgroundColor: columnData.find(col => col.id === data[index].columnId)?.color }}
                                                         >
-                                                            {data[index].status}
+                                                            {columnData.find(col => col.id === data[index].columnId)?.title}
                                                         </span>
 
                                                         : flexRender(cell.column.columnDef.cell, cell.getContext())
