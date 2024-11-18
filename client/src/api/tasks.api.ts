@@ -49,11 +49,10 @@ export type UpdateTasksData = {
     activeTaskId?: number;
 } & Partial<TaskDataBody>
 
-export const updateTasks = async ( updateData: UpdateTasksData): Promise<{ previouseTaskData: Task[], targetTaskData: Task[] }> => {
+export const updateTasks = async ( updateData: UpdateTasksData): Promise<{ newOrderedTasks: Task[]}> => {
     try {
         console.log("🤍updateData", updateData)
         const data = await axios.patch(`http://localhost:8000/tasks`, updateData);
-        // should sort it ?
         return data.data.data;
     } catch (error) {
         toast.error("Failed to update tasks");

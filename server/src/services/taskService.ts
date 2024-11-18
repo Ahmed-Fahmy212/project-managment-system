@@ -18,8 +18,8 @@ export const TaskService = {
                 comments: true,
                 attachments: true,
             },
-            orderBy:{
-                order:'desc'
+            orderBy: {
+                order: 'desc'
             }
         });
         return tasks || [];
@@ -57,52 +57,54 @@ export const TaskService = {
             throw new NotFoundException("Task didn`t created");
         }
         return newTask;
-        },
+    },
 
-        updateTaskStatus: async (
+    updateTaskStatus: async (
         body: zod.infer<typeof UpdatedTaskData>
-        ): Promise<{ previouseTaskData: Task[] }> => {
-        const { newOrder, projectId, columnId ,activeTaskId} = body;
+    ): Promise<{ newOrderedTasks: Task[] }> => {
+        const { newOrder, projectId, columnId, activeTaskId } = body;
         try {
+            // recieve array of tasks with new order
+            //ex- [{id: 1, order: 1}, {id: 2, order: 2}, {id: 3, order: 3}] // and in case column will be same array + column id 
+            // find the active task and update its columnId
             const updatedTask = await prisma.$transaction(async (trx) => {
-            let tasksPrev: Task[] = [];
-            for (let i = 0; i < newOrder.length; i++) {
-                // will use index better
-                if (newOrder[i].id === activeTaskId) {
-                    const updatedTask = await trx.task.update({
+                let unorderedTasks: Task[] = [];
+                for (let i = 0; i < newOrder.length; i++) {
+                    // activeTaskId -> task that we are moving to another column
+                    if (newOrder[i].id === activeTaskId) {
+                        const updatedTask = await trx.task.update({
+                            where: {
+                                id: newOrder[i].id,
+                                projectId: projectId,
+                            },
+                            data: {
+                                order: newOrder[i].order,
+                                columnId: columnId,
+                            },
+                        });
+                        unorderedTasks.push(updatedTask);
+                        continue;
+                    }
+                    const updatedPrevTask = await trx.task.update({
                         where: {
                             id: newOrder[i].id,
                             projectId: projectId,
                         },
                         data: {
                             order: newOrder[i].order,
-                            columnId: columnId,
                         },
                     });
-                    tasksPrev.push(updatedTask);
-                    continue;
+                    unorderedTasks.push(updatedPrevTask);
                 }
-                const updatedPrevTask = await trx.task.update({
-                where: {
-                    id: newOrder[i].id,
-                    projectId: projectId,
-                },
-                data: {
-                    order: newOrder[i].order,
-                    // columnId: columnId,
-                },
-                });
-                tasksPrev.push(updatedPrevTask);
-            }
-            const orderedTasksPrev = tasksPrev.sort((a, b) => a.order - b.order);
-            return { previouseTaskData: orderedTasksPrev || [] };
+                const Tasks = unorderedTasks.sort((a, b) => a.order - b.order);
+                return { newOrderedTasks: Tasks };
             });
             return updatedTask;
         } catch (error) {
             console.error("Error updating task status:", error);
             throw new Error("Failed to update task status");
         }
-        }
+    }
     // getUserTasks: async (
     //     req: Request,
     //     res: Response
