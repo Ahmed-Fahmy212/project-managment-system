@@ -137,7 +137,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
             setActiveTask({ ...activeTask });
           }
         }
-        
+
 
         return updatedTasks;
       });
@@ -249,15 +249,12 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     const overTaskId = over.id as number;
 
     if (active.data.current?.type === 'Task' && over.data.current?.type === 'Task' && tasks) {
-
       const activeTaskIndex = tasks.findIndex(task => task.id === activeTaskId);
       const overTaskIndex = tasks.findIndex(task => task.id === overTaskId);
-
       if (activeTaskIndex === -1 || overTaskIndex === -1) return;
-
       const overTask = tasks[overTaskIndex];
       if (activeTask?.columnId === overTask?.columnId) {
-       return  reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overTaskIndex);
+        return reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overTaskIndex);
       }
       if (activeTask?.columnId !== overTask.columnId) {
         reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overTaskIndex);
@@ -271,16 +268,21 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
           activeTaskId: reorderedTasksRef.current.activeTaskId
         });
       }
+      console.log('🤍🤍🤍 task over task')
       return
     }
-    else if(active.data.current?.type === 'Task' && over.data.current?.type ==='Column'){
-      reorderedTasksRef.current.orderIds = tasks.map((task, index) => ({
-        id: task.id,
-        order: index,
-      }));
-      reorderedTasksRef.current.columnId = overTaskId
+    else if (active.data.current?.type === 'Task' && over.data.current?.type === 'Column' ) {
+      const activeTaskIndex = tasks.findIndex(task => task.id === activeTaskId);
+     // Case column has no tasks 
+      //will take column before and get last task id inside 
+      // i think this is more safe than update just task in column 
+      const tasksInColumn = over.data.current?.column?.task?.sort((a: TaskType, b: TaskType) => a.order - b.order);
+      console.log('🤍🤍🤍 tasks over Column')
+      const lastTaskInPrevColumn = tasksInColumn[tasksInColumn.length - 1];
+      const overIndex = tasks.findIndex(task => task.id === lastTaskInPrevColumn?.id);
+      reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overIndex);
+      reorderedTasksRef.current.columnId = over.data.current?.column?.id
       reorderedTasksRef.current.activeTaskId = activeTaskId;
-
       return updateTasksMutation({
         projectId,
         newOrder: reorderedTasksRef.current.orderIds,
