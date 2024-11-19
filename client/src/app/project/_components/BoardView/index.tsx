@@ -273,7 +273,20 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       }
       return
     }
+    else if(active.data.current?.type === 'Task' && over.data.current?.type ==='Column'){
+      reorderedTasksRef.current.orderIds = tasks.map((task, index) => ({
+        id: task.id,
+        order: index,
+      }));
+      reorderedTasksRef.current.columnId = overTaskId
+      reorderedTasksRef.current.activeTaskId = activeTaskId;
 
+      return updateTasksMutation({
+        projectId,
+        newOrder: reorderedTasksRef.current.orderIds,
+        columnId: reorderedTasksRef.current.columnId,
+        activeTaskId: reorderedTasksRef.current.activeTaskId
+      });
     }
   }
   //------------------------------------------------------------------------------------
