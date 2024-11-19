@@ -56,7 +56,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   //------------------------------------------------------------------------------------
   const { data: tasks, isPending: isPendingTasks, error: tasksError, isFetching: isFetchingTasks } = useGetTasksQuery(projectId)
   const queryClient = useQueryClient();
-  const { mutateAsync: addColumnMutation } = useMutation({
+  const { mutate: addColumnMutation } = useMutation({
     mutationFn: (newColumn: ColumnBody) => addColumn(newColumn),
     onMutate: async (newColumn) => {
       await queryClient.cancelQueries({ queryKey: ['columns', projectId] });
@@ -84,7 +84,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     // }
   });
 
-  const { isPending: isPendingUpdate, mutateAsync: updateColumnsMutation, isError: isColumnsError } = useMutation({
+  const { isPending: isPendingUpdate, mutate: updateColumnsMutation, isError: isColumnsError } = useMutation({
     mutationFn: (newOrderColumns: { projectId: number, newOrder: orderID[] }) => updateColumns(newOrderColumns),
     onMutate: async (newOrderColumns) => {
       await queryClient.cancelQueries({ queryKey: ['columns', projectId] });
@@ -116,7 +116,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     },
   });
 
-  const { mutateAsync: updateTasksMutation, error: tasksUpdateError, isPending: isPendingTasksUpdate } = useMutation({
+  const { mutate: updateTasksMutation, error: tasksUpdateError, isPending: isPendingTasksUpdate } = useMutation({
     mutationFn: (tasksUpdate: UpdateTasksData) => updateTasks(tasksUpdate),
     onMutate: async (newOrderTasks) => {
       await queryClient.cancelQueries({ queryKey: ['tasks', projectId] });
@@ -213,17 +213,18 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       console.log('🤍🤍activeColumn', activeColumn)
       console.log('🤍🤍activeTask', activeTask)
       reorderedColumnsRef.current = { orderIds: newOrder };
-      await updateColumnsMutation({ projectId, newOrder });
+      updateColumnsMutation({ projectId, newOrder });
 
     }
     if (active.data.current?.type === 'Task' && over.data.current?.type === 'Task') {
       if (reorderedTasksRef.current.orderIds.length > 0) {
-        await updateTasksMutation({
+        updateTasksMutation({
           projectId,
           newOrder: reorderedTasksRef.current.orderIds
         });
       }
     }
+
   }
   //------------------------------------------------------------------------------------
   const handleDraggStart = (event: DragStartEvent) => {
@@ -256,20 +257,22 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
 
       const overTask = tasks[overTaskIndex];
       if (activeTask?.columnId === overTask?.columnId) {
-        reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overTaskIndex);
+       return  reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overTaskIndex);
       }
       if (activeTask?.columnId !== overTask.columnId) {
         reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overTaskIndex);
         reorderedTasksRef.current.columnId = overTask.columnId
         reorderedTasksRef.current.activeTaskId = activeTaskId;
 
-        await updateTasksMutation({
+        return updateTasksMutation({
           projectId,
           newOrder: reorderedTasksRef.current.orderIds,
           columnId: reorderedTasksRef.current.columnId,
           activeTaskId: reorderedTasksRef.current.activeTaskId
         });
       }
+      return
+    }
 
     }
   }
