@@ -34,7 +34,7 @@ export const ColumnService = {
         return CreatedColumn;
     },
 
-    updateColumn: async (data: zod.infer<typeof UpdatedColumnData>): Promise<any> => {
+    updateColumn: async (data: zod.infer<typeof UpdatedColumnData>): Promise<Column[]> => {
         const { projectId, newOrder: columns } = data;
         try {
             const updatedColumns = await prisma.$transaction(async (trx) => {
@@ -49,7 +49,7 @@ export const ColumnService = {
                     RETURNING "Cloumn".*;
                 `;
                 const updatedColumns = await trx.$queryRawUnsafe(columnSQL);
-                return updatedColumns;
+                return updatedColumns as Column[];
             });
 
             return updatedColumns;
