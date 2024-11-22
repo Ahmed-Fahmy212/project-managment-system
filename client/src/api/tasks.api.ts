@@ -44,15 +44,21 @@ export const createTask = async (task: TaskDataBody): Promise<Task> => {
 //------------------------------------------------------------------------------------
 export type UpdateTasksData = {
     columnId?: number;
+    activeTaskId?: number;
     projectId: number;
     newOrder: { id: number; order: number }[];
-    activeTaskId?: number;
 } & Partial<TaskDataBody>
 
 export const updateTasks = async ( updateData: UpdateTasksData): Promise<{ newOrderedTasks: Task[]}> => {
     try {
         console.log("🤍updateData", updateData)
+        const { activeTaskId, columnId } = updateData;
+        if (activeTaskId && !columnId || columnId && !activeTaskId) {
+            toast.error("Missing required field: columnId or activeTaskId");
+            throw new Error("Missing required field: columnId or activeTaskId");
+        }
         const data = await axios.patch(`http://localhost:8000/tasks`, updateData);
+        console.log("🤍data", data)
         return data.data.data;
     } catch (error) {
         toast.error("Failed to update tasks");
