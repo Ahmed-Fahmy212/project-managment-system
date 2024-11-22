@@ -58,53 +58,49 @@ export const TaskService = {
             throw new NotFoundException("Task didn`t created");
         }
         return newTask;
-    },
+        },
 
-    updateTaskStatus: async (
+        updateTaskStatus: async (
         body: zod.infer<typeof UpdatedTaskData>
-    ): Promise<{ newOrderedTasks: Task[] }> => {
+        ): Promise<{ newOrderedTasks: Task[] }> => {
         const { newOrder, projectId, columnId, activeTaskId: taskIdToMove } = body;
         if (taskIdToMove && !columnId || columnId && !taskIdToMove) {
             throw new BadRequestException("Missing required field: columnId or activeTaskId");
         }
-        console.log("🤍newOrder", newOrder)
         try {
             const fields = ["id", "order"];
-            const taskValues = newOrder.map((task) => [task.id, task.order]);   // [[1, 1], [2, 2], [3, 3]]
+            const taskValues = newOrder.map((task) => [task.id, task.order]);
 
-            let paramIndex = 0;
+            let i = 0;
             const taskValuesSql = taskValues
-                .map((row) => `(${row.map(() => `\$${++paramIndex}`).join(", ")})`).join(", "); // "($1, $2), ($3, $4), ($5, $6)"
+            .map((row) => `(${row.map(() => `\$${++i}`).join(", ")})`).join(", ");
             const otherTasksSql = `
             UPDATE "Task"
             SET "order" = "t"."order" 
-            FROM (VALUES ${taskValuesSql}) AS t(${fields.map((f, i) => `"${f}" ${i === 0 ? 'INTEGER' : 'INTEGER'}`).join(", ")})
-            WHERE "Task"."id" = "t"."id" AND "Task"."projectId" = $${++paramIndex}
+            FROM (VALUES ${taskValuesSql}) AS t(${fields.map((f) => `"${f}"`).join(", ")})
+            WHERE "Task"."id" = "t"."id" AND "Task"."projectId" = $${++i}
             RETURNING "Task".*;
             `;
+            let j = 0;
             const activeTaskSql = `
             UPDATE "Task"
-            SET "columnId" = $${++paramIndex}
-            WHERE "id" = $${++paramIndex} AND "projectId" = $${++paramIndex}
+            SET "columnId" = $${++j}
+            WHERE "id" = $${++j} AND "projectId" = $${++j}
             RETURNING "Task".*;
             `;
-            console.log("Arguments for otherTasksSql:", [...taskValues.flat(), projectId]);
-            console.log("Arguments for activeTaskSql:", [columnId, taskIdToMove, projectId]);
 
             const updatedTasks = await prisma.$transaction([
-                // no sql injection just numbers 
-                prisma.$queryRawUnsafe(otherTasksSql, ...taskValues.flat(), projectId),
-                ...(taskIdToMove && columnId
-                    ? [prisma.$queryRawUnsafe(activeTaskSql, columnId, taskIdToMove, projectId)]
-                    : []),
+            prisma.$queryRawUnsafe(otherTasksSql, ...taskValues.flat(), projectId),
+            ...(taskIdToMove && columnId
+                ? [prisma.$queryRawUnsafe(activeTaskSql, columnId, taskIdToMove, projectId)]
+                : []),
             ]);
             const newOrderedTasks = (taskIdToMove && columnId) ? (updatedTasks[1] as Task[]).flat() : (updatedTasks as Task[]).flat();
             return { newOrderedTasks };
         } catch (error) {
-            console.error("Error updating task status:", error);
             throw new Error("Failed to update task status");
         }
-    }
+        }
     // getUserTasks: async (
     //     req: Request,
     //     res: Response
