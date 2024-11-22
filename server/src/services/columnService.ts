@@ -34,22 +34,29 @@ export const ColumnService = {
         return CreatedColumn;
     },
 
-    updateColumn: async (data: zod.infer<typeof UpdatedColumnData>): Promise< Column[] > => {
+    updateColumn: async (data: zod.infer<typeof UpdatedColumnData>): Promise<any> => {
         const { projectId, newOrder: columns } = data;
-        const updatedColumns = await prisma.$transaction(async (trx) => {
-            // will fuck pools but will handle it later in sql
-            // return all sorted 
-            return Promise.all(
-                columns.map(({ id, order }) =>
-                    trx.cloumn.update({
-                        where: { id, projectId },
-                        data: { order },
-                    })
-                )
-            );
-        });
-        
-        return updatedColumns ;
+        try {
+            const updatedColumns = await prisma.$transaction(async (trx) => {
+                const values = columns
+                    .map((col) => `(${col.id}, ${col.order})`)
+                    .join(", ");
+                const columnSQL = `
+                    UPDATE "Cloumn"
+                    SET "order" = "t"."order"
+                    FROM (VALUES ${values}) AS "t"("id", "order")
+                    WHERE "Cloumn"."id" = "t"."id" AND "Cloumn"."projectId" = ${projectId}
+                    RETURNING "Cloumn".*;
+                `;
+                const updatedColumns = await trx.$queryRawUnsafe(columnSQL);
+                return updatedColumns;
+            });
+
+            return updatedColumns;
+        } catch (err) {
+            console.log(err);
+            throw new NotFoundException("Column not updated");
+        }
     },
 
     async deleteColumn(id: number): Promise<Column> {
