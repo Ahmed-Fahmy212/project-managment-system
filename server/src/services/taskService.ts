@@ -4,6 +4,7 @@ import { Project, Task } from "@prisma/client";
 import zod from "zod";
 import { TaskDataSchema, UpdatedTaskData } from "../types/tasks.zod";
 import { NotFoundException } from "../exceptions/NotFoundException";
+import { BadRequestException } from "../exceptions/BadRequestException";
 
 
 export const TaskService = {
@@ -61,94 +62,44 @@ export const TaskService = {
 
     updateTaskStatus: async (
         body: zod.infer<typeof UpdatedTaskData>
-    ): Promise<{ newOrderedTasks: any }> => {
-        const { newOrder, projectId, columnId, activeTaskId: taskIntoNewColumnId } = body;
+    ): Promise<{ newOrderedTasks: Task[] }> => {
+        const { newOrder, projectId, columnId, activeTaskId: taskIdToMove } = body;
+        if (taskIdToMove && !columnId || columnId && !taskIdToMove) {
+            throw new BadRequestException("Missing required field: columnId or activeTaskId");
+        }
+        console.log("🤍newOrder", newOrder)
         try {
-            //ex- [{id: 1, order: 1}, {id: 2, order: 2}, {id: 3, order: 3}] // and in case column will be same array + column id 
-            const fields = ["order", "columnId"];
-            const activeTaskFields = ["id", "order", "columnId"];
-            const otherTasksFields = ["id", "order"];
+            const fields = ["id", "order"];
+            const taskValues = newOrder.map((task) => [task.id, task.order]);   // [[1, 1], [2, 2], [3, 3]]
 
-            const otherTaskValues = newOrder
-                .filter((task) => task.id !== taskIntoNewColumnId)
-                .map((task) => [task.id, task.order]);
-
-            const activeTaskValues = newOrder
-                .filter((task) => task.id === taskIntoNewColumnId)
-                .map((task) => [task.id, task.order, columnId])
-            // [
-            //     [1, 10],
-            //     [3, 30],
-            // ];       
-
-            //case undefined
             let paramIndex = 0;
-
-            const activeTaskValuesSql = activeTaskValues.length ? activeTaskValues.map((row) => `(${row.map(() => `\$${++paramIndex}`).join(", ")})`).join(", ") : "";
-            const activeTasksSql = activeTaskValuesSql ? `
+            const taskValuesSql = taskValues
+                .map((row) => `(${row.map(() => `\$${++paramIndex}`).join(", ")})`).join(", "); // "($1, $2), ($3, $4), ($5, $6)"
+            const otherTasksSql = `
             UPDATE "Task"
-            SET ${fields.map((field) => `"${field}" = "t"."${field}"`).join(", ")}
-            FROM (VALUES ${activeTaskValuesSql}) AS t(${activeTaskFields.map((field) => `"${field}"`).join(", ")})
-            WHERE "Task"."id" = "t"."id" AND "Task"."projectId" = $${projectId}
-            RETURNING "Task"."id", "Task"."order", "Task"."columnId"
-            ` : "";
-            const otherTaskValuesSql = otherTaskValues
-                .map((row) => `(${row.map(() => `\$${++paramIndex}`).join(", ")})`)
-                .join(",");
-            const otherTaskSql = `
-            UPDATE "Task"
-            SET "order" = "t"."order"
-            FROM (VALUES ${otherTaskValuesSql}) AS t(${otherTasksFields
-                    .map((f) => `"${f}"`)
-                    .join(", ")})
-                WHERE "Task"."id" = "t"."id" AND "Task"."projectId" = $${projectId}
-                RETURNING "Task"."id", "Task"."order", "Task"."columnId"
-
+            SET "order" = "t"."order" 
+            FROM (VALUES ${taskValuesSql}) AS t(${fields.map((f, i) => `"${f}" ${i === 0 ? 'INTEGER' : 'INTEGER'}`).join(", ")})
+            WHERE "Task"."id" = "t"."id" AND "Task"."projectId" = $${++paramIndex}
+            RETURNING "Task".*;
             `;
+            const activeTaskSql = `
+            UPDATE "Task"
+            SET "columnId" = $${++paramIndex}
+            WHERE "id" = $${++paramIndex} AND "projectId" = $${++paramIndex}
+            RETURNING "Task".*;
+            `;
+            console.log("Arguments for otherTasksSql:", [...taskValues.flat(), projectId]);
+            console.log("Arguments for activeTaskSql:", [columnId, taskIdToMove, projectId]);
 
-            const combinedSql = `${activeTasksSql}; ${otherTaskSql};`;
-            console.log("Generated SQL:", combinedSql);
-
-            const result = await prisma.$executeRawUnsafe(
-                combinedSql,
-                ...activeTaskValues.flat(),
-                projectId,
-                ...otherTaskValues.flat(),
-                projectId
-            );
-            // const updatedTask = await prisma.$transaction(async (trx) => {
-            //     let unorderedTasks: Task[] = [];
-            //     for (let i = 0; i < newOrder.length; i++) {
-            //         // activeTaskId -> task that we are moving to another column
-            //         if (newOrder[i].id === activeTaskId) {
-            //             const updatedTask = await trx.task.update({
-            //                 where: {
-            //                     id: newOrder[i].id,
-            //                     projectId: projectId,
-            //                 },
-            //                 data: {
-            //                     order: newOrder[i].order,
-            //                     columnId: columnId,
-            //                 },
-            //             });
-            //             unorderedTasks.push(updatedTask);
-            //             continue;
-            //         }
-            //         const updatedPrevTask = await trx.task.update({
-            //             where: {
-            //                 id: newOrder[i].id,
-            //                 projectId: projectId,
-            //             },
-            //             data: {
-            //                 order: newOrder[i].order,
-            //             },
-            //         });
-            //         unorderedTasks.push(updatedPrevTask);
-            //     }
-            //     const Tasks = unorderedTasks.sort((a, b) => a.order - b.order);
-            //     return { newOrderedTasks: Tasks };
-            // });
-            return { newOrderedTasks: result };
+            const updatedTasks = await prisma.$transaction([
+                // no sql injection just numbers 
+                prisma.$queryRawUnsafe(otherTasksSql, ...taskValues.flat(), projectId),
+                ...(taskIdToMove && columnId
+                    ? [prisma.$queryRawUnsafe(activeTaskSql, columnId, taskIdToMove, projectId)]
+                    : []),
+            ]);
+            const newOrderedTasks = (taskIdToMove && columnId) ? (updatedTasks[1] as Task[]).flat() : (updatedTasks as Task[]).flat();
+            return { newOrderedTasks };
         } catch (error) {
             console.error("Error updating task status:", error);
             throw new Error("Failed to update task status");
