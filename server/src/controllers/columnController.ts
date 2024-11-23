@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { BadRequestException } from '../exceptions/BadRequestException';
 import response from '../util/responce';
-import { ColumnService } from '../services/columnService';
+import { ColumnService } from '../services/column.service';
 import { ColumnDataSchema, UpdatedColumnData } from '../types/column.zod';
 
 
