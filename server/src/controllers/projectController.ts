@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { BadRequestException } from "../exceptions/BadRequestException";
 import { Project } from "@prisma/client";
 import response from "../util/responce";
-import { ProjectBody, UpdateProjectBody } from "../types/project.zod";
+import { ProjectBody, UpdateProjectBody } from "../validations/project.zod";
 import { ProjectService } from "../services";
 import zod from 'zod'
 export const projects = {

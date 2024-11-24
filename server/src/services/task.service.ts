@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import prisma from "../../prisma/client";
 import { Project, Task } from "@prisma/client";
 import zod from "zod";
-import { TaskDataSchema, UpdatedTaskData } from "../types/tasks.zod";
+import { TaskDataSchema, UpdatedTaskData } from "../validations/tasks.zod";
 import { NotFoundException } from "../exceptions/NotFoundException";
 import { BadRequestException } from "../exceptions/BadRequestException";
 
@@ -69,11 +69,11 @@ export const TaskService = {
         }
         try {
             const fields = ["id", "order"];
-            const taskValues = newOrder.map((task) => [task.id, task.order]);
+            const taskValues = newOrder.map((task: { id: any; order: any; }) => [task.id, task.order]);
 
             let i = 0;
             const taskValuesSql = taskValues
-            .map((row) => `(${row.map(() => `\$${++i}`).join(", ")})`).join(", ");
+            .map((row: any[]) => `(${row.map(() => `\$${++i}`).join(", ")})`).join(", ");
             const otherTasksSql = `
             UPDATE "Task"
             SET "order" = "t"."order" 

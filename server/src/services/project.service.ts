@@ -1,4 +1,4 @@
-import { ProjectBody, UpdateProjectBody } from '../types/project.zod';
+import { ProjectBody, UpdateProjectBody } from '../validations/project.zod';
 import { Project } from '@prisma/client';
 import prisma from '../../prisma/client';
 import zod from 'zod';
