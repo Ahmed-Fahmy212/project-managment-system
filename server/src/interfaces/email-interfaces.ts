@@ -3,3 +3,8 @@ export interface ICreateEmailVerification {
     emailToken: string;
     timestamp: Date;
 }
+
+export interface IFilterEmailVerification {
+    email?: string;
+    emailToken?: string;
+}
