@@ -1,9 +1,10 @@
 import prisma from '../../prisma/client';
-import { createEmailVerificationBody, emailSchema } from '../types/emails.zod';
+import { IFilterEmailVerification } from '../interfaces/email-interfaces';
+import { createEmailVerificationBody } from '../validations/emails.zod';
 import zod from 'zod';
 
 export const EmailVerificationService = {
-    getEmailVerificationData: async (payload: zod.infer<typeof emailSchema>) => {
+    getEmailVerificationData: async (payload: IFilterEmailVerification) => {
         const result = await prisma.emailVerification.findFirst({
             where: { email: payload.email },
         });
