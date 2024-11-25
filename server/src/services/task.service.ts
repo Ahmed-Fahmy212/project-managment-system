@@ -99,8 +99,7 @@ export const TaskService = {
                     : []),
             ]);
             const newOrderedTasks = (taskIdToMove && columnId) ? (updatedTasks[1] as Task[]).flat() : (updatedTasks as Task[]).flat();
-            const sortedTasks: Task[] = newOrderedTasks.sort((a, b) => a.order - b.order);
-            return { newOrderedTasks: sortedTasks };
+            return { newOrderedTasks: newOrderedTasks };
         } catch (error) {
             throw new Error("Failed to update task status");
         }
