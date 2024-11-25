@@ -130,7 +130,7 @@ export const TaskColumn = ({
                     </div>
                 </div>
             </div>
-            {taskIds.length > 0 &&
+            {/* {taskIds.length > 0 &&
                 <SortableContext items={taskIds}>
                     {
                         taskIds.map((task) => (
@@ -138,7 +138,7 @@ export const TaskColumn = ({
                             />
                         ))
                     } </SortableContext>
-            }
+            } */}
             <button
                 onClick={() => setIsModalNewTaskOpen(true)}
                 className="hover:bg-gray-100 dark:bg-dark-bg dark:text-white dark:border-gray-500 py-3 w-full flex items-center justify-center border-2 border-dotted dark:border-solid dark:border  dark:hover:border-rose-900 rounded duration-100 "

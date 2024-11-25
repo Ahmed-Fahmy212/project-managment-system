@@ -7,8 +7,8 @@ import toast from "react-hot-toast";
 export const getTasks = async (projectId: number): Promise<Task[]> => {
     try {
         const data = await axios.get(`http://localhost:8000/tasks/${projectId}`);
-       
-        return data.data.data;
+       const sortedTasks = data.data.data.sort((a: Task, b: Task) => a.order - b.order);
+        return sortedTasks;
     } catch (error) {
         toast.error("Failed to fetch tasks");
         throw error;
@@ -58,7 +58,8 @@ export const updateTasks = async ( updateData: UpdateTasksData): Promise<{ newOr
         }
         const data = await axios.patch(`http://localhost:8000/tasks`, updateData);
         console.log("🤍data", data)
-        return data.data.data;
+        const sortedTasks = data.data.data.sort((a: Task, b: Task) => a.order - b.order);
+        return sortedTasks;
     } catch (error) {
         toast.error("Failed to update tasks");
         throw error;

@@ -224,11 +224,13 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
 
     if (event.active.data.current?.type === 'Task') {
       console.log('🤍event.active.data.current?.task', event.active.data.current?.task)
+      setActiveTask(event.active.data.current?.task)
       setIsTaskDragging(true);
       return;
     }
     if (event.active.data.current?.type === 'Column') {
       console.log('🤍event.active.data.current.column', event.active.data.current.column)
+      setActiveColumn(event.active.data.current.column)
       setIsColumnDragging(true);
       return;
     }
@@ -290,7 +292,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   //------------------------------------------------------------------------------------
   const columnsIds = columns ? columns : (() => { throw new Error("Columns not found"); })();
   const tasksIds = activeColumn?.task?.sort((a, b) => a.order - b.order) || []
-  console.log('🤍columnsIds', columnsIds)
+  console.log('🤍🤍🤍activeColumn', activeColumn)
   return (
     <div className="flex-1 overflow-y-scroll">
       <DndContext
@@ -306,6 +308,8 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
             {columns?.map((column: Column) => {
               // handled in more faster without conflict 
               const crazyTask = tasks.filter((task: TaskType) => task.columnId === column?.id).sort((a, b) => a.order - b.order);
+              console.log('🤍🤍🤍 isTaskDragging', isTaskDragging)
+              console.log('🤍🤍🤍 isColumnDragging', isColumnDragging)
               return (
                 <TaskColumn
                   key={column.id}
@@ -324,7 +328,6 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
           {createPortal(
             <DragOverlay>{
               activeColumn && (
-
                 <TaskColumn
                   column={activeColumn}
                   setIsModalNewTaskOpen={setIsModalNewTaskOpen}
