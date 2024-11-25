@@ -4,6 +4,11 @@ const client_1 = require("@prisma/client");
 const zod_1 = require("zod");
 const HttpExceptions_1 = require("../exceptions/HttpExceptions");
 const errorHandlerMiddleware = (err, req, res, next) => {
+    var _a;
+    if (res.headersSent) {
+        console.error('Headers already sent:', err);
+        return next(err);
+    }
     if (err instanceof client_1.Prisma.PrismaClientKnownRequestError) {
         let message = 'A database error occurred';
         let statusCode = 500;
@@ -16,14 +21,15 @@ const errorHandlerMiddleware = (err, req, res, next) => {
             statusCode = 404;
         }
         else if (err.code === 'P2003') {
-            message = 'Invalid input data:';
+            // this must changed 
+            message = `Foreign key constraint failed on field: ${((_a = err.meta) === null || _a === void 0 ? void 0 : _a.field_name) || 'unknown'}.`;
             statusCode = 404;
         }
         else if (err.code === 'P2014') {
             message = `Invalid ID: ${err.message}`;
             statusCode = 404;
         }
-        res.status(statusCode).json({
+        return res.status(statusCode).json({
             error: {
                 message,
             },
@@ -34,21 +40,21 @@ const errorHandlerMiddleware = (err, req, res, next) => {
             item: e.path.join('.'),
             message: e.message,
         }));
-        res.status(400).json({
+        return res.status(400).json({
             error: {
                 message: 'Bad Request',
                 details: errorDetails,
             },
         });
     }
+    // For general HttpException errors
     const error = err instanceof HttpExceptions_1.HttpException ? err : new HttpExceptions_1.HttpException('Internal Server Error', 500);
-    res.status(error.statusCode || 500).json({
+    return res.status(error.statusCode || 500).json({
         error: {
             name: error.name,
             message: error.message,
-            stack: process.env.NODE_ENV === 'development' ? error.stack : undefined,
+            details: process.env.NODE_ENV === 'development' ? error.stack : undefined,
         },
     });
-    next();
 };
 exports.default = errorHandlerMiddleware;
