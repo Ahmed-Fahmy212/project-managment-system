@@ -7,9 +7,8 @@ import toast from "react-hot-toast";
 export const getTasks = async (projectId: number): Promise<Task[]> => {
     try {
         const data = await axios.get(`http://localhost:8000/tasks/${projectId}`);
-        const sortedTasks = data.data.data.sort((a: Task, b: Task) => a.order - b.order);
-        console.log("🤍sortedTasks", sortedTasks)
-        return sortedTasks;
+       
+        return data.data.data;
     } catch (error) {
         toast.error("Failed to fetch tasks");
         throw error;
