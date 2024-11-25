@@ -38,6 +38,8 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   const [activeTask, setActiveTask] = useState<TaskType | null>(null);
   const reorderedColumnsRef = useRef<{ orderIds: orderID[] }>({ orderIds: [] });
   const reorderedTasksRef = useRef<{ orderIds: orderID[], columnId?: number, activeTaskId?: number }>({ orderIds: [] });
+  const [isTaskDragging, setIsTaskDragging] = useState(false);
+  const [isColumnDragging, setIsColumnDragging] = useState(false);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -46,7 +48,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     })
   );
 
-  // want when first fetch take columns with tasks associated with i thing it`s faster check the speed 
+
   const { data: columns, isPending, error, isFetching } = useQuery({
     queryKey: ['columns', projectId],
     queryFn: () => getColumns(projectId),
@@ -62,9 +64,9 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       await queryClient.cancelQueries({ queryKey: ['columns', projectId] });
 
       const previousColumns = queryClient.getQueryData(['columns', projectId]);
-      const newColumnWithId = { ...newColumn, id: Date.now() }; // Temporary ID for optimistic update
 
       queryClient.setQueryData(['columns', projectId], (oldData: Column[] | undefined) => {
+        const newColumnWithId = { ...newColumn, id: Math.max(...(oldData ?? []).map(col => col.id), 0) + 1 };
         return oldData ? [...oldData, newColumnWithId] : [newColumnWithId];
       });
 
@@ -76,12 +78,6 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['columns', projectId] });
     }
-    // ,
-    // onSuccess: (newColumn) => {
-    //   queryClient.setQueryData(['columns', projectId], (oldData: Column[] | undefined) => {
-    //     return oldData ? [...oldData.filter(column => column.id !== newColumn.id), newColumn] : [newColumn];
-    //   });
-    // }
   });
 
   const { isPending: isPendingUpdate, mutateAsync: updateColumnsMutation, isError: isColumnsError } = useMutation({
@@ -90,13 +86,13 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       await queryClient.cancelQueries({ queryKey: ['columns', projectId] });
 
       const previousColumns = queryClient.getQueryData(['columns', projectId]);
-      let updatedColumns
+      let updatedColumns;
       queryClient.setQueryData(['columns', projectId], (oldData: Column[] | undefined) => {
         if (!oldData) return oldData;
 
         updatedColumns = oldData
           .map((column) => {
-            const updatedColumn = newOrderColumns.newOrder.find((newColumn) => newColumn.id === column.id);
+            const updatedColumn = newOrderColumns.newOrder.find((newColumn) => newColumn.id === column.id); 
             return updatedColumn ? { ...column, ...updatedColumn } : column;
           })
           .sort((a, b) => (a.order || 0) - (b.order || 0));
@@ -104,8 +100,6 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
         return updatedColumns;
       });
 
-      setActiveColumn(null);
-      setActiveTask(null);
       return { previousColumns };
     },
     onError: (error, _, context) => {
@@ -136,8 +130,6 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
             setActiveTask({ ...activeTask, columnId: reorderedTasksRef.current.columnId });
           }
         }
-
-
         return updatedTasks;
       });
 
@@ -194,7 +186,8 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   const handleDraggEnd = async (event: DragEndEvent) => {
     setActiveColumn(null);
     setActiveTask(null);
-
+    setIsTaskDragging(false);
+    setIsColumnDragging(false);
     const { active, over } = event;
     if (!over) return;
 
@@ -212,12 +205,12 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       console.log('🤍🤍activeColumn', activeColumn)
       console.log('🤍🤍activeTask', activeTask)
       reorderedColumnsRef.current = { orderIds: newOrder };
-      await updateColumnsMutation({ projectId, newOrder });
+      return await updateColumnsMutation({ projectId, newOrder });
 
     }
-    if (active.data.current?.type === 'Task' && over.data.current?.type === 'Task') {
+    else if (active.data.current?.type === 'Task' && over.data.current?.type === 'Task') {
       if (reorderedTasksRef.current.orderIds.length > 0) {
-        await updateTasksMutation({
+        return await updateTasksMutation({
           projectId,
           newOrder: reorderedTasksRef.current.orderIds
         });
@@ -228,17 +221,16 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   //------------------------------------------------------------------------------------
   const handleDraggStart = (event: DragStartEvent) => {
     console.log('Drag Start Event:', event);
+
     if (event.active.data.current?.type === 'Task') {
       console.log('🤍event.active.data.current?.task', event.active.data.current?.task)
-      setActiveTask(event.active.data.current.task)
+      setIsTaskDragging(true);
       return;
-
     }
     if (event.active.data.current?.type === 'Column') {
       console.log('🤍event.active.data.current.column', event.active.data.current.column)
-      setActiveColumn(event.active.data.current.column);
+      setIsColumnDragging(true);
       return;
-
     }
   }
   //------------------------------------------------------------------------------------
@@ -273,9 +265,9 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       console.log('🤍🤍🤍 task over task')
       return
     }
-    else if (active.data.current?.type === 'Task' && over.data.current?.type === 'Column' ) {
+    else if (active.data.current?.type === 'Task' && over.data.current?.type === 'Column') {
       const activeTaskIndex = tasks.findIndex(task => task.id === activeTaskId);
-     // Case column has no tasks 
+      // Case column has no tasks 
       //will take column before and get last task id inside 
       // i think this is more safe than update just task in column 
       const tasksInColumn = over.data.current?.column?.task?.sort((a: TaskType, b: TaskType) => a.order - b.order);
@@ -321,6 +313,8 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
                   setIsModalNewTaskOpen={setIsModalNewTaskOpen}
                   addColumnMutation={addColumnMutation}
                   tasks={crazyTask}
+                  isTaskDragging={isTaskDragging}
+                  isColumnDragging={isColumnDragging}
                 />
               );
             })}
