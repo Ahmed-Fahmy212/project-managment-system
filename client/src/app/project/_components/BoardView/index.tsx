@@ -131,10 +131,9 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
         }).sort((a, b) => a.order - b.order);
 
         if (reorderedTasksRef.current.columnId !== undefined) {
-          const activeTask = updatedTasks.find(task => task.id === reorderedTasksRef.current.activeTaskId);
+          const activeTask = updatedTasks.find((task) => task.id === reorderedTasksRef.current.activeTaskId);
           if (activeTask) {
-            activeTask.columnId = reorderedTasksRef.current.columnId;
-            setActiveTask({ ...activeTask });
+            setActiveTask({ ...activeTask, columnId: reorderedTasksRef.current.columnId });
           }
         }
 
@@ -224,24 +223,27 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
         });
       }
     }
-
+    console.log("💛💛empty")
   }
   //------------------------------------------------------------------------------------
   const handleDraggStart = (event: DragStartEvent) => {
-    console.log('🤍🤍🤍event.active.data.current?.type', event.active.data.current?.type)
+    console.log('Drag Start Event:', event);
     if (event.active.data.current?.type === 'Task') {
       console.log('🤍event.active.data.current?.task', event.active.data.current?.task)
       setActiveTask(event.active.data.current.task)
       return;
+
     }
     if (event.active.data.current?.type === 'Column') {
       console.log('🤍event.active.data.current.column', event.active.data.current.column)
       setActiveColumn(event.active.data.current.column);
       return;
+
     }
   }
   //------------------------------------------------------------------------------------
   const handleDraggOver = async (event: DragOverEvent) => {
+    console.log('Drag Over Event:', event);
     const { active, over } = event;
     if (!over) return;
 
@@ -294,10 +296,9 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   //------------------------------------------------------------------------------------
 
   //------------------------------------------------------------------------------------
-  // const columnsIds = columns?.sort((a, b) => a.order - b.order);
-  const columnsIds = columns || []
+  const columnsIds = columns ? columns : (() => { throw new Error("Columns not found"); })();
   const tasksIds = activeColumn?.task?.sort((a, b) => a.order - b.order) || []
-  // console.log('🤍columnsIds', columnsIds)
+  console.log('🤍columnsIds', columnsIds)
   return (
     <div className="flex-1 overflow-y-scroll">
       <DndContext
