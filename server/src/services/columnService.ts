@@ -48,8 +48,9 @@ export const ColumnService = {
                     WHERE "Cloumn"."id" = "t"."id" AND "Cloumn"."projectId" = ${projectId}
                     RETURNING "Cloumn".*;
                 `;
-                const updatedColumns = await trx.$queryRawUnsafe(columnSQL);
-                return updatedColumns as Column[];
+                const updatedColumns: Column[] = await trx.$queryRawUnsafe(columnSQL);
+                const sortedColumns = updatedColumns.sort((a, b) => a.order - b.order);
+                return sortedColumns as Column[];
             });
 
             return updatedColumns;
