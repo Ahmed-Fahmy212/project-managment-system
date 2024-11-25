@@ -58,11 +58,11 @@ export const TaskService = {
             throw new NotFoundException("Task didn`t created");
         }
         return newTask;
-        },
+    },
 
-        updateTaskStatus: async (
+    updateTaskStatus: async (
         body: zod.infer<typeof UpdatedTaskData>
-        ): Promise<{ newOrderedTasks: Task[] }> => {
+    ): Promise<{ newOrderedTasks: Task[] }> => {
         const { newOrder, projectId, columnId, activeTaskId: taskIdToMove } = body;
         if (taskIdToMove && !columnId || columnId && !taskIdToMove) {
             throw new BadRequestException("Missing required field: columnId or activeTaskId");
@@ -73,7 +73,7 @@ export const TaskService = {
 
             let i = 0;
             const taskValuesSql = taskValues
-            .map((row: any[]) => `(${row.map(() => `\$${++i}`).join(", ")})`).join(", ");
+                .map((row: any[]) => `(${row.map(() => `\$${++i}`).join(", ")})`).join(", ");
             const otherTasksSql = `
             UPDATE "Task"
             SET "order" = "t"."order" 
@@ -90,17 +90,18 @@ export const TaskService = {
             `;
 
             const updatedTasks = await prisma.$transaction([
-            prisma.$queryRawUnsafe(otherTasksSql, ...taskValues.flat(), projectId),
-            ...(taskIdToMove && columnId
-                ? [prisma.$queryRawUnsafe(activeTaskSql, columnId, taskIdToMove, projectId)]
-                : []),
+                prisma.$queryRawUnsafe(otherTasksSql, ...taskValues.flat(), projectId),
+                ...(taskIdToMove && columnId
+                    ? [prisma.$queryRawUnsafe(activeTaskSql, columnId, taskIdToMove, projectId)]
+                    : []),
             ]);
             const newOrderedTasks = (taskIdToMove && columnId) ? (updatedTasks[1] as Task[]).flat() : (updatedTasks as Task[]).flat();
-            return { newOrderedTasks };
+            const sortedTasks: Task[] = newOrderedTasks.sort((a, b) => a.order - b.order);
+            return { newOrderedTasks: sortedTasks };
         } catch (error) {
             throw new Error("Failed to update task status");
         }
-        }
+    }
     // getUserTasks: async (
     //     req: Request,
     //     res: Response
