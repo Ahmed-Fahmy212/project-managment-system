@@ -7,18 +7,20 @@ import { CSS } from "@dnd-kit/utilities";
 
 type TaskProps = {
     task: Tasks;
-    isColumnDragging?: boolean;
 };
 
 
-export const Task = ({ task ,isColumnDragging}: TaskProps) => {
-    const { setNodeRef, attributes, listeners, transform, transition ,isDragging} = useSortable({
+export const Task = ({ task }: TaskProps) => {
+    const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
         id: task.id,
         data: {
             type: "Task",
             task: task
         },
-        disabled: isColumnDragging,
+        transition: {
+            duration: 300,
+            easing: "cubic-bezier(0.25, 1, 0.5, 1)",
+        }
     });
     const taskTagsSplit = task.tags ? task.tags.split(",") : [];
 
@@ -53,9 +55,7 @@ export const Task = ({ task ,isColumnDragging}: TaskProps) => {
     }
     if (isDragging) {
         // console.log("...Dragging")
-        if(isColumnDragging) return;
-        return (
-            <div className="border h-[172px] border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} />)
+        return (<div className="border h-[172px] border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} />)
     }
 
     return (

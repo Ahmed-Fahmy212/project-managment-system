@@ -58,8 +58,7 @@ export const updateTasks = async ( updateData: UpdateTasksData): Promise<{ newOr
         }
         const data = await axios.patch(`http://localhost:8000/tasks`, updateData);
         console.log("🤍data", data)
-        const sortedTasks = data.data.data.sort((a: Task, b: Task) => a.order - b.order);
-        return sortedTasks;
+        return data.data.data;
     } catch (error) {
         toast.error("Failed to update tasks");
         throw error;

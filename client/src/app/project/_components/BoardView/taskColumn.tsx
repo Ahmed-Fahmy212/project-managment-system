@@ -19,9 +19,6 @@ type TaskColumnProps = {
     setIsModalNewTaskOpen: (isopen: boolean) => void;
     addColumnMutation: (column: ColumnBody) => Promise<any>;
     tasks?: TaskType[];
-    isTaskDragging?: boolean;
-    isColumnDragging?: boolean;
-
 };
 
 export const TaskColumn = ({
@@ -29,8 +26,6 @@ export const TaskColumn = ({
     setIsModalNewTaskOpen,
     addColumnMutation,
     tasks,
-    isTaskDragging = false,
-    isColumnDragging = false
 }: TaskColumnProps) => {
     const { title, color: statusColor, projectId } = column;
     const [openDropdownMenu, setOpenDropdownMenu] = useState(false);
@@ -41,14 +36,13 @@ export const TaskColumn = ({
             column,
         }
         ,
-        disabled: isTaskDragging, 
         transition: {
             duration: 300,
             easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
         },
     });
 
-    const taskIds = tasks || []
+    const taskIds = tasks?.sort((a, b) => a.order - b.order) || []
 
     const style = {
         transition: transition,
@@ -56,7 +50,6 @@ export const TaskColumn = ({
     }
     if (isDragging) {
         console.log("💙💙Dragging column:", column.id);
-        if (isTaskDragging) return;
         return (<div className="border pt-4 border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} />)
     }
     console.log("array", taskIds.map((task) => ({ title: task.title, order: task.order })))
@@ -134,15 +127,16 @@ export const TaskColumn = ({
                     </div>
                 </div>
             </div>
-            {/* {taskIds.length > 0 &&
+            {taskIds.length > 0 &&
                 <SortableContext items={taskIds}>
                     {
                         taskIds.map((task) => (
-                            <Task task={task} isColumnDragging={isColumnDragging}
+                            <Task task={task}
                             />
                         ))
-                    } </SortableContext>
-            } */}
+                    }
+                </SortableContext>
+            }
             <button
                 onClick={() => setIsModalNewTaskOpen(true)}
                 className="hover:bg-gray-100 dark:bg-dark-bg dark:text-white dark:border-gray-500 py-3 w-full flex items-center justify-center border-2 border-dotted dark:border-solid dark:border  dark:hover:border-rose-900 rounded duration-100 "

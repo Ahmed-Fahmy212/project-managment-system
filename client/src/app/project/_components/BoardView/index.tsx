@@ -79,7 +79,6 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       queryClient.invalidateQueries({ queryKey: ['columns', projectId] });
     }
   });
-
   const { isPending: isPendingUpdate, mutateAsync: updateColumnsMutation, isError: isColumnsError } = useMutation({
     mutationFn: (newOrderColumns: { projectId: number, newOrder: orderID[] }) => updateColumns(newOrderColumns),
     onMutate: (newOrderColumns) => {
@@ -296,11 +295,9 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
         collisionDetection={closestCenter}
       >
         <div className="gap-4 grid grid-cols-footer pl-4">
-          {/* //case want update tasks just rerender --- cashe + com */}
           <SortableContext items={columns || []} >
             {columns?.map((column: Column) => {
-              // handled in more faster without conflict 
-              const crazyTask = tasks.filter((task: TaskType) => task.columnId === column?.id).sort((a, b) => a.order - b.order);
+              const crazyTask = (column.task ?? []).sort((a, b) => a.order - b.order)
               return (
                 <TaskColumn
                   key={column.id}
@@ -308,8 +305,6 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
                   setIsModalNewTaskOpen={setIsModalNewTaskOpen}
                   addColumnMutation={addColumnMutation}
                   tasks={crazyTask}
-                  isTaskDragging={isTaskDragging}
-                  isColumnDragging={isColumnDragging}
                 />
               );
             })}

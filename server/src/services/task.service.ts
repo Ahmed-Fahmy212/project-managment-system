@@ -67,6 +67,9 @@ export const TaskService = {
         if (taskIdToMove && !columnId || columnId && !taskIdToMove) {
             throw new BadRequestException("Missing required field: columnId or activeTaskId");
         }
+        if(newOrder.length === 0) {
+            throw new BadRequestException("Missing required field: newOrder");
+        }
         try {
             const fields = ["id", "order"];
             const taskValues = newOrder.map((task: { id: any; order: any; }) => [task.id, task.order]);
