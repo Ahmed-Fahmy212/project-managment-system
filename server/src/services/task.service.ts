@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import prisma from "../../prisma/client";
-import { Project, Task } from "@prisma/client";
+import { Project, Task  } from "@prisma/client";
+
+
 import zod from "zod";
 import { TaskDataSchema, UpdatedTaskData } from "../validations/tasks.zod";
 import { NotFoundException } from "../exceptions/NotFoundException";
@@ -19,8 +21,8 @@ export const TaskService = {
                 comments: true,
                 attachments: true,
             },
-            orderBy:{
-                order:'desc'
+            orderBy: {
+                order: 'desc'
             }
         });
         return tasks || [];
@@ -58,18 +60,16 @@ export const TaskService = {
             throw new NotFoundException("Task didn`t created");
         }
         return newTask;
-        },
-        },
+    },
 
-        updateTaskStatus: async (
-        updateTaskStatus: async (
+    updateTaskStatus: async (
         body: zod.infer<typeof UpdatedTaskData>
     ): Promise<{ newOrderedTasks: Task[] }> => {
         const { newOrder, projectId, columnId, activeTaskId: taskIdToMove } = body;
         if (taskIdToMove && !columnId || columnId && !taskIdToMove) {
             throw new BadRequestException("Missing required field: columnId or activeTaskId");
         }
-        if(newOrder.length === 0) {
+        if (newOrder.length === 0) {
             throw new BadRequestException("Missing required field: newOrder");
         }
         try {
@@ -101,29 +101,30 @@ export const TaskService = {
                     : []),
             ]);
             const newOrderedTasks = (taskIdToMove && columnId) ? (updatedTasks[1] as Task[]).flat() : (updatedTasks as Task[]).flat();
-            return { newOrderedTasks: newOrderedTasks };
+            return { newOrderedTasks };
         } catch (error) {
             throw new Error("Failed to update task status");
         }
-        }
-        }
-    // getUserTasks: async (
-    //     req: Request,
-    //     res: Response
-    // ) => {
-    //     const { userId } = req.params;
-    //     const tasks = await prisma.task.findMany({
-    //         where: {
-    //             OR: [
-    //                 { authorUserId: Number(userId) },
-    //                 { assignedUserId: Number(userId) },
-    //             ],
-    //         },
-    //         include: {
-    //             author: true,
-    //             assignee: true,
-    //         },
-    //     });
-    //     return res.json(tasks || []);
-    // },
+
+
+        // getUserTasks: async (
+        //     req: Request,
+        //     res: Response
+        // ) => {
+        //     const { userId } = req.params;
+        //     const tasks = await prisma.task.findMany({
+        //         where: {
+        //             OR: [
+        //                 { authorUserId: Number(userId) },
+        //                 { assignedUserId: Number(userId) },
+        //             ],
+        //         },
+        //         include: {
+        //             author: true,
+        //             assignee: true,
+        //         },
+        //     });
+        //     return res.json(tasks || []);
+        // },
+    }
 }
