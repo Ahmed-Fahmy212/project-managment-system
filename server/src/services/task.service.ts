@@ -19,8 +19,8 @@ export const TaskService = {
                 comments: true,
                 attachments: true,
             },
-            orderBy: {
-                order: 'desc'
+            orderBy:{
+                order:'desc'
             }
         });
         return tasks || [];
@@ -58,9 +58,9 @@ export const TaskService = {
             throw new NotFoundException("Task didn`t created");
         }
         return newTask;
-    },
+        },
 
-    updateTaskStatus: async (
+        updateTaskStatus: async (
         body: zod.infer<typeof UpdatedTaskData>
     ): Promise<{ newOrderedTasks: Task[] }> => {
         const { newOrder, projectId, columnId, activeTaskId: taskIdToMove } = body;
@@ -103,7 +103,7 @@ export const TaskService = {
         } catch (error) {
             throw new Error("Failed to update task status");
         }
-    }
+        }
     // getUserTasks: async (
     //     req: Request,
     //     res: Response

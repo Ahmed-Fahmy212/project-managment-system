@@ -20,7 +20,7 @@ export const useUpdateTasksMutation = (projectId: number) => {
                 if (!oldData) return oldData;
 
                 const updatedTasks = oldData.map((task) => {
-                    const updatedTask = newData?.newOrderedTasks?.find((newTask) => newTask.id === task.id);
+                    const updatedTask = newData?.previouseTaskData?.find((newTask) => newTask.id === task.id);
                     return updatedTask ? { ...updatedTask } : task;
                 }).sort((a, b) => a.order - b.order);
 

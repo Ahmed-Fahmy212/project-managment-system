@@ -149,8 +149,10 @@ model Cloumn {
   id        Int    @id @default(autoincrement())
   title     String
   color     String
-  order     Int    @default(autoincrement())
-  projectId Int
+  order     Int   @default(autoincrement())
+  projectId Int    
+  order     Int   @default(autoincrement())
+  projectId Int    
 
   deletedAt   DateTime?
   deletedById Int?
