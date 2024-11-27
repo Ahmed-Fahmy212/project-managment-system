@@ -58,7 +58,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   //------------------------------------------------------------------------------------
   const { data: tasks, isPending: isPendingTasks, error: tasksError, isFetching: isFetchingTasks } = useGetTasksQuery(projectId)
   const queryClient = useQueryClient();
-  const { mutateAsync: addColumnMutation } = useMutation({
+  const { mutate: addColumnMutation } = useMutation({
     mutationFn: (newColumn: ColumnBody) => addColumn(newColumn),
     onMutate: async (newColumn) => {
       await queryClient.cancelQueries({ queryKey: ['columns', projectId] });
@@ -109,7 +109,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     },
   });
 
-  const { mutateAsync: updateTasksMutation, error: tasksUpdateError, isPending: isPendingTasksUpdate } = useMutation({
+  const { mutate: updateTasksMutation, error: tasksUpdateError, isPending: isPendingTasksUpdate } = useMutation({
     mutationFn: (tasksUpdate: UpdateTasksData) => updateTasks(tasksUpdate),
     onMutate: async (newOrderTasks) => {
       await queryClient.cancelQueries({ queryKey: ['tasks', projectId] });
@@ -197,12 +197,12 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     if (active.data.current?.type === 'Column' && over.data.current?.type === 'Column') {
       const newOrder = reorderColumns(columns, activeId, overId);
       reorderedColumnsRef.current = { orderIds: newOrder };
-      return await updateColumnsMutation({ projectId, newOrder });
+      updateColumnsMutation({ projectId, newOrder });
 
     }
     else if (active.data.current?.type === 'Task' && over.data.current?.type === 'Task') {
       if (reorderedTasksRef.current.orderIds.length > 0) {
-        return await updateTasksMutation({
+        updateTasksMutation({
           projectId,
           newOrder: reorderedTasksRef.current.orderIds
         });
@@ -249,7 +249,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
         reorderedTasksRef.current.columnId = overTask.columnId
         reorderedTasksRef.current.activeTaskId = activeTaskId;
 
-        return await updateTasksMutation({
+        return updateTasksMutation({
           projectId,
           newOrder: reorderedTasksRef.current.orderIds,
           columnId: reorderedTasksRef.current.columnId,
@@ -271,7 +271,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overIndex);
       reorderedTasksRef.current.columnId = over.data.current?.column?.id
       reorderedTasksRef.current.activeTaskId = activeTaskId;
-      return await updateTasksMutation({
+      return updateTasksMutation({
         projectId,
         newOrder: reorderedTasksRef.current.orderIds,
         columnId: reorderedTasksRef.current.columnId,
