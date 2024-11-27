@@ -59,7 +59,9 @@ export const TaskService = {
         }
         return newTask;
         },
+        },
 
+        updateTaskStatus: async (
         updateTaskStatus: async (
         body: zod.infer<typeof UpdatedTaskData>
     ): Promise<{ newOrderedTasks: Task[] }> => {
@@ -102,6 +104,7 @@ export const TaskService = {
             return { newOrderedTasks: newOrderedTasks };
         } catch (error) {
             throw new Error("Failed to update task status");
+        }
         }
         }
     // getUserTasks: async (
