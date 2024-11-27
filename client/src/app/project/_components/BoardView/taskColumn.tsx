@@ -18,35 +18,41 @@ type TaskColumnProps = {
     column: ColumnBody & { projectId: number, id: number, order: number };
     setIsModalNewTaskOpen: (isopen: boolean) => void;
     addColumnMutation: (column: ColumnBody) => Promise<any>;
-    tasks?: TaskType[]
+    tasks?: TaskType[];
 };
-
 
 export const TaskColumn = ({
     column,
     setIsModalNewTaskOpen,
     addColumnMutation,
-    tasks = []
+    tasks,
 }: TaskColumnProps) => {
     const { title, color: statusColor, projectId } = column;
     const [openDropdownMenu, setOpenDropdownMenu] = useState(false);
     const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
         id: column.id,
         data: {
-            type: "Column",
-            column: column
+            type: 'Column',
+            column,
         }
+        ,
+        transition: {
+            duration: 300,
+            easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+        },
     });
 
-    const taskIds = tasks || []//.sort((a, b) => a.order - b.order)
-    // console.log("🤍taskIds", taskIds)
+    const taskIds = tasks?.sort((a, b) => a.order - b.order) || []
+
     const style = {
         transition: transition,
         transform: CSS.Transform.toString(transform),
     }
     if (isDragging) {
+        console.log("💙💙Dragging column:", column.id);
         return (<div className="border pt-4 border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} />)
     }
+    console.log("array", taskIds.map((task) => ({ title: task.title, order: task.order })))
     return (
         <div
             ref={setNodeRef}
@@ -124,10 +130,12 @@ export const TaskColumn = ({
             {taskIds.length > 0 &&
                 <SortableContext items={taskIds}>
                     {
-                    taskIds.map((task) => (
-                        <Task task={task} />
-                    ))
-                } </SortableContext>
+                        taskIds.map((task) => (
+                            <Task task={task}
+                            />
+                        ))
+                    }
+                </SortableContext>
             }
             <button
                 onClick={() => setIsModalNewTaskOpen(true)}

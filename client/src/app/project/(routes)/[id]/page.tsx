@@ -22,10 +22,10 @@ const Project = ({ params }: Props) => {
     return (
         <div className="flex flex-1 flex-col overflow-hidden">
             < ModalNewTask isOpen={isModalNewTaskOpen} onClose={() => setIsModalNewTaskOpen(false)} projectId={Number(id)} />
-            
+
             <ProjectHeader activeTab={activeTab} setActiveTab={setActiveTab} />
             {activeTab === "Board" && (
-                <Board id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen}  />
+                    <Board id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
             )
             }
             {activeTab === "List" && (
@@ -37,7 +37,7 @@ const Project = ({ params }: Props) => {
             )
             }
             {activeTab === "Table" && (
-             <TaskTable id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
+                <TaskTable id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
             )}
         </div>
     )

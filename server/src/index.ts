@@ -19,7 +19,7 @@ app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use(morgan((tokens, req, res) => {
   return [
     `${tokens.status(req, res)}`,
-    `${tokens.method(req, res)}/${tokens.url(req, res)}`,
+    `${tokens.method(req, res)}${tokens.url(req, res)}`,
     `${tokens['response-time'](req, res)} ms`,
   ].join(' | ');
 }));
@@ -36,8 +36,10 @@ app.get('*', (req, res) => {
     },
   });
 })
-// add email alert
-app.use(errorHandlerMiddleware)
+// will add email alert
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  errorHandlerMiddleware(err, req, res, next);
+});
 
 const port = parseInt(process.env.PORT || "8000");
 

@@ -41,7 +41,8 @@ export type UpdateData = {
 export const updateColumns = async (UpdateData: UpdateData): Promise<Column[]> => {
     try {
         const data = await axios.patch(`http://localhost:8000/columns`, UpdateData);
-        return data.data.data;
+        const sortedColumns = data.data.data.sort((a: Column, b: Column) => a.order - b.order);
+        return sortedColumns;
 
     } catch (error) {
         toast.error("Failed to update columns");
