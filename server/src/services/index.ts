@@ -1,3 +1,7 @@
-export { ProjectService } from './projectService'
-export { TaskService } from './taskService'
-export { ColumnService } from './columnService'
+export { ProjectService } from './project.service'
+export { TaskService } from './task.service'
+export { ColumnService } from './column.service'
+// export { UserService } from './user.service'
+
+
+

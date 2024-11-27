@@ -11,12 +11,15 @@ type TaskProps = {
 
 
 export const Task = ({ task }: TaskProps) => {
-    // console.log("🤍task", task.id, task.title,task.columnId)
     const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
         id: task.id,
         data: {
             type: "Task",
             task: task
+        },
+        transition: {
+            duration: 300,
+            easing: "cubic-bezier(0.25, 1, 0.5, 1)",
         }
     });
     const taskTagsSplit = task.tags ? task.tags.split(",") : [];
@@ -52,7 +55,6 @@ export const Task = ({ task }: TaskProps) => {
     }
     if (isDragging) {
         // console.log("...Dragging")
-
         return (<div className="border h-[172px] border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} />)
     }
 

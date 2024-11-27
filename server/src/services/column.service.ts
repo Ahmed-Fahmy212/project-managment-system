@@ -2,9 +2,9 @@ import { Request, Response } from "express";
 import prisma from "../../prisma/client";
 import { Cloumn as Column } from "@prisma/client";
 import zod from "zod";
-import { TaskDataSchema, UpdatedTaskData } from "../types/tasks.zod";
+import { TaskDataSchema, UpdatedTaskData } from "../validations/tasks.zod";
 import { NotFoundException } from "../exceptions/NotFoundException";
-import { ColumnDataSchema, UpdatedColumnData } from "../types/column.zod";
+import { ColumnDataSchema, UpdatedColumnData } from "../validations/column.zod";
 export const ColumnService = {
     getAllColumns: async (): Promise<Column[]> => {
         return await prisma.cloumn.findMany({ orderBy: { order: 'asc' } });

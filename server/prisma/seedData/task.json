@@ -1,6 +1,7 @@
 [
-  {       "columnId": 4
-, "title": "Task 1",
+  {
+    "columnId": 1,
+    "title": "Task 1",
     "description": "Design the main module.",
     "status": "Work In Progress",
     "priority": "Urgent",
@@ -9,10 +10,12 @@
     "dueDate": "2023-04-10T00:00:00Z",
     "projectId": 1,
     "authorUserId": 1,
-    "assignedUserId": 2
+    "assignedUserId": 2,
+    "order": 1
   },
-  {   "columnId": 4
-,  "title": "Task 2",
+  {
+    "columnId": 2,
+    "title": "Task 2",
     "description": "Implement the navigation algorithm.",
     "status": "To Do",
     "priority": "High",
@@ -21,10 +24,12 @@
     "dueDate": "2023-05-15T00:00:00Z",
     "projectId": 2,
     "authorUserId": 3,
-    "assignedUserId": 4
+    "assignedUserId": 4,
+    "order": 2
   },
-  {   "columnId": 4
-,  "title": "Task 3",
+  {
+    "columnId": 3,
+    "title": "Task 3",
     "description": "Develop renewable energy solutions.",
     "status": "Work In Progress",
     "priority": "Urgent",
@@ -33,10 +38,12 @@
     "dueDate": "2023-09-20T00:00:00Z",
     "projectId": 3,
     "authorUserId": 5,
-    "assignedUserId": 6
+    "assignedUserId": 6,
+    "order": 3
   },
-  {    "columnId": 4
-, "title": "Task 4",
+  {
+    "columnId": 4,
+    "title": "Task 4",
     "description": "Outline new software development workflows.",
     "status": "To Do",
     "priority": "High",
@@ -45,10 +52,12 @@
     "dueDate": "2023-06-25T00:00:00Z",
     "projectId": 4,
     "authorUserId": 7,
-    "assignedUserId": 8
+    "assignedUserId": 8,
+    "order": 4
   },
-  {   "columnId": 4
-,  "title": "Task 5",
+  {
+    "columnId": 5,
+    "title": "Task 5",
     "description": "Research AI models for prediction.",
     "status": "Work In Progress",
     "priority": "Urgent",
@@ -57,10 +66,12 @@
     "dueDate": "2023-10-20T00:00:00Z",
     "projectId": 5,
     "authorUserId": 9,
-    "assignedUserId": 10
+    "assignedUserId": 10,
+    "order": 5
   },
-  {    "columnId": 4
-, "title": "Task 6",
+  {
+    "columnId": 6,
+    "title": "Task 6",
     "description": "Biotech product testing.",
     "status": "To Do",
     "priority": "Backlog",
@@ -69,10 +80,12 @@
     "dueDate": "2023-08-01T00:00:00Z",
     "projectId": 6,
     "authorUserId": 11,
-    "assignedUserId": 12
+    "assignedUserId": 12,
+    "order": 6
   },
-  {  "columnId": 4
-,   "title": "Task 7",
+  {
+    "columnId": 7,
+    "title": "Task 7",
     "description": "AI optimization for golf equipment.",
     "status": "Work In Progress",
     "priority": "Urgent",
@@ -81,10 +94,12 @@
     "dueDate": "2023-11-15T00:00:00Z",
     "projectId": 7,
     "authorUserId": 13,
-    "assignedUserId": 14
+    "assignedUserId": 14,
+    "order": 7
   },
-  {   "columnId": 4
-,  "title": "Task 8",
+  {
+    "columnId": 8,
+    "title": "Task 8",
     "description": "Overhaul of the database for hotel management.",
     "status": "To Do",
     "priority": "High",
@@ -93,10 +108,12 @@
     "dueDate": "2023-10-01T00:00:00Z",
     "projectId": 8,
     "authorUserId": 15,
-    "assignedUserId": 16
+    "assignedUserId": 16,
+    "order": 8
   },
-  {    "columnId": 4
-, "title": "Task 9",
+  {
+    "columnId": 9,
+    "title": "Task 9",
     "description": "Upgrade telecom infrastructure.",
     "status": "Work In Progress",
     "priority": "Urgent",
@@ -105,10 +122,11 @@
     "dueDate": "2023-12-10T00:00:00Z",
     "projectId": 9,
     "authorUserId": 17,
-    "assignedUserId": 18
+    "assignedUserId": 18,
+    "order": 9
   },
-  {"columnId": 4
-, 
+  {
+    "columnId": 10,
     "title": "Task 10",
     "description": "Enhance security protocols.",
     "status": "To Do",
@@ -118,10 +136,11 @@
     "dueDate": "2024-01-05T00:00:00Z",
     "projectId": 10,
     "authorUserId": 19,
-    "assignedUserId": 20
+    "assignedUserId": 20,
+    "order": 10
   },
-  {"columnId": 4
-, 
+  {
+    "columnId": 11,
     "title": "Task 11",
     "description": "Finalize AI training parameters.",
     "status": "Work In Progress",
@@ -131,10 +150,11 @@
     "dueDate": "2023-05-20T00:00:00Z",
     "projectId": 5,
     "authorUserId": 1,
-    "assignedUserId": 3
+    "assignedUserId": 3,
+    "order": 11
   },
-  {"columnId": 4
-, 
+  {
+    "columnId": 12,
     "title": "Task 12",
     "description": "Update server security protocols.",
     "status": "To Do",
@@ -144,10 +164,11 @@
     "dueDate": "2023-06-10T00:00:00Z",
     "projectId": 1,
     "authorUserId": 2,
-    "assignedUserId": 4
+    "assignedUserId": 4,
+    "order": 12
   },
-  {"columnId": 4
-, 
+  {
+    "columnId": 13,
     "title": "Task 13",
     "description": "Redesign user interface for better UX.",
     "status": "Work In Progress",
@@ -157,10 +178,11 @@
     "dueDate": "2023-07-15T00:00:00Z",
     "projectId": 2,
     "authorUserId": 5,
-    "assignedUserId": 6
+    "assignedUserId": 6,
+    "order": 13
   },
-  {"columnId": 4
-, 
+  {
+    "columnId": 14,
     "title": "Task 14",
     "description": "Implement real-time data analytics.",
     "status": "To Do",
@@ -170,10 +192,11 @@
     "dueDate": "2023-08-05T00:00:00Z",
     "projectId": 3,
     "authorUserId": 7,
-    "assignedUserId": 8
+    "assignedUserId": 8,
+    "order": 14
   },
-  {"columnId": 4
-, 
+  {
+    "columnId": 15,
     "title": "Task 15",
     "description": "Develop end-to-end encryption solution.",
     "status": "Work In Progress",
@@ -183,7 +206,7 @@
     "dueDate": "2023-09-01T00:00:00Z",
     "projectId": 4,
     "authorUserId": 9,
-    "assignedUserId": 10
+    "assignedUserId": 10,
+    "order": 15
   }
-  
 ]

@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { BadRequestException } from '../exceptions/BadRequestException';
 import response from '../util/responce';
-import { ColumnService } from '../services/columnService';
-import { ColumnDataSchema, UpdatedColumnData } from '../types/column.zod';
+import { ColumnService } from '../services/column.service';
+import { ColumnDataSchema, UpdatedColumnData } from '../validations/column.zod';
 
 
 export const columns = {

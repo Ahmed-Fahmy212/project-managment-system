@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import prisma from "../../prisma/client";
-import { Project, Task } from "@prisma/client";
+import { Project, Task  } from "@prisma/client";
+
+
 import zod from "zod";
-import { TaskDataSchema, UpdatedTaskData } from "../types/tasks.zod";
+import { TaskDataSchema, UpdatedTaskData } from "../validations/tasks.zod";
 import { NotFoundException } from "../exceptions/NotFoundException";
 import { BadRequestException } from "../exceptions/BadRequestException";
 
@@ -58,22 +60,25 @@ export const TaskService = {
             throw new NotFoundException("Task didn`t created");
         }
         return newTask;
-        },
+    },
 
-        updateTaskStatus: async (
+    updateTaskStatus: async (
         body: zod.infer<typeof UpdatedTaskData>
-        ): Promise<{ newOrderedTasks: Task[] }> => {
+    ): Promise<{ newOrderedTasks: Task[] }> => {
         const { newOrder, projectId, columnId, activeTaskId: taskIdToMove } = body;
         if (taskIdToMove && !columnId || columnId && !taskIdToMove) {
             throw new BadRequestException("Missing required field: columnId or activeTaskId");
         }
+        if (newOrder.length === 0) {
+            throw new BadRequestException("Missing required field: newOrder");
+        }
         try {
             const fields = ["id", "order"];
-            const taskValues = newOrder.map((task) => [task.id, task.order]);
+            const taskValues = newOrder.map((task: { id: any; order: any; }) => [task.id, task.order]);
 
             let i = 0;
             const taskValuesSql = taskValues
-            .map((row) => `(${row.map(() => `\$${++i}`).join(", ")})`).join(", ");
+                .map((row: any[]) => `(${row.map(() => `\$${++i}`).join(", ")})`).join(", ");
             const otherTasksSql = `
             UPDATE "Task"
             SET "order" = "t"."order" 
@@ -90,34 +95,36 @@ export const TaskService = {
             `;
 
             const updatedTasks = await prisma.$transaction([
-            prisma.$queryRawUnsafe(otherTasksSql, ...taskValues.flat(), projectId),
-            ...(taskIdToMove && columnId
-                ? [prisma.$queryRawUnsafe(activeTaskSql, columnId, taskIdToMove, projectId)]
-                : []),
+                prisma.$queryRawUnsafe(otherTasksSql, ...taskValues.flat(), projectId),
+                ...(taskIdToMove && columnId
+                    ? [prisma.$queryRawUnsafe(activeTaskSql, columnId, taskIdToMove, projectId)]
+                    : []),
             ]);
             const newOrderedTasks = (taskIdToMove && columnId) ? (updatedTasks[1] as Task[]).flat() : (updatedTasks as Task[]).flat();
             return { newOrderedTasks };
         } catch (error) {
             throw new Error("Failed to update task status");
         }
-        }
-    // getUserTasks: async (
-    //     req: Request,
-    //     res: Response
-    // ) => {
-    //     const { userId } = req.params;
-    //     const tasks = await prisma.task.findMany({
-    //         where: {
-    //             OR: [
-    //                 { authorUserId: Number(userId) },
-    //                 { assignedUserId: Number(userId) },
-    //             ],
-    //         },
-    //         include: {
-    //             author: true,
-    //             assignee: true,
-    //         },
-    //     });
-    //     return res.json(tasks || []);
-    // },
+
+
+        // getUserTasks: async (
+        //     req: Request,
+        //     res: Response
+        // ) => {
+        //     const { userId } = req.params;
+        //     const tasks = await prisma.task.findMany({
+        //         where: {
+        //             OR: [
+        //                 { authorUserId: Number(userId) },
+        //                 { assignedUserId: Number(userId) },
+        //             ],
+        //         },
+        //         include: {
+        //             author: true,
+        //             assignee: true,
+        //         },
+        //     });
+        //     return res.json(tasks || []);
+        // },
+    }
 }

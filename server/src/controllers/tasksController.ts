@@ -3,7 +3,7 @@ import prisma from '../../prisma/client'
 import { BadRequestException } from "../exceptions/BadRequestException";
 import response from "../util/responce";
 import { TaskService } from "../services";
-import { TaskDataSchema,UpdatedTaskData } from "../types/tasks.zod";
+import { TaskDataSchema,UpdatedTaskData } from "../validations/tasks.zod";
 
 export const tasks = {
   getTasks: async (

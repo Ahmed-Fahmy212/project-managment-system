@@ -5,24 +5,24 @@ export const WinstonLogger = expressWinston.logger({
     transports: [
         new transports.File({
             filename: process.env.API_LOG_FILENAME || 'app.log',
-            level: 'info', // Adjust the log level as needed
+            level: 'info', 
         }),
     ],
     format: format.combine(
         format.timestamp(),
         format.json(),
-        format.prettyPrint(), // Makes the logs more readable
+        format.prettyPrint(), 
     ),
-    meta: true, // Enables metadata logging
-    expressFormat: true, // Logs in a concise format for HTTP requests
-    colorize: false, // Disable colorizing logs
+    meta: true,
+    expressFormat: true,
+    colorize: false, 
     requestWhitelist: [
         ...expressWinston.requestWhitelist, 
-        'body', // Log request body
+        'body', 
     ],
     responseWhitelist: [
         ...expressWinston.responseWhitelist, 
-        'body', // Log response body
+        'body', 
     ],
-    ignoreRoute: (req, res) => false, // Don't ignore any routes
+    ignoreRoute: (req, res) => false, 
 });

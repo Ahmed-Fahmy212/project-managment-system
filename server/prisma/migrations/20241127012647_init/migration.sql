@@ -5,12 +5,28 @@ CREATE TABLE "User" (
     "username" TEXT NOT NULL,
     "profilePictureUrl" TEXT,
     "teamId" INTEGER,
+    "email" TEXT NOT NULL,
+    "isEmailVerified" BOOLEAN NOT NULL DEFAULT false,
+    "isSuperAdmin" BOOLEAN NOT NULL DEFAULT false,
+    "password" TEXT NOT NULL,
+    "refreshToken" TEXT,
+    "refreshTokenExpiration" TIMESTAMP(3),
     "deletedAt" TIMESTAMP(3),
-    "isDeleted" BOOLEAN,
+    "isDeleted" BOOLEAN DEFAULT false,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "deletedBy" INTEGER,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "EmailVerification" (
+    "id" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "emailToken" TEXT NOT NULL,
+    "timestamp" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "EmailVerification_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -20,7 +36,7 @@ CREATE TABLE "Team" (
     "productOwnerUserId" INTEGER,
     "projectManagerUserId" INTEGER,
     "deletedAt" TIMESTAMP(3),
-    "isDeleted" BOOLEAN,
+    "isDeleted" BOOLEAN DEFAULT false,
     "deletedById" INTEGER,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -35,7 +51,7 @@ CREATE TABLE "Project" (
     "startDate" TIMESTAMP(3),
     "endDate" TIMESTAMP(3),
     "deletedAt" TIMESTAMP(3),
-    "isDeleted" BOOLEAN,
+    "isDeleted" BOOLEAN DEFAULT false,
     "deletedById" INTEGER,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -71,8 +87,25 @@ CREATE TABLE "Task" (
     "deletedAt" TIMESTAMP(3),
     "deletedById" INTEGER,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "columnId" INTEGER NOT NULL DEFAULT 1,
+    "order" SERIAL NOT NULL,
 
     CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Cloumn" (
+    "id" SERIAL NOT NULL,
+    "title" TEXT NOT NULL,
+    "color" TEXT NOT NULL,
+    "order" SERIAL NOT NULL,
+    "projectId" INTEGER NOT NULL,
+    "deletedAt" TIMESTAMP(3),
+    "deletedById" INTEGER,
+    "updatedAt" TIMESTAMP(3),
+    "updatedBy" INTEGER,
+
+    CONSTRAINT "Cloumn_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -120,6 +153,51 @@ CREATE UNIQUE INDEX "User_cognitoId_key" ON "User"("cognitoId");
 -- CreateIndex
 CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE INDEX "User_teamId_idx" ON "User"("teamId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "EmailVerification_email_emailToken_key" ON "EmailVerification"("email", "emailToken");
+
+-- CreateIndex
+CREATE INDEX "unique_team_project" ON "ProjectTeam"("teamId", "projectId");
+
+-- CreateIndex
+CREATE INDEX "Task_projectId_idx" ON "Task"("projectId");
+
+-- CreateIndex
+CREATE INDEX "Task_columnId_idx" ON "Task"("columnId");
+
+-- CreateIndex
+CREATE INDEX "Task_columnId_projectId_idx" ON "Task"("columnId", "projectId");
+
+-- CreateIndex
+CREATE INDEX "Task_authorUserId_idx" ON "Task"("authorUserId");
+
+-- CreateIndex
+CREATE INDEX "Task_assignedUserId_idx" ON "Task"("assignedUserId");
+
+-- CreateIndex
+CREATE INDEX "TaskAssignment_userId_idx" ON "TaskAssignment"("userId");
+
+-- CreateIndex
+CREATE INDEX "TaskAssignment_taskId_idx" ON "TaskAssignment"("taskId");
+
+-- CreateIndex
+CREATE INDEX "Attachment_taskId_idx" ON "Attachment"("taskId");
+
+-- CreateIndex
+CREATE INDEX "Attachment_uploadedById_idx" ON "Attachment"("uploadedById");
+
+-- CreateIndex
+CREATE INDEX "Comment_taskId_idx" ON "Comment"("taskId");
+
+-- CreateIndex
+CREATE INDEX "Comment_userId_idx" ON "Comment"("userId");
+
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_teamId_fkey" FOREIGN KEY ("teamId") REFERENCES "Team"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
@@ -142,6 +220,9 @@ ALTER TABLE "ProjectTeam" ADD CONSTRAINT "ProjectTeam_projectId_fkey" FOREIGN KE
 ALTER TABLE "ProjectTeam" ADD CONSTRAINT "ProjectTeam_deletedById_fkey" FOREIGN KEY ("deletedById") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "Task" ADD CONSTRAINT "Task_columnId_fkey" FOREIGN KEY ("columnId") REFERENCES "Cloumn"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Task" ADD CONSTRAINT "Task_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "Project"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -152,6 +233,9 @@ ALTER TABLE "Task" ADD CONSTRAINT "Task_assignedUserId_fkey" FOREIGN KEY ("assig
 
 -- AddForeignKey
 ALTER TABLE "Task" ADD CONSTRAINT "Task_deletedById_fkey" FOREIGN KEY ("deletedById") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Cloumn" ADD CONSTRAINT "Cloumn_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "Project"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "TaskAssignment" ADD CONSTRAINT "TaskAssignment_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

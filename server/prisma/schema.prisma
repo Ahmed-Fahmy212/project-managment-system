@@ -12,14 +12,20 @@ datasource db {
 // apply soft delete well 
 //TODO handle this scehma 
 model User {
-  id                Int       @id @default(autoincrement())
-  cognitoId         String    @unique
-  username          String    @unique
-  profilePictureUrl String?
-  teamId            Int?
-  deletedAt         DateTime?
-  isDeleted         Boolean?  @default(false)
-  updatedAt         DateTime  @updatedAt
+  id                     Int       @id @default(autoincrement())
+  cognitoId              String    @unique
+  username               String    @unique
+  profilePictureUrl      String?
+  teamId                 Int?
+  email                  String    @unique
+  isEmailVerified        Boolean   @default(false)
+  isSuperAdmin           Boolean   @default(false)
+  password               String
+  refreshToken           String?
+  refreshTokenExpiration DateTime?
+  deletedAt              DateTime?
+  isDeleted              Boolean?  @default(false)
+  updatedAt              DateTime  @updatedAt
 
   authoredTasks   Task[]           @relation("TaskAuthor")
   assignedTasks   Task[]           @relation("TaskAssignee")
@@ -41,6 +47,15 @@ model User {
   deletedComments     Comment[]        @relation("CommentDeletedBy")
 
   @@index([teamId])
+}
+
+model EmailVerification {
+  id         String   @id @default(uuid())
+  email      String
+  emailToken String
+  timestamp  DateTime
+
+  @@unique([email, emailToken])
 }
 
 model Team {
@@ -109,8 +124,8 @@ model Task {
   deletedById    Int?
   updatedAt      DateTime  @updatedAt
   columnId       Int       @default(1)
-  order         Int       @default(autoincrement())
-  
+  order          Int       @default(autoincrement())
+
   Column          Cloumn?          @relation(fields: [columnId], references: [id])
   project         Project          @relation(fields: [projectId], references: [id])
   author          User             @relation("TaskAuthor", fields: [authorUserId], references: [id])
@@ -121,7 +136,7 @@ model Task {
   comments        Comment[]
   deletedBy       User?            @relation("TaskDeletedBy", fields: [deletedById], references: [id])
 
-//TODO make sure of thes indexes
+  //TODO make sure of thes indexes
   @@index([projectId])
   @@index([columnId])
   @@index([columnId, projectId])
@@ -134,6 +149,8 @@ model Cloumn {
   id        Int    @id @default(autoincrement())
   title     String
   color     String
+  order     Int   @default(autoincrement())
+  projectId Int    
   order     Int   @default(autoincrement())
   projectId Int    
 

@@ -38,6 +38,8 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   const [activeTask, setActiveTask] = useState<TaskType | null>(null);
   const reorderedColumnsRef = useRef<{ orderIds: orderID[] }>({ orderIds: [] });
   const reorderedTasksRef = useRef<{ orderIds: orderID[], columnId?: number, activeTaskId?: number }>({ orderIds: [] });
+  const [isTaskDragging, setIsTaskDragging] = useState(false);
+  const [isColumnDragging, setIsColumnDragging] = useState(false);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -46,7 +48,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     })
   );
 
-  // want when first fetch take columns with tasks associated with i thing it`s faster check the speed 
+
   const { data: columns, isPending, error, isFetching } = useQuery({
     queryKey: ['columns', projectId],
     queryFn: () => getColumns(projectId),
@@ -56,15 +58,15 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   //------------------------------------------------------------------------------------
   const { data: tasks, isPending: isPendingTasks, error: tasksError, isFetching: isFetchingTasks } = useGetTasksQuery(projectId)
   const queryClient = useQueryClient();
-  const { mutateAsync: addColumnMutation } = useMutation({
+  const { mutate: addColumnMutation } = useMutation({
     mutationFn: (newColumn: ColumnBody) => addColumn(newColumn),
     onMutate: async (newColumn) => {
       await queryClient.cancelQueries({ queryKey: ['columns', projectId] });
 
       const previousColumns = queryClient.getQueryData(['columns', projectId]);
-      const newColumnWithId = { ...newColumn, id: Date.now() }; // Temporary ID for optimistic update
 
       queryClient.setQueryData(['columns', projectId], (oldData: Column[] | undefined) => {
+        const newColumnWithId = { ...newColumn, id: Math.max(...(oldData ?? []).map(col => col.id), 0) + 1 };
         return oldData ? [...oldData, newColumnWithId] : [newColumnWithId];
       });
 
@@ -76,22 +78,15 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['columns', projectId] });
     }
-    // ,
-    // onSuccess: (newColumn) => {
-    //   queryClient.setQueryData(['columns', projectId], (oldData: Column[] | undefined) => {
-    //     return oldData ? [...oldData.filter(column => column.id !== newColumn.id), newColumn] : [newColumn];
-    //   });
-    // }
   });
-
   const { isPending: isPendingUpdate, mutateAsync: updateColumnsMutation, isError: isColumnsError } = useMutation({
     mutationFn: (newOrderColumns: { projectId: number, newOrder: orderID[] }) => updateColumns(newOrderColumns),
-    onMutate: async (newOrderColumns) => {
-      await queryClient.cancelQueries({ queryKey: ['columns', projectId] });
+    onMutate: (newOrderColumns) => {
+      queryClient.cancelQueries({ queryKey: ['columns', projectId] });
 
       const previousColumns = queryClient.getQueryData(['columns', projectId]);
-      let updatedColumns
-      queryClient.setQueryData(['columns', projectId], (oldData: Column[] | undefined) => {
+      let updatedColumns;
+      queryClient.setQueryData(['columns', projectId], (oldData: Column[]) => {
         if (!oldData) return oldData;
 
         updatedColumns = oldData
@@ -104,8 +99,6 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
         return updatedColumns;
       });
 
-      setActiveColumn(null);
-      setActiveTask(null);
       return { previousColumns };
     },
     onError: (error, _, context) => {
@@ -116,7 +109,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     },
   });
 
-  const { mutateAsync: updateTasksMutation, error: tasksUpdateError, isPending: isPendingTasksUpdate } = useMutation({
+  const { mutate: updateTasksMutation, error: tasksUpdateError, isPending: isPendingTasksUpdate } = useMutation({
     mutationFn: (tasksUpdate: UpdateTasksData) => updateTasks(tasksUpdate),
     onMutate: async (newOrderTasks) => {
       await queryClient.cancelQueries({ queryKey: ['tasks', projectId] });
@@ -131,14 +124,11 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
         }).sort((a, b) => a.order - b.order);
 
         if (reorderedTasksRef.current.columnId !== undefined) {
-          const activeTask = updatedTasks.find(task => task.id === reorderedTasksRef.current.activeTaskId);
+          const activeTask = updatedTasks.find((task) => task.id === reorderedTasksRef.current.activeTaskId);
           if (activeTask) {
-            activeTask.columnId = reorderedTasksRef.current.columnId;
-            setActiveTask({ ...activeTask });
+            setActiveTask({ ...activeTask, columnId: reorderedTasksRef.current.columnId });
           }
         }
-
-
         return updatedTasks;
       });
 
@@ -177,10 +167,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     if (activeIndex === -1 || overIndex === -1) return columns;
 
     // move active column to over column index
-    const reorderedColumn = [...columns];
-    const [removedColumn] = reorderedColumn.splice(activeIndex, 1);
-    reorderedColumn.splice(overIndex, 0, removedColumn);
-
+    const reorderedColumn = arrayMove(columns, activeIndex, overIndex);
     // return array of new order array of id and new order
     return reorderedColumn.map((column, index) => ({ id: column.id, order: index }));
   }
@@ -195,7 +182,8 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   const handleDraggEnd = async (event: DragEndEvent) => {
     setActiveColumn(null);
     setActiveTask(null);
-
+    setIsTaskDragging(false);
+    setIsColumnDragging(false);
     const { active, over } = event;
     if (!over) return;
 
@@ -208,40 +196,40 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     if (!columns) return;
     if (active.data.current?.type === 'Column' && over.data.current?.type === 'Column') {
       const newOrder = reorderColumns(columns, activeId, overId);
-      console.log('🤍newOrder', newOrder)
-      console.log('🤍reorderedColumnsRef.current.orderIds', reorderedColumnsRef.current.orderIds)
-      console.log('🤍🤍activeColumn', activeColumn)
-      console.log('🤍🤍activeTask', activeTask)
       reorderedColumnsRef.current = { orderIds: newOrder };
-      await updateColumnsMutation({ projectId, newOrder });
+      updateColumnsMutation({ projectId, newOrder });
 
     }
-    if (active.data.current?.type === 'Task' && over.data.current?.type === 'Task') {
+    else if (active.data.current?.type === 'Task' && over.data.current?.type === 'Task') {
       if (reorderedTasksRef.current.orderIds.length > 0) {
-        await updateTasksMutation({
+        updateTasksMutation({
           projectId,
           newOrder: reorderedTasksRef.current.orderIds
         });
       }
     }
-
+    console.log("💛💛empty")
   }
   //------------------------------------------------------------------------------------
   const handleDraggStart = (event: DragStartEvent) => {
-    console.log('🤍🤍🤍event.active.data.current?.type', event.active.data.current?.type)
+    console.log('Drag Start Event:', event);
+
     if (event.active.data.current?.type === 'Task') {
       console.log('🤍event.active.data.current?.task', event.active.data.current?.task)
-      setActiveTask(event.active.data.current.task)
+      setActiveTask(event.active.data.current?.task)
+      setIsTaskDragging(true);
       return;
     }
     if (event.active.data.current?.type === 'Column') {
       console.log('🤍event.active.data.current.column', event.active.data.current.column)
-      setActiveColumn(event.active.data.current.column);
+      setActiveColumn(event.active.data.current.column)
+      setIsColumnDragging(true);
       return;
     }
   }
   //------------------------------------------------------------------------------------
   const handleDraggOver = async (event: DragOverEvent) => {
+    console.log('Drag Over Event:', event);
     const { active, over } = event;
     if (!over) return;
 
@@ -261,7 +249,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
         reorderedTasksRef.current.columnId = overTask.columnId
         reorderedTasksRef.current.activeTaskId = activeTaskId;
 
-        return await updateTasksMutation({
+        return updateTasksMutation({
           projectId,
           newOrder: reorderedTasksRef.current.orderIds,
           columnId: reorderedTasksRef.current.columnId,
@@ -271,9 +259,9 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       console.log('🤍🤍🤍 task over task')
       return
     }
-    else if (active.data.current?.type === 'Task' && over.data.current?.type === 'Column' ) {
+    else if (active.data.current?.type === 'Task' && over.data.current?.type === 'Column') {
       const activeTaskIndex = tasks.findIndex(task => task.id === activeTaskId);
-     // Case column has no tasks 
+      // Case column has no tasks 
       //will take column before and get last task id inside 
       // i think this is more safe than update just task in column 
       const tasksInColumn = over.data.current?.column?.task?.sort((a: TaskType, b: TaskType) => a.order - b.order);
@@ -283,7 +271,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overIndex);
       reorderedTasksRef.current.columnId = over.data.current?.column?.id
       reorderedTasksRef.current.activeTaskId = activeTaskId;
-      return await updateTasksMutation({
+      return updateTasksMutation({
         projectId,
         newOrder: reorderedTasksRef.current.orderIds,
         columnId: reorderedTasksRef.current.columnId,
@@ -294,10 +282,9 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   //------------------------------------------------------------------------------------
 
   //------------------------------------------------------------------------------------
-  // const columnsIds = columns?.sort((a, b) => a.order - b.order);
-  const columnsIds = columns || []
   const tasksIds = activeColumn?.task?.sort((a, b) => a.order - b.order) || []
-  // console.log('🤍columnsIds', columnsIds)
+  console.log('🤍🤍🤍 isTaskDragging', isTaskDragging)
+  console.log('🤍🤍🤍 isColumnDragging', isColumnDragging)
   return (
     <div className="flex-1 overflow-y-scroll">
       <DndContext
@@ -308,11 +295,9 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
         collisionDetection={closestCenter}
       >
         <div className="gap-4 grid grid-cols-footer pl-4">
-          {/* //case want update tasks just rerender --- cashe + com */}
-          <SortableContext items={columnsIds} >
+          <SortableContext items={columns || []} >
             {columns?.map((column: Column) => {
-              // handled in more faster without conflict 
-              const crazyTask = tasks.filter((task: TaskType) => task.columnId === column?.id).sort((a, b) => a.order - b.order);
+              const crazyTask = (column.task ?? []).sort((a, b) => a.order - b.order)
               return (
                 <TaskColumn
                   key={column.id}
@@ -329,7 +314,6 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
           {createPortal(
             <DragOverlay>{
               activeColumn && (
-
                 <TaskColumn
                   column={activeColumn}
                   setIsModalNewTaskOpen={setIsModalNewTaskOpen}

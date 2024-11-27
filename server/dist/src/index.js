@@ -22,7 +22,7 @@ app.use(helmet_1.default.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use((0, morgan_1.default)((tokens, req, res) => {
     return [
         `${tokens.status(req, res)}`,
-        `${tokens.method(req, res)}/${tokens.url(req, res)}`,
+        `${tokens.method(req, res)}${tokens.url(req, res)}`,
         `${tokens['response-time'](req, res)} ms`,
     ].join(' | ');
 }));
@@ -36,8 +36,10 @@ app.get('*', (req, res) => {
         },
     });
 });
-// add email alert
-app.use(errorHandlerMiddleware_1.default);
+// will add email alert
+app.use((err, req, res, next) => {
+    (0, errorHandlerMiddleware_1.default)(err, req, res, next);
+});
 const port = parseInt(process.env.PORT || "8000");
 app.listen(port, () => {
     console.log(`\x1b[32mServer running on port ${port}\x1b[0m`);

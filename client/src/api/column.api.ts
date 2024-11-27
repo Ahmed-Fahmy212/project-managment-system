@@ -25,7 +25,9 @@ export const getColumns = async (projectId: number): Promise<ColumnWithTasks[]> 
     try {
         const data = await axios.get(`http://localhost:8000/columns/${Number(projectId)}`);
         const columns = data.data.data;
+        // will removed after backend fix
         const sortedColumns = columns.sort((a: ColumnWithTasks, b: ColumnWithTasks) => a.order - b.order);
+        // console.log("💛💛sortedColumns", sortedColumns)
         return sortedColumns;
     } catch (error) {
         toast.error("Failed to fetch columns");
@@ -41,7 +43,8 @@ export type UpdateData = {
 export const updateColumns = async (UpdateData: UpdateData): Promise<Column[]> => {
     try {
         const data = await axios.patch(`http://localhost:8000/columns`, UpdateData);
-        return data.data.data;
+        const sortedColumns = data.data.data.sort((a: Column, b: Column) => a.order - b.order);
+        return sortedColumns;
 
     } catch (error) {
         toast.error("Failed to update columns");

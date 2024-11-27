@@ -7,8 +7,7 @@ import toast from "react-hot-toast";
 export const getTasks = async (projectId: number): Promise<Task[]> => {
     try {
         const data = await axios.get(`http://localhost:8000/tasks/${projectId}`);
-        const sortedTasks = data.data.data.sort((a: Task, b: Task) => a.order - b.order);
-        console.log("🤍sortedTasks", sortedTasks)
+       const sortedTasks = data.data.data.sort((a: Task, b: Task) => a.order - b.order);
         return sortedTasks;
     } catch (error) {
         toast.error("Failed to fetch tasks");
@@ -49,7 +48,8 @@ export type UpdateTasksData = {
     newOrder: { id: number; order: number }[];
 } & Partial<TaskDataBody>
 
-export const updateTasks = async ( updateData: UpdateTasksData): Promise<{ newOrderedTasks: Task[]}> => {
+export const updateTasks = async ( updateData: UpdateTasksData): Promise<{ previouseTaskData: Task[], targetTaskData: Task[] }> => {
+export const updateTasks = async ( updateData: UpdateTasksData): Promise<{ previouseTaskData: Task[], targetTaskData: Task[] }> => {
     try {
         console.log("🤍updateData", updateData)
         const { activeTaskId, columnId } = updateData;
