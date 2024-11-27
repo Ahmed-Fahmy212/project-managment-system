@@ -12,7 +12,7 @@ export const tasks = {
   ): Promise<void> => {
     const projectId = req.params.projectId;
     const parsedProjectId = parseInt(projectId);
-    if (!projectId) {
+    if (!parsedProjectId) {
       throw new BadRequestException("Invalid or missing required field: projectId");
     }
     const tasks = await TaskService.getTasks(parsedProjectId);
@@ -23,12 +23,13 @@ export const tasks = {
     req: Request,
     res: Response
   ): Promise<void> => {
-    const { projectId } = req.params;
-    const { taskId } = req.params;
-    if (!projectId || !taskId) {
-      throw new BadRequestException(` Missing required field: ${projectId} ${taskId}`);
+    const { projectId,taskId } = req.params;
+    const parsedProjectId = parseInt(projectId);
+    const parsedTaskId = parseInt(taskId);
+    if (!parsedTaskId || !parsedProjectId) {
+      throw new BadRequestException(` Missing required field: ${parsedProjectId} ${parsedProjectId}`);
     }
-    const project = await TaskService.getOneTask(parseInt(taskId), parseInt(projectId));
+    const project = await TaskService.getOneTask(parsedTaskId, parsedProjectId);
     response.success(res, project);
   },
 

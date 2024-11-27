@@ -12,7 +12,7 @@ export const columns = {
     ): Promise<void> => {
         const projectId = req.params.projectId;
         const parsedProjectId = parseInt(projectId);
-        if (!projectId) {
+        if (!parsedProjectId) {
             throw new BadRequestException("Invalid or missing required field: projectId");
         }
         const columns = await ColumnService.getColumnWithTasks(parsedProjectId);
