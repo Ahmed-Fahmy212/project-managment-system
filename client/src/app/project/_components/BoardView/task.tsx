@@ -54,12 +54,12 @@ export const Task = ({ task }: TaskProps) => {
         transform: CSS.Transform.toString(transform),
     }
     if (isDragging) {
-        // console.log("...Dragging")
         return (<div className="border h-[172px] border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} />)
     }
 
     return (
-        <div ref={setNodeRef}
+        <div
+         ref={setNodeRef}
             style={style}
             {...attributes}
             {...listeners}

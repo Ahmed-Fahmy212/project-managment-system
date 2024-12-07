@@ -42,23 +42,27 @@ export const TaskColumn = ({
         },
     });
 
-    const taskIds = tasks?.sort((a, b) => a.order - b.order) || []
 
     const style = {
         transition: transition,
         transform: CSS.Transform.toString(transform),
     }
     if (isDragging) {
-        console.log("💙💙Dragging column:", column.id);
         return (<div className="border pt-4 border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} />)
     }
-    console.log("array", taskIds.map((task) => ({ title: task.title, order: task.order })))
+    console.log("🤍tasks",
+        tasks?.map((task) => ({
+            title: task.title,
+            order: task.order
+        }))
+    );
     return (
         <div
             ref={setNodeRef}
             className={`rounded py-2 h-[720px] sm:py-4 xl:px-2 hover:cursor-default`}
             style={style}
             {...attributes}
+            {...listeners}
         >
             <div className="flex mb-3 w-full">
                 <div
@@ -67,7 +71,6 @@ export const TaskColumn = ({
                 />
                 <div
                     className={`hover:cursor-grab bg-white dark:bg-dark-secondary dark:text-white flex items-center justify-between px-1 rounded-e-lg`}
-                    {...listeners}
                 >
                     <GripVertical />
                 </div>
@@ -127,16 +130,22 @@ export const TaskColumn = ({
                     </div>
                 </div>
             </div>
-            {taskIds.length > 0 &&
-                <SortableContext items={taskIds}>
+
+            {tasks &&
+                <SortableContext items={tasks}>
                     {
-                        taskIds.map((task) => (
+                        tasks.map((task) => (
                             <Task task={task}
                             />
                         ))
                     }
                 </SortableContext>
             }
+            {/* {tasks &&
+                tasks.map((task) => (
+                    <Task task={task} key={task.id} />
+                ))
+            } */}
             <button
                 onClick={() => setIsModalNewTaskOpen(true)}
                 className="hover:bg-gray-100 dark:bg-dark-bg dark:text-white dark:border-gray-500 py-3 w-full flex items-center justify-center border-2 border-dotted dark:border-solid dark:border  dark:hover:border-rose-900 rounded duration-100 "
