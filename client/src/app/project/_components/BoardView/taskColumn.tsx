@@ -62,15 +62,15 @@ export const TaskColumn = ({
             className={`rounded py-2 h-[720px] sm:py-4 xl:px-2 hover:cursor-default`}
             style={style}
             {...attributes}
-            {...listeners}
         >
             <div className="flex mb-3 w-full">
                 <div
                     className={`w-3 rounded-s `}
                     style={{ backgroundColor: statusColor }}
-                />
+                    />
                 <div
                     className={`hover:cursor-grab bg-white dark:bg-dark-secondary dark:text-white flex items-center justify-between px-1 rounded-e-lg`}
+                    {...listeners}
                 >
                     <GripVertical />
                 </div>
