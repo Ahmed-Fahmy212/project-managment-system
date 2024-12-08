@@ -54,7 +54,10 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   }
   )
   //------------------------------------------------------------------------------------
-  const { data: tasks, isPending: isPendingTasks, error: tasksError, isFetching: isFetchingTasks } = useGetTasksQuery(projectId)
+  const { data: tasks, isPending: isPendingTasks, error: tasksError, isFetching: isFetchingTasks } = useQuery({
+    queryKey: ['tasks', projectId],
+    queryFn: () => getTasks(projectId),
+  });
   const queryClient = useQueryClient();
   const { mutateAsync: addColumnMutation } = useMutation({
     mutationFn: (newColumn: ColumnBody) => addColumn(newColumn),
@@ -173,11 +176,11 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     if (activeIndex < 0 || overIndex < 0) {
       console.log("💛💛💛💛💛💛💛💛💛💛💛Invalid task indices for reordering:", { activeIndex, overIndex });
     }
-
-    return arrayMove(tasks, activeIndex, overIndex).map((task, index) => ({
+    const data = arrayMove(tasks, activeIndex, overIndex).map((task, index) => ({
       id: task.id,
       order: index,
     }));
+    return data;
   };
   //------------------------------------------------------------------------------------
   const handleDragEnd = async (event: DragEndEvent) => {
@@ -191,21 +194,21 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     const overId = over.id as number;
 
     if (!activeId || !overId || (activeId === overId)) return;
-    if (active.data.current?.type === "Task" && over.data.current?.type === "Column") {
-      return
-    }
-    if (active.data.current?.type === "Column" && over.data.current?.type === "Column") {
-      const newOrder = reorderColumns(columns || [], activeId, overId);
-      if (newOrder.length) {
-        return await updateColumnsMutation({ projectId, newOrder });
+    if (!(active.data.current?.type === "Task" && over.data.current?.type === "Column")) {
+
+      if (active.data.current?.type === "Column" && over.data.current?.type === "Column") {
+        const newOrder = reorderColumns(columns || [], activeId, overId);
+        if (newOrder.length) {
+          return await updateColumnsMutation({ projectId, newOrder });
+        }
       }
-    }
-    if (active.data.current?.type === "Task" && over.data.current?.type === "Task"
-    ) {
-      return await updateTasksMutation({
-        projectId,
-        newOrder: reorderedTasksRef.current.orderIds,
-      });
+      if (active.data.current?.type === "Task" && over.data.current?.type === "Task"
+      ) {
+        return await updateTasksMutation({
+          projectId,
+          newOrder: reorderedTasksRef.current.orderIds,
+        });
+      }
     }
 
   }
@@ -232,13 +235,9 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     const overTaskId = over.id as number;
     console.log('💚💚activeTaskId', activeTaskId)
     console.log('💚💚overTaskId', overTaskId)
-    if (active.data.current?.type === 'Task' && over.data.current?.type === 'Column' && activeColumn?.task?.length === 0) {
+    if (active.data.current?.type === 'Task' && over.data.current?.type === 'Column') {
+      // make this only for empty column items 
       const activeTaskIndex = tasks.findIndex(task => task.id === activeTaskId);
-      if (activeTaskIndex === -1) {
-        console.error('Active task not found');
-        return;
-      }
-
       const tasksInColumn = [...(over.data.current?.column?.task || [])];
       console.log('💚💚💚💚💚💚tasksInColumn', tasksInColumn);
 
@@ -246,22 +245,22 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       const overIndex = lastTaskInPrevColumn ? tasks.findIndex(task => task.id === lastTaskInPrevColumn.id) : tasks.length;
 
       if (overIndex === -1) {
-        console.error('Over task not found');
+        console.log('❤❤Over task not found');
         return;
       }
 
-      if (!reorderedTasksRef.current.orderIds || !reorderedTasksRef.current.columnId || !reorderedTasksRef.current.activeTaskId) {
-        throw new Error("Reordering tasks failed: Missing required data.");
-      }
 
       reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overIndex);
       reorderedTasksRef.current.columnId = over.data.current.column.id;
       reorderedTasksRef.current.activeTaskId = activeTaskId;
+      if (!reorderedTasksRef.current.orderIds || !reorderedTasksRef.current.columnId || !reorderedTasksRef.current.activeTaskId) {
+        throw new Error("Reordering tasks failed: Missing required data.");
+      }
       if (activeTask && reorderedTasksRef.current.columnId !== undefined) {
         console.log('--------------------------------------------')
         setActiveTask({ ...activeTask, columnId: reorderedTasksRef.current.columnId });
       }
-      return await updateTasksMutation({
+      await updateTasksMutation({
         projectId,
         newOrder: reorderedTasksRef.current.orderIds,
         columnId: reorderedTasksRef.current.columnId,
@@ -275,28 +274,28 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       const overTask = tasks[overTaskIndex];
       if (activeTask?.columnId === overTask?.columnId) {
         const newTasks = [...tasks];
-        return reorderedTasksRef.current.orderIds = moveOrderTasks(newTasks, activeTaskIndex, overTaskIndex);
+        reorderedTasksRef.current.orderIds = moveOrderTasks(newTasks, activeTaskIndex, overTaskIndex);
       }
       else if (activeTask?.columnId !== overTask.columnId) {
         reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overTaskIndex);
         reorderedTasksRef.current.columnId = overTask.columnId
         reorderedTasksRef.current.activeTaskId = activeTaskId;
 
-        return await updateTasksMutation({
+        await updateTasksMutation({
           projectId,
           newOrder: reorderedTasksRef.current.orderIds,
           columnId: reorderedTasksRef.current.columnId,
           activeTaskId: reorderedTasksRef.current.activeTaskId
         });
       }
-      return;
+      ;
     }
 
   }
   //------------------------------------------------------------------------------------
   // how two const 
   // make this state 
-  const tasksInColumn = tasks.sort((a, b) => a.order - b.order);
+  const tasksInColumn = tasks
   return (
     <div className="flex-1 overflow-y-scroll">
       <DndContext
@@ -307,22 +306,22 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
         collisionDetection={closestCenter}
       >
         <div className="gap-4 grid grid-cols-footer pl-4">
-          {/* <SortableContext items={columns || []} > */}
-          {columns?.map((column: Column) => {
-            const crazyTask = tasksInColumn.filter((task) => task.columnId === column.id)
-            console.log('💛💛 crazyTask', crazyTask)
-            return (
-              <TaskColumn
-                key={column.id}
-                column={column}
-                setIsModalNewTaskOpen={setIsModalNewTaskOpen}
-                addColumnMutation={addColumnMutation}
-                tasks={crazyTask}
-              />
-            );
-          })}
-          <ColumnForm projectId={projectId} AddColumnMutation={addColumnMutation} />
-          {/* </SortableContext> */}
+          <SortableContext items={columns || []} >
+            {columns?.map((column: Column) => {
+              const crazyTask = tasks.filter((task) => task.columnId === column.id).sort((a, b) => a.order - b.order)
+              // console.log('💛💛 crazyTask', crazyTask)
+              return (
+                <TaskColumn
+                  key={column.id}
+                  column={column}
+                  setIsModalNewTaskOpen={setIsModalNewTaskOpen}
+                  addColumnMutation={addColumnMutation}
+                  tasks={crazyTask}
+                />
+              );
+            })}
+            <ColumnForm projectId={projectId} AddColumnMutation={addColumnMutation} />
+          </SortableContext>
 
           {createPortal(
             <DragOverlay>
