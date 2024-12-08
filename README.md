@@ -4,8 +4,9 @@ This project is built with **Next.js** (frontend) and **Express.js** (backend). 
 
 ---
 
-## Live Preview 🔴
+## Live Preview 🎉
 
+<div align="center">
 ### > **[Live Preview Link](
 >https://jam.dev/c/2a3a9598-bf47-4ade-904e-5a00051ea1bb
 > )**
@@ -93,14 +94,6 @@ Ensure you have the following installed on your system:
    ```plaintext
    http://localhost:5000
    ```
-
----
-
-## Live Preview 🎉
-
-<div align="center">
-
-
 
 ---
 
