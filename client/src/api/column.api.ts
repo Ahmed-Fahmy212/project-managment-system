@@ -41,6 +41,7 @@ export type UpdateData = {
 
 export const updateColumns = async (UpdateData: UpdateData): Promise<Column[]> => {
     try {
+        if(UpdateData.newOrder.length === 0) return [];
         const data = await axios.patch(`http://localhost:8000/columns`, UpdateData);
         const sortedColumns = data.data.data.sort((a: Column, b: Column) => a.order - b.order);
         return sortedColumns;
