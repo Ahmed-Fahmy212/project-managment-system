@@ -10,6 +10,7 @@ This project is built with **Next.js** (frontend) and **Express.js** (backend). 
 >https://jam.dev/c/2a3a9598-bf47-4ade-904e-5a00051ea1bb
 > )**
 this is video record.
+![image](https://github.com/user-attachments/assets/d56ca9c7-257c-4372-aa65-ae02cc85e413)
 
 ## Prerequisites
 
@@ -102,6 +103,7 @@ Ensure you have the following installed on your system:
 >https://jam.dev/c/2a3a9598-bf47-4ade-904e-5a00051ea1bb
 > )**
 this is video record.
+![image](https://github.com/user-attachments/assets/f10d7551-20c9-4858-958c-f75e9136b466)
 
 </div>
 
