@@ -131,9 +131,11 @@ export const api = createApi({
             invalidatesTags: (result, error, { taskId }) => {
                 return [{ type: "Tasks", id: taskId }];
             },
-        })
+        }), search: bu.query<SearchResults, string>({
+            query: (query) => `search?query=${query}`,
+        }),
     }),
 })
 // removed and putted into react query 
-export const { useGetProjectsQuery, useCreateProjectMutation, useCreateTaskMutation, useUpdateTaskMutation } = api
+export const {useGetTasksQuery, useGetProjectsQuery, useCreateProjectMutation, useCreateTaskMutation, useUpdateTaskMutation , useSearchQuery } = api
 //========================================================== React Query ====================================================

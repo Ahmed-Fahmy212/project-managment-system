@@ -32,37 +32,37 @@ export const useAddColumnMutation = (projectId: number) => {
         }
     });
 };
-export const useUpdateColumnsMutation = (projectId: number) => {
-    const queryClient = useQueryClient();
+// export const useUpdateColumnsMutation = (projectId: number) => {
+//     const queryClient = useQueryClient();
 
-    return useMutation({
-        mutationFn: (newOrderColumns: { projectId: number, newOrder: orderID[] }) => updateColumns(newOrderColumns),
-        onMutate: async (newOrderColumns) => {
-            await queryClient.cancelQueries({ queryKey: ['columns', projectId] });
+//     return useMutation({
+//         mutationFn: (newOrderColumns: { projectId: number, newOrder: orderID[] }) => updateColumns(newOrderColumns),
+//         onMutate: async (newOrderColumns) => {
+//             await queryClient.cancelQueries({ queryKey: ['columns', projectId] });
 
-            const previousColumns = queryClient.getQueryData(['columns', projectId]);
-            let updatedColumns
-            queryClient.setQueryData(['columns', projectId], (oldData: Column[] | undefined) => {
-                if (!oldData) return oldData;
+//             const previousColumns = queryClient.getQueryData(['columns', projectId]);
+//             let updatedColumns
+//             queryClient.setQueryData(['columns', projectId], (oldData: Column[] | undefined) => {
+//                 if (!oldData) return oldData;
 
-                updatedColumns = oldData
-                    .map((column) => {
-                        const updatedColumn = newOrderColumns.newOrder.find((newColumn) => newColumn.id === column.id);
-                        return updatedColumn ? { ...column, ...updatedColumn } : column;
-                    })
-                    .sort((a, b) => (a.order || 0) - (b.order || 0));
+//                 updatedColumns = oldData
+//                     .map((column) => {
+//                         const updatedColumn = newOrderColumns.newOrder.find((newColumn) => newColumn.id === column.id);
+//                         return updatedColumn ? { ...column, ...updatedColumn } : column;
+//                     })
+//                     .sort((a, b) => (a.order || 0) - (b.order || 0));
 
-                return updatedColumns;
-            });
+//                 return updatedColumns;
+//             });
 
-            return { previousColumns };
-        },
-        onError: (error, _, context) => {
-            queryClient.setQueryData(['columns', projectId], context?.previousColumns);
-        },
-        onSettled: (_, __, ___, context) => {
-            queryClient.invalidateQueries({ queryKey: ['columns', projectId] });
-        },
-    });
-};
+//             return { previousColumns };
+//         },
+//         onError: (error, _, context) => {
+//             queryClient.setQueryData(['columns', projectId], context?.previousColumns);
+//         },
+//         onSettled: (_, __, ___, context) => {
+//             queryClient.invalidateQueries({ queryKey: ['columns', projectId] });
+//         },
+//     });
+// };
 

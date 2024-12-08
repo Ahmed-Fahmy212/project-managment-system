@@ -22,7 +22,7 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import { useGetTasksQuery, useUpdateTasksMutation } from "@/api/reactQuery/tasksQuery";
-import { useAddColumnMutation, useUpdateColumnsMutation } from "@/api/reactQuery/columnQuery";
+// import { useAddColumnMutation, useUpdateColumnsMutation } from "@/api/reactQuery/columnQuery";
 
 type BoardViewProps = {
   id: string;

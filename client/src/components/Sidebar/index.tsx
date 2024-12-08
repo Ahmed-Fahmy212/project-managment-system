@@ -75,8 +75,8 @@ const Sidebar = () => {
       {/* navbar LINKS */}
       {/* !TODO add here the space left */}
       <nav className="flex w-full flex-col justify-start gap-2 p-2">
-        <SidebarLink href="/" icon={Home} label="Home" />
-        <SidebarLink href="/briefcase" icon={Briefcase} label="Projects" />
+        <SidebarLink href="/home" icon={Home} label="Home" />
+        <SidebarLink href={`/projects/${1}`} icon={Briefcase} label="Projects" />
         <SidebarLink href="/search" icon={Search} label="Search" />
         <SidebarLink href="/settings" icon={Settings} label="Settings" />
         <SidebarLink href="/users" icon={User} label="User" />
