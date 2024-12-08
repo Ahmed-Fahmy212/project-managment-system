@@ -12,7 +12,8 @@ Check out the video preview of the project:
    <a href="https://jam.dev/c/2a3a9598-bf47-4ade-904e-5a00051ea1bb" target="_blank">
       <strong>Click here for the video preview</strong>
    </a>
-      ![image](https://github.com/user-attachments/assets/fbb77869-7cca-4780-afe0-0582d5114f81)
+     
+   ![image](https://github.com/user-attachments/assets/fbb77869-7cca-4780-afe0-0582d5114f81)
 
 </div>
    
