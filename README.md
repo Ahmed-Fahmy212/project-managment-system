@@ -4,17 +4,19 @@ This project is built with **Next.js** (frontend) and **Express.js** (backend). 
 
 ---
 
-## Live Preview 🎉
+## Video Preview 🎥🎉
+
+Check out the video preview of the project:
 
 <div align="center">
-   
-### > **[Live Preview Link](
->https://jam.dev/c/2a3a9598-bf47-4ade-904e-5a00051ea1bb
-> )**
-this is video record.
-![image](https://github.com/user-attachments/assets/f10d7551-20c9-4858-958c-f75e9136b466)
-
+   <a href="https://jam.dev/c/2a3a9598-bf47-4ade-904e-5a00051ea1bb" target="_blank">
+      <strong>Click here for the video preview</strong>
+   </a>
+      ![image](https://github.com/user-attachments/assets/f10d7551-20c9-4858-958c-f75e9136b466)
 </div>
+   
+
+
 ## Prerequisites
 
 Ensure you have the following installed on your system:
