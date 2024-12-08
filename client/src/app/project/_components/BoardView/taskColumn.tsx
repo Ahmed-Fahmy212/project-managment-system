@@ -29,39 +29,33 @@ export const TaskColumn = ({
 }: TaskColumnProps) => {
     const { title, color: statusColor, projectId } = column;
     const [openDropdownMenu, setOpenDropdownMenu] = useState(false);
-    const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
-        id: column.id,
-        data: {
-            type: 'Column',
-            column,
-        }
-        ,
-        transition: {
-            duration: 300,
-            easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
-        },
-    });
+    // const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
+    //     id: column.id,
+    //     data: {
+    //         type: 'Column',
+    //         column,
+    //     }
+    //     ,
+    //     transition: {
+    //         duration: 300,
+    //         easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+    //     },
+    // });
+    const tasksInstance = tasks || [];
 
-
-    const style = {
-        transition: transition,
-        transform: CSS.Transform.toString(transform),
-    }
-    if (isDragging) {
-        return (<div className="border pt-4 border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} />)
-    }
-    console.log("🤍tasks",
-        tasks?.map((task) => ({
-            title: task.title,
-            order: task.order
-        }))
-    );
+    // const style = {
+    //     transition: transition,
+    //     transform: CSS.Transform.toString(transform),
+    // }
+    // if (isDragging) {
+    //     return (<div className="border pt-4 border-rose-500 opacity-70 bg-blue-200 dark:bg-black" ref={setNodeRef} style={style} />)
+    // }
     return (
         <div
-            ref={setNodeRef}
+            // ref={setNodeRef}
             className={`rounded py-2 h-[720px] sm:py-4 xl:px-2 hover:cursor-default`}
-            style={style}
-            {...attributes}
+            // style={style}
+            // {...attributes}
         >
             <div className="flex mb-3 w-full">
                 <div
@@ -70,7 +64,7 @@ export const TaskColumn = ({
                     />
                 <div
                     className={`hover:cursor-grab bg-white dark:bg-dark-secondary dark:text-white flex items-center justify-between px-1 rounded-e-lg`}
-                    {...listeners}
+                    // {...listeners}
                 >
                     <GripVertical />
                 </div>
@@ -131,10 +125,10 @@ export const TaskColumn = ({
                 </div>
             </div>
 
-            {tasks &&
-                <SortableContext items={tasks}>
+            {tasksInstance &&
+                <SortableContext items={tasksInstance}>
                     {
-                        tasks.map((task) => (
+                        tasksInstance.map((task) => (
                             <Task task={task}
                             />
                         ))

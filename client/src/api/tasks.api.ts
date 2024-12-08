@@ -56,9 +56,8 @@ export const updateTasks = async ( updateData: UpdateTasksData): Promise<{ newOr
             toast.error("Missing required field: columnId or activeTaskId");
             throw new Error("Missing required field: columnId or activeTaskId");
         }
-        if (updateData.newOrder.length === 0) return { newOrderedTasks: [] };
+        if (updateData.newOrder.length === 0) throw new Error(`lol`);
         const data = await axios.patch(`http://localhost:8000/tasks`, updateData);
-        console.log("🤍data", data)
         return data.data.data;
     } catch (error) {
         toast.error("Failed to update tasks");

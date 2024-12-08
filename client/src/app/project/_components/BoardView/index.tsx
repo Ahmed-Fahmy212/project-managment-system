@@ -118,11 +118,13 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
           return updatedTask ? { ...task, ...updatedTask } : task;
         }).sort((a, b) => a.order - b.order);
 
-        if (reorderedTasksRef.current.columnId !== undefined) {
+        if (reorderedTasksRef.current.columnId) {
           const activeTask = updatedTasks.find((task) => task.id === reorderedTasksRef.current.activeTaskId);
           if (activeTask) {
-            const updatedTask = { ...activeTask, columnId: reorderedTasksRef.current.columnId };
-            setActiveTask(updatedTask);
+            if (reorderedTasksRef.current.columnId !== undefined) {
+              setActiveTask({ ...activeTask, columnId: reorderedTasksRef.current.columnId });
+            }
+
           }
         }
         return updatedTasks;
@@ -169,8 +171,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
 
   const moveOrderTasks = (tasks: TaskType[], activeIndex: number, overIndex: number): orderID[] => {
     if (activeIndex < 0 || overIndex < 0) {
-      console.error("Invalid task indices for reordering:", { activeIndex, overIndex });
-      return [];
+      console.log("💛💛💛💛💛💛💛💛💛💛💛Invalid task indices for reordering:", { activeIndex, overIndex });
     }
 
     return arrayMove(tasks, activeIndex, overIndex).map((task, index) => ({
@@ -190,16 +191,18 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     const overId = over.id as number;
 
     if (!activeId || !overId || (activeId === overId)) return;
-
+    if (active.data.current?.type === "Task" && over.data.current?.type === "Column") {
+      return
+    }
     if (active.data.current?.type === "Column" && over.data.current?.type === "Column") {
       const newOrder = reorderColumns(columns || [], activeId, overId);
       if (newOrder.length) {
-        await updateColumnsMutation({ projectId, newOrder });
+        return await updateColumnsMutation({ projectId, newOrder });
       }
     }
     if (active.data.current?.type === "Task" && over.data.current?.type === "Task"
-      || active.data.current?.type === "Task" && over.data.current?.type === "Column") {
-      await updateTasksMutation({
+    ) {
+      return await updateTasksMutation({
         projectId,
         newOrder: reorderedTasksRef.current.orderIds,
       });
@@ -229,23 +232,43 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     const overTaskId = over.id as number;
     console.log('💚💚activeTaskId', activeTaskId)
     console.log('💚💚overTaskId', overTaskId)
-    if (active.data.current?.type === 'Task' && over.data.current?.type === 'Column') {
+    if (active.data.current?.type === 'Task' && over.data.current?.type === 'Column' && activeColumn?.task?.length === 0) {
       const activeTaskIndex = tasks.findIndex(task => task.id === activeTaskId);
-      const tasksInColumn = over.data.current?.column?.task?.sort((a: TaskType, b: TaskType) => a.order - b.order);
+      if (activeTaskIndex === -1) {
+        console.error('Active task not found');
+        return;
+      }
 
-      const lastTaskInPrevColumn = tasksInColumn[tasksInColumn.length - 1];
-      const overIndex = tasks.findIndex(task => task.id === lastTaskInPrevColumn?.id);
+      const tasksInColumn = [...(over.data.current?.column?.task || [])];
+      console.log('💚💚💚💚💚💚tasksInColumn', tasksInColumn);
+
+      const lastTaskInPrevColumn = tasksInColumn.length > 0 ? tasksInColumn[tasksInColumn.length - 1] : undefined;
+      const overIndex = lastTaskInPrevColumn ? tasks.findIndex(task => task.id === lastTaskInPrevColumn.id) : tasks.length;
+
+      if (overIndex === -1) {
+        console.error('Over task not found');
+        return;
+      }
+
+      if (!reorderedTasksRef.current.orderIds || !reorderedTasksRef.current.columnId || !reorderedTasksRef.current.activeTaskId) {
+        throw new Error("Reordering tasks failed: Missing required data.");
+      }
+
       reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overIndex);
-      reorderedTasksRef.current.columnId = over.data.current?.column?.id
+      reorderedTasksRef.current.columnId = over.data.current.column.id;
       reorderedTasksRef.current.activeTaskId = activeTaskId;
+      if (activeTask && reorderedTasksRef.current.columnId !== undefined) {
+        console.log('--------------------------------------------')
+        setActiveTask({ ...activeTask, columnId: reorderedTasksRef.current.columnId });
+      }
       return await updateTasksMutation({
         projectId,
         newOrder: reorderedTasksRef.current.orderIds,
         columnId: reorderedTasksRef.current.columnId,
-        activeTaskId: reorderedTasksRef.current.activeTaskId
+        activeTaskId: reorderedTasksRef.current.activeTaskId,
       });
     }
-    if (active.data.current?.type === "Task" && over.data.current?.type === "Task") {
+    else if (active.data.current?.type === "Task" && over.data.current?.type === "Task") {
       const activeTaskIndex = tasks.findIndex(task => task.id === activeTaskId);
       const overTaskIndex = tasks.findIndex(task => task.id === overTaskId);
       if (activeTaskIndex === -1 || overTaskIndex === -1) return;
@@ -273,8 +296,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   //------------------------------------------------------------------------------------
   // how two const 
   // make this state 
-  const tasksInstance = [...tasks];
-  const tasksInColumn = tasksInstance.sort((a, b) => a.order - b.order);
+  const tasksInColumn = tasks.sort((a, b) => a.order - b.order);
   return (
     <div className="flex-1 overflow-y-scroll">
       <DndContext
@@ -285,42 +307,36 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
         collisionDetection={closestCenter}
       >
         <div className="gap-4 grid grid-cols-footer pl-4">
-          <SortableContext items={columns || []} >
-            {columns?.map((column: Column) => {
-              const crazyTask = tasksInColumn.filter((task) => task.columnId === column.id)
-              console.log('💛💛 crazyTask', crazyTask)
-              return (
-                <TaskColumn
-                  key={column.id}
-                  column={column}
-                  setIsModalNewTaskOpen={setIsModalNewTaskOpen}
-                  addColumnMutation={addColumnMutation}
-                  tasks={crazyTask}
-                />
-              );
-            })}
-            <ColumnForm projectId={projectId} AddColumnMutation={addColumnMutation} />
-          </SortableContext>
+          {/* <SortableContext items={columns || []} > */}
+          {columns?.map((column: Column) => {
+            const crazyTask = tasksInColumn.filter((task) => task.columnId === column.id)
+            console.log('💛💛 crazyTask', crazyTask)
+            return (
+              <TaskColumn
+                key={column.id}
+                column={column}
+                setIsModalNewTaskOpen={setIsModalNewTaskOpen}
+                addColumnMutation={addColumnMutation}
+                tasks={crazyTask}
+              />
+            );
+          })}
+          <ColumnForm projectId={projectId} AddColumnMutation={addColumnMutation} />
+          {/* </SortableContext> */}
 
           {createPortal(
-            <DragOverlay>{
-
-              activeColumn && (
-
+            <DragOverlay>
+              {activeColumn && (
                 <TaskColumn
                   column={activeColumn}
                   setIsModalNewTaskOpen={setIsModalNewTaskOpen}
                   addColumnMutation={addColumnMutation}
-                  tasks={activeColumn.task?.filter((task) => task.columnId === activeColumn?.id) || []}
+                  tasks={tasks.filter((task) => task.columnId === activeColumn.id).sort((a, b) => a.order - b.order)}
                 />
-              )
-            }
-              {
-                activeTask && (
-                  // function delete + update 
-                  <Task task={activeTask} />
-                )
-              }
+              )}
+              {activeTask && (
+                <Task task={activeTask} />
+              )}
             </DragOverlay>
             , document.body
           )}
