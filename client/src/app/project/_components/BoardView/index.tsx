@@ -124,7 +124,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
         if (reorderedTasksRef.current.columnId) {
           const activeTask = updatedTasks.find((task) => task.id === reorderedTasksRef.current.activeTaskId);
           if (activeTask) {
-            if (reorderedTasksRef.current.columnId !== undefined) {
+            if (reorderedTasksRef.current.columnId) {
               setActiveTask({ ...activeTask, columnId: reorderedTasksRef.current.columnId });
             }
 
@@ -235,6 +235,35 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     const overTaskId = over.id as number;
     console.log('💚💚activeTaskId', activeTaskId)
     console.log('💚💚overTaskId', overTaskId)
+    if (over.id === activeTask?.columnId) return
+    if (active.data.current?.type === "Task" && over.data.current?.type === "Task") {
+      const activeTaskIndex = tasks.findIndex(task => task.id === activeTaskId);
+      const overTaskIndex = tasks.findIndex(task => task.id === overTaskId);
+      if (activeTaskIndex === -1 || overTaskIndex === -1) return;
+
+      const overTask = tasks[overTaskIndex];
+      if (activeTask?.columnId === overTask?.columnId) {
+        const newTasks = [...tasks];
+         reorderedTasksRef.current.orderIds = moveOrderTasks(newTasks, activeTaskIndex, overTaskIndex);
+      }
+      else if (activeTask?.columnId !== overTask.columnId) {
+        reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overTaskIndex);
+        reorderedTasksRef.current.columnId = over.id as number;
+        reorderedTasksRef.current.activeTaskId = activeTaskId;
+        if (!reorderedTasksRef.current.orderIds || !reorderedTasksRef.current.columnId || !reorderedTasksRef.current.activeTaskId) {
+          throw new Error("Reordering tasks failed: Missing required data.");
+        }
+        console.log('Reordered Tasks:', reorderedTasksRef.current.orderIds);
+        console.log('Column ID:', reorderedTasksRef.current.columnId);
+        console.log('Active Task ID:', reorderedTasksRef.current.activeTaskId);
+         await updateTasksMutation({
+          projectId,
+          newOrder: reorderedTasksRef.current.orderIds,
+          columnId: reorderedTasksRef.current.columnId,
+          activeTaskId: reorderedTasksRef.current.activeTaskId
+        });
+      }
+    }
     if (active.data.current?.type === 'Task' && over.data.current?.type === 'Column') {
       // make this only for empty column items 
       const activeTaskIndex = tasks.findIndex(task => task.id === activeTaskId);
@@ -267,29 +296,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
         activeTaskId: reorderedTasksRef.current.activeTaskId,
       });
     }
-    else if (active.data.current?.type === "Task" && over.data.current?.type === "Task") {
-      const activeTaskIndex = tasks.findIndex(task => task.id === activeTaskId);
-      const overTaskIndex = tasks.findIndex(task => task.id === overTaskId);
-      if (activeTaskIndex === -1 || overTaskIndex === -1) return;
-      const overTask = tasks[overTaskIndex];
-      if (activeTask?.columnId === overTask?.columnId) {
-        const newTasks = [...tasks];
-        reorderedTasksRef.current.orderIds = moveOrderTasks(newTasks, activeTaskIndex, overTaskIndex);
-      }
-      else if (activeTask?.columnId !== overTask.columnId) {
-        reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overTaskIndex);
-        reorderedTasksRef.current.columnId = overTask.columnId
-        reorderedTasksRef.current.activeTaskId = activeTaskId;
 
-        await updateTasksMutation({
-          projectId,
-          newOrder: reorderedTasksRef.current.orderIds,
-          columnId: reorderedTasksRef.current.columnId,
-          activeTaskId: reorderedTasksRef.current.activeTaskId
-        });
-      }
-      ;
-    }
 
   }
   //------------------------------------------------------------------------------------

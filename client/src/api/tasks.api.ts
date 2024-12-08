@@ -57,6 +57,7 @@ export const updateTasks = async ( updateData: UpdateTasksData): Promise<{ newOr
             throw new Error("Missing required field: columnId or activeTaskId");
         }
         if (updateData.newOrder.length === 0) throw new Error(`lol`);
+        console.log("🤍updateDataInput", updateData)
         const data = await axios.patch(`http://localhost:8000/tasks`, updateData);
         return data.data.data;
     } catch (error) {
