@@ -9,7 +9,7 @@ This project is built with **Next.js** (frontend) and **Express.js** (backend). 
 > **[Live Preview Link](
 >https://jam.dev/c/2a3a9598-bf47-4ade-904e-5a00051ea1bb
 > )**
-Here’s the complete `README.md` content in plain text format for you to copy:
+this is video record.
 
 ## Prerequisites
 
@@ -98,7 +98,10 @@ Ensure you have the following installed on your system:
 
 <div align="center">
 
-### **[Live Preview Link]([https://your-live-preview-link.com](https://jam.dev/c/2a3a9598-bf47-4ade-904e-5a00051ea1bb))**
+### > **[Live Preview Link](
+>https://jam.dev/c/2a3a9598-bf47-4ade-904e-5a00051ea1bb
+> )**
+this is video record.
 
 </div>
 
