@@ -53,7 +53,6 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     queryFn: () => getColumns(projectId),
   }
   )
-  // const customColumn = columns//?.filter((col) => col.id === 1 || col.id === 2) || [];
   //------------------------------------------------------------------------------------
   const { data: tasks, isPending: isPendingTasks, error: tasksError, isFetching: isFetchingTasks } = useGetTasksQuery(projectId)
   const queryClient = useQueryClient();
@@ -74,9 +73,8 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['columns', projectId] });
     },
-    onError: (error) => {
-      const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
-      toast.error(`Failed to add column: ${errorMessage}`);
+    onError: (error, _, context) => {
+      queryClient.setQueryData(['columns', projectId], context?.previousColumns);
     },
   });
   const { isPending: isPendingUpdate, mutateAsync: updateColumnsMutation, isError: isColumnsError } = useMutation({
@@ -102,14 +100,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       return { previousColumns };
     },
     onError: (error, _, context) => {
-      // queryClient.setQueryData(['columns', projectId], context?.previousColumns);
-      if (error instanceof Error) {
-        console.error("Error message:", error.message);
-        toast.error(`Operation failed: ${error.message}`);
-      } else {
-        console.error("Unexpected error:", error);
-        toast.error("An unexpected error occurred. Please try again later.");
-      }
+      queryClient.setQueryData(['columns', projectId], context?.previousColumns);
     },
   });
 
@@ -140,14 +131,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       return { previousTasks };
     },
     onError: (error, _, context) => {
-      // queryClient.setQueryData(['tasks', projectId], context?.previousTasks);
-      if (error instanceof Error) {
-        console.error("Error message:", error.message);
-        toast.error(`Operation failed: ${error.message}`);
-      } else {
-        console.error("Unexpected error:", error);
-        toast.error("An unexpected error occurred. Please try again later.");
-      }
+      queryClient.setQueryData(['tasks', projectId], context?.previousTasks);
     },
 
   });
@@ -213,20 +197,17 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
         await updateColumnsMutation({ projectId, newOrder });
       }
     }
-    else if (active.data.current?.type === "Task" && over.data.current?.type === "Task") {
-      if (reorderedTasksRef.current.orderIds.length) {
-        await updateTasksMutation({
-          projectId,
-          newOrder: reorderedTasksRef.current.orderIds,
-        });
-      }
+    if (active.data.current?.type === "Task" && over.data.current?.type === "Task"
+      || active.data.current?.type === "Task" && over.data.current?.type === "Column") {
+      await updateTasksMutation({
+        projectId,
+        newOrder: reorderedTasksRef.current.orderIds,
+      });
     }
+
   }
   //------------------------------------------------------------------------------------
   const handleDraggStart = (event: DragStartEvent) => {
-    console.log("💛💛activeTask", activeTask)
-    console.log("💛💛activeColumn", activeColumn)
-    
     if (event.active.data.current?.type === 'Column') {
       console.log('🤍event.active.data.current.column', event.active.data.current.column)
       setActiveColumn(event.active.data.current.column)
@@ -240,39 +221,18 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     }
   }
   //------------------------------------------------------------------------------------
-  // i think i should depend on tasks faker
   const handleDraggOver = async (event: DragOverEvent) => {
     const { active, over } = event;
     if (!over) return;
 
     const activeTaskId = active.id as number;
     const overTaskId = over.id as number;
-
-    if (active.data.current?.type === "Task" && over.data.current?.type === "Task") {
-      const activeTaskIndex = tasks.findIndex(task => task.id === activeTaskId);
-      const overTaskIndex = tasks.findIndex(task => task.id === overTaskId);
-      if (activeTaskIndex === -1 || overTaskIndex === -1) return;
-      const overTask = tasks[overTaskIndex];
-      if (activeTask?.columnId === overTask?.columnId) {
-        const newTasks = [...tasks];
-        return reorderedTasksRef.current.orderIds = moveOrderTasks(newTasks, activeTaskIndex, overTaskIndex);
-      }
-      if (activeTask?.columnId !== overTask.columnId) {
-        reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overTaskIndex);
-        reorderedTasksRef.current.columnId = overTask.columnId
-        reorderedTasksRef.current.activeTaskId = activeTaskId;
-
-        return await updateTasksMutation({
-          projectId,
-          newOrder: reorderedTasksRef.current.orderIds,
-          columnId: reorderedTasksRef.current.columnId,
-          activeTaskId: reorderedTasksRef.current.activeTaskId
-        });
-      }
-    }
+    console.log('💚💚activeTaskId', activeTaskId)
+    console.log('💚💚overTaskId', overTaskId)
     if (active.data.current?.type === 'Task' && over.data.current?.type === 'Column') {
       const activeTaskIndex = tasks.findIndex(task => task.id === activeTaskId);
       const tasksInColumn = over.data.current?.column?.task?.sort((a: TaskType, b: TaskType) => a.order - b.order);
+
       const lastTaskInPrevColumn = tasksInColumn[tasksInColumn.length - 1];
       const overIndex = tasks.findIndex(task => task.id === lastTaskInPrevColumn?.id);
       reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overIndex);
@@ -285,12 +245,36 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
         activeTaskId: reorderedTasksRef.current.activeTaskId
       });
     }
+    if (active.data.current?.type === "Task" && over.data.current?.type === "Task") {
+      const activeTaskIndex = tasks.findIndex(task => task.id === activeTaskId);
+      const overTaskIndex = tasks.findIndex(task => task.id === overTaskId);
+      if (activeTaskIndex === -1 || overTaskIndex === -1) return;
+      const overTask = tasks[overTaskIndex];
+      if (activeTask?.columnId === overTask?.columnId) {
+        const newTasks = [...tasks];
+        return reorderedTasksRef.current.orderIds = moveOrderTasks(newTasks, activeTaskIndex, overTaskIndex);
+      }
+      else if (activeTask?.columnId !== overTask.columnId) {
+        reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overTaskIndex);
+        reorderedTasksRef.current.columnId = overTask.columnId
+        reorderedTasksRef.current.activeTaskId = activeTaskId;
+
+        return await updateTasksMutation({
+          projectId,
+          newOrder: reorderedTasksRef.current.orderIds,
+          columnId: reorderedTasksRef.current.columnId,
+          activeTaskId: reorderedTasksRef.current.activeTaskId
+        });
+      }
+      return;
+    }
+
   }
   //------------------------------------------------------------------------------------
   // how two const 
   // make this state 
-  // const tasksInstance = [...tasks];
-  // const tasksInColumn = tasksInstance.sort((a, b) => a.order - b.order);
+  const tasksInstance = [...tasks];
+  const tasksInColumn = tasksInstance.sort((a, b) => a.order - b.order);
   return (
     <div className="flex-1 overflow-y-scroll">
       <DndContext
@@ -303,7 +287,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
         <div className="gap-4 grid grid-cols-footer pl-4">
           <SortableContext items={columns || []} >
             {columns?.map((column: Column) => {
-              const crazyTask = tasks?.filter((task) => task.columnId === column.id)
+              const crazyTask = tasksInColumn.filter((task) => task.columnId === column.id)
               console.log('💛💛 crazyTask', crazyTask)
               return (
                 <TaskColumn
