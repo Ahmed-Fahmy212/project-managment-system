@@ -49,7 +49,6 @@ export type UpdateTasksData = {
 } & Partial<TaskDataBody>
 
 export const updateTasks = async ( updateData: UpdateTasksData): Promise<{ previouseTaskData: Task[], targetTaskData: Task[] }> => {
-export const updateTasks = async ( updateData: UpdateTasksData): Promise<{ previouseTaskData: Task[], targetTaskData: Task[] }> => {
     try {
         console.log("🤍updateData", updateData)
         const { activeTaskId, columnId } = updateData;
