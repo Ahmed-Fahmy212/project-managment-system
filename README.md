@@ -12,7 +12,7 @@ Check out the video preview of the project:
    <a href="https://jam.dev/c/2a3a9598-bf47-4ade-904e-5a00051ea1bb" target="_blank">
       <strong>Click here for the video preview</strong>
    </a>
-      ![image](https://github.com/user-attachments/assets/f10d7551-20c9-4858-958c-f75e9136b466)
+      [![image](https://github.com/user-attachments/assets/f10d7551-20c9-4858-958c-f75e9136b466)](https://github-production-user-asset-6210df.s3.amazonaws.com/126887643/393650364-f10d7551-20c9-4858-958c-f75e9136b466.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241208%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241208T234739Z&X-Amz-Expires=300&X-Amz-Signature=059578f0c658822126aa3bea4d3e2ac26c5828a1dc1d2f95d870b156e70f9661&X-Amz-SignedHeaders=host)
 </div>
    
 
