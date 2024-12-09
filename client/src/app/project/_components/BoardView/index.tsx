@@ -254,10 +254,9 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       }
       return
     }
-    const columnTarget = columns?.find((col) => col.id === over.data.current?.column?.id) || null;
-
+    const tasksIncolumn = tasks.filter((task) => task.columnId === over.data.current?.column?.id);
     // Case column has no tasks 
-    if (active.data.current?.type === 'Task' && over.data.current?.type === 'Column' && columnTarget?.task?.length === 0) {
+    if (active.data.current?.type === 'Task' && over.data.current?.type === 'Column' && tasksIncolumn.length === 0) {
       const activeTaskIndex = tasks.findIndex(task => task.id === activeTaskId);
       //will take column before and get last task id inside 
       // i think this is more safe than update just task in column 
@@ -307,23 +306,18 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
           </SortableContext>
 
           {createPortal(
-            <DragOverlay>{
-              activeColumn && (
-
-                <TaskColumn
-                  column={activeColumn}
-                  setIsModalNewTaskOpen={setIsModalNewTaskOpen}
-                  addColumnMutation={addColumnMutation}
-                  tasks={activeColumn?.task?.sort((a, b) => a.order - b.order) || []}
-                />
-              )
-            }
-              {
-                activeTask && (
-                  // function delete + update 
-                  <Task task={activeTask} />
-                )
-              }
+            <DragOverlay>
+              {activeColumn && (
+              <TaskColumn
+                column={activeColumn}
+                setIsModalNewTaskOpen={setIsModalNewTaskOpen}
+                addColumnMutation={addColumnMutation}
+                tasks={tasks.filter(task => task.columnId === activeColumn.id).sort((a, b) => a.order - b.order)}
+              />
+              )}
+              {activeTask && (
+              <Task task={activeTask} />
+              )}
             </DragOverlay>
             , document.body
           )}
