@@ -208,10 +208,6 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     if (!columns) return;
     if (active.data.current?.type === 'Column' && over.data.current?.type === 'Column') {
       const newOrder = reorderColumns(columns, activeId, overId);
-      console.log('🤍newOrder', newOrder)
-      console.log('🤍reorderedColumnsRef.current.orderIds', reorderedColumnsRef.current.orderIds)
-      console.log('🤍🤍activeColumn', activeColumn)
-      console.log('🤍🤍activeTask', activeTask)
       reorderedColumnsRef.current = { orderIds: newOrder };
       await updateColumnsMutation({ projectId, newOrder });
 
@@ -228,7 +224,6 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   }
   //------------------------------------------------------------------------------------
   const handleDraggStart = (event: DragStartEvent) => {
-    console.log('🤍🤍🤍event.active.data.current?.type', event.active.data.current?.type)
     if (event.active.data.current?.type === 'Task') {
       console.log('🤍event.active.data.current?.task', event.active.data.current?.task)
       setActiveTask(event.active.data.current.task)
@@ -271,9 +266,12 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       console.log('🤍🤍🤍 task over task')
       return
     }
-    else if (active.data.current?.type === 'Task' && over.data.current?.type === 'Column' ) {
+    const columnTarget = columns?.find((col) => col.id === over.data.current?.column.id);
+
+    // Case column has no tasks 
+    if (active.data.current?.type === 'Task' && over.data.current?.type === 'Column' && columnTarget?.task?.length === 0) {
+      console.log('🤍🤍🤍 task over Column')
       const activeTaskIndex = tasks.findIndex(task => task.id === activeTaskId);
-     // Case column has no tasks 
       //will take column before and get last task id inside 
       // i think this is more safe than update just task in column 
       const tasksInColumn = over.data.current?.column?.task?.sort((a: TaskType, b: TaskType) => a.order - b.order);
