@@ -9,7 +9,7 @@ This project is built with **Next.js** (frontend) and **Express.js** (backend). 
 Check out the video preview of the project:
 
 <div align="center">
-   <a href="https://jam.dev/c/2a3a9598-bf47-4ade-904e-5a00051ea1bb" target="_blank">
+   <a href="https://jam.dev/c/bf6764d5-31cd-4eb0-afd0-60df716d9892" target="_blank">
       <strong>Click here for the video preview</strong>
    </a>
      
