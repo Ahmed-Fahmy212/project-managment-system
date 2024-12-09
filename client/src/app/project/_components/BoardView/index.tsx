@@ -154,7 +154,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   //------------------------------------------------------------------------------------
   if (!tasks) return <div>Loading...</div>;
 
-  const handleLoadingAndErrors = () => {
+  (() => {
     const isLoading = isPendingTasks || isPendingUpdate || isPendingTasksUpdate;
     const isUpdating = isFetchingTasks;
     const error = tasksError || tasksUpdateError || isColumnsError;
@@ -166,8 +166,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       toast.error(`An error has occurred: ${errorMessage}`);
       return <div className="flex justify-center items-center text-xl text-red-700">{errorMessage}</div>;
     }
-  };
-  handleLoadingAndErrors();
+  })();
   //------------------------------------------------- Handle Events -------------------------------------------------
 
   const reorderColumns = (columns: Column[], activeColumnId: number, overColumnId: number) => {
@@ -203,9 +202,8 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     const overId = over.id as number;
 
     if (activeId === overId) return;
-    if (!activeId) return;
+    if (!columns || !activeId) return;
 
-    if (!columns) return;
     if (active.data.current?.type === 'Column' && over.data.current?.type === 'Column') {
       const newOrder = reorderColumns(columns, activeId, overId);
       reorderedColumnsRef.current = { orderIds: newOrder };
@@ -263,19 +261,16 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
           activeTaskId: reorderedTasksRef.current.activeTaskId
         });
       }
-      console.log('🤍🤍🤍 task over task')
       return
     }
-    const columnTarget = columns?.find((col) => col.id === over.data.current?.column.id);
+    const columnTarget = columns?.find((col) => col.id === over.data.current?.column?.id) || null;
 
     // Case column has no tasks 
     if (active.data.current?.type === 'Task' && over.data.current?.type === 'Column' && columnTarget?.task?.length === 0) {
-      console.log('🤍🤍🤍 task over Column')
       const activeTaskIndex = tasks.findIndex(task => task.id === activeTaskId);
       //will take column before and get last task id inside 
       // i think this is more safe than update just task in column 
       const tasksInColumn = over.data.current?.column?.task?.sort((a: TaskType, b: TaskType) => a.order - b.order);
-      console.log('🤍🤍🤍 tasks over Column')
       const lastTaskInPrevColumn = tasksInColumn[tasksInColumn.length - 1];
       const overIndex = tasks.findIndex(task => task.id === lastTaskInPrevColumn?.id);
       reorderedTasksRef.current.orderIds = moveOrderTasks(tasks, activeTaskIndex, overIndex);
@@ -291,11 +286,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   }
   //------------------------------------------------------------------------------------
 
-  //------------------------------------------------------------------------------------
-  // const columnsIds = columns?.sort((a, b) => a.order - b.order);
   const columnsIds = columns || []
-  const tasksIds = activeColumn?.task?.sort((a, b) => a.order - b.order) || []
-  // console.log('🤍columnsIds', columnsIds)
   return (
     <div className="flex-1 overflow-y-scroll">
       <DndContext
@@ -332,7 +323,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
                   column={activeColumn}
                   setIsModalNewTaskOpen={setIsModalNewTaskOpen}
                   addColumnMutation={addColumnMutation}
-                  tasks={tasksIds}
+                  tasks={activeColumn?.task?.sort((a, b) => a.order - b.order) || []}
                 />
               )
             }
