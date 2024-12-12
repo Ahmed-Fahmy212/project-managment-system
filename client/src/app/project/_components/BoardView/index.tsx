@@ -26,7 +26,7 @@ type BoardViewProps = {
   id: string;
   setIsModalNewTaskOpen: (isOpen: boolean) => void;
 };
-type orderID = {
+export type orderID = {
   id: number;
   order: number;
 }

@@ -26,8 +26,9 @@ const ColumnForm: React.FC<ColumnFormProps> = ({ projectId, isSmallItem, AddColu
             console.log('Column inserted');
             setTitle('');
             setIsFormVisible(false);
-        } catch (err) {
+        } catch (error) {
             toast.error('Failed to add column. Please try again.');
+            console.error(error);
         }
     };
 
