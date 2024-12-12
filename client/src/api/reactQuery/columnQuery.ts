@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { addColumn, ColumnBody, getColumns, updateColumns, UpdateData } from "../column.api";
+import { addColumn, ColumnBody, getColumns, updateColumns } from "../column.api";
 import { Column } from "../../state/api";
+import { orderID } from "@/app/project/_components/BoardView";
 
 export const useGetColumnsQuery = (projectId: number) => {
     return useQuery({
@@ -16,7 +17,8 @@ export const useAddColumnMutation = (projectId: number) => {
             await queryClient.cancelQueries({ queryKey: ['columns', projectId] });
 
             const previousColumns = queryClient.getQueryData(['columns', projectId]);
-            const newColumnWithId = { ...newColumn, id: Date.now() }; // Temporary ID for optimistic update
+            // change id here 
+            const newColumnWithId = { ...newColumn, id: Date.now() };
 
             queryClient.setQueryData(['columns', projectId], (oldData: Column[] | undefined) => {
                 return oldData ? [...oldData, newColumnWithId] : [newColumnWithId];
@@ -32,37 +34,36 @@ export const useAddColumnMutation = (projectId: number) => {
         }
     });
 };
-// export const useUpdateColumnsMutation = (projectId: number) => {
-//     const queryClient = useQueryClient();
+export const useUpdateColumnsMutation = (projectId: number) => {
+    const queryClient = useQueryClient();
 
-//     return useMutation({
-//         mutationFn: (newOrderColumns: { projectId: number, newOrder: orderID[] }) => updateColumns(newOrderColumns),
-//         onMutate: async (newOrderColumns) => {
-//             await queryClient.cancelQueries({ queryKey: ['columns', projectId] });
+    return useMutation({
+        mutationFn: async (newOrderColumns: { projectId: number, newOrder: orderID[] }) => await updateColumns(newOrderColumns),
+        onMutate: async (newOrderColumns) => {
+            await queryClient.cancelQueries({ queryKey: ['columns', projectId] });
 
-//             const previousColumns = queryClient.getQueryData(['columns', projectId]);
-//             let updatedColumns
-//             queryClient.setQueryData(['columns', projectId], (oldData: Column[] | undefined) => {
-//                 if (!oldData) return oldData;
+            const previousColumns = queryClient.getQueryData(['columns', projectId]);
+            let updatedColumns
+            queryClient.setQueryData(['columns', projectId], (oldData: Column[] | undefined) => {
+                if (!oldData) return oldData;
 
-//                 updatedColumns = oldData
-//                     .map((column) => {
-//                         const updatedColumn = newOrderColumns.newOrder.find((newColumn) => newColumn.id === column.id);
-//                         return updatedColumn ? { ...column, ...updatedColumn } : column;
-//                     })
-//                     .sort((a, b) => (a.order || 0) - (b.order || 0));
+                updatedColumns = oldData
+                    .map((column) => {
+                        const updatedColumn = newOrderColumns.newOrder.find((newColumn) => newColumn.id === column.id);
+                        return updatedColumn ? { ...column, ...updatedColumn } : column;
+                    })
+                    .sort((a, b) => (a.order || 0) - (b.order || 0));
 
-//                 return updatedColumns;
-//             });
+                return updatedColumns;
+            });
 
-//             return { previousColumns };
-//         },
-//         onError: (error, _, context) => {
-//             queryClient.setQueryData(['columns', projectId], context?.previousColumns);
-//         },
-//         onSettled: (_, __, ___, context) => {
-//             queryClient.invalidateQueries({ queryKey: ['columns', projectId] });
-//         },
-//     });
-// };
-
+            return { previousColumns };
+        },
+        onError: (error, _, context) => {
+            queryClient.setQueryData(['columns', projectId], context?.previousColumns);
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: ['columns', projectId] });
+        },
+    });
+};

@@ -81,7 +81,7 @@ export const Task = ({ task }: TaskProps) => {
                         </div>
                     </div>
                     {/* Ellips */}
-                    <button className="dark:text-neutral-500 flex h-6 items-center justify-center w-4">
+                    <button className="dark:text-neutral-500 flex h-6 items-center justify-center w-4" title="More options">
                         <EllipsisVertical size={26} />
                     </button>
                 </div>

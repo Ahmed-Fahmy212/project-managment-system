@@ -15,6 +15,7 @@ type Props = {
 
 const Project = ({ params }: Props) => {
     const { id } = params;
+    // used nuqs
     const [activeTab, setActiveTab] = useQueryState("page", parseAsString.withDefault("Board"));
     const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
 
