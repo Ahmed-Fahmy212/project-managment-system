@@ -21,15 +21,16 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import { useGetTasksQuery } from "@/api/reactQuery/tasksQuery";
-
 type BoardViewProps = {
   id: string;
   setIsModalNewTaskOpen: (isOpen: boolean) => void;
 };
+
 export type orderID = {
   id: number;
   order: number;
 }
+
 const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   const projectId = Number(id);
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
@@ -37,22 +38,26 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   const reorderedColumnsRef = useRef<{ orderIds: orderID[] }>({ orderIds: [] });
   const reorderedTasksRef = useRef<{ orderIds: orderID[], columnId?: number, activeTaskId?: number }>({ orderIds: [] });
 
+  // Initialize sensors for drag and drop
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
-
+  //------------------------------------------------------------------------------------
+  // Fetch columns data
   const { data: columns, isPending, error, isFetching } = useQuery({
     queryKey: ['columns', projectId],
     queryFn: () => getColumns(projectId),
-  }
-  )
+  });
 
-  //------------------------------------------------------------------------------------
-  const { data: tasks, isPending: isPendingTasks, error: tasksError, isFetching: isFetchingTasks } = useGetTasksQuery(projectId)
+  // Fetch tasks data
+  const { data: tasks, isPending: isPendingTasks, error: tasksError, isFetching: isFetchingTasks } = useGetTasksQuery(projectId);
+  
   const queryClient = useQueryClient();
+
+  // Mutation to add a new column
   const { mutateAsync: addColumnMutation } = useMutation({
     mutationFn: (newColumn: ColumnBody) => addColumn(newColumn),
     onMutate: async (newColumn) => {
@@ -74,14 +79,14 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       queryClient.invalidateQueries({ queryKey: ['columns', projectId] });
     }
   });
-
+  // Mutation to update columns order
   const { isPending: isPendingUpdate, mutateAsync: updateColumnsMutation, isError: isColumnsError } = useMutation({
     mutationFn: (newOrderColumns: { projectId: number, newOrder: orderID[] }) => updateColumns(newOrderColumns),
     onMutate: async (newOrderColumns) => {
       await queryClient.cancelQueries({ queryKey: ['columns', projectId] });
 
       const previousColumns = queryClient.getQueryData(['columns', projectId]);
-      let updatedColumns
+      let updatedColumns;
       queryClient.setQueryData(['columns', projectId], (oldData: Column[] | undefined) => {
         if (!oldData) return oldData;
 
@@ -107,6 +112,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     },
   });
 
+  // Mutation to update tasks order
   const { mutateAsync: updateTasksMutation, error: tasksUpdateError, isPending: isPendingTasksUpdate } = useMutation({
     mutationFn: (tasksUpdate: UpdateTasksData) => updateTasks(tasksUpdate),
     onMutate: async (newOrderTasks) => {
@@ -128,7 +134,6 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
             setActiveTask({ ...activeTask });
           }
         }
-
 
         return updatedTasks;
       });
