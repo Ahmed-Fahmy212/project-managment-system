@@ -43,7 +43,7 @@ export const columns = {
         req: Request,
         res: Response,
     ) => {
-        const validatedData = ColumnDataSchema.parse(req.body);
+        const validatedData = await ColumnDataSchema.parseAsync(req.body);
         const createdColumn = await ColumnService.createColumn(validatedData);
         response.success(res, createdColumn);
     },
@@ -53,7 +53,7 @@ export const columns = {
         res: Response,
     ) => {
         // will update order
-        const validatedData = UpdatedColumnData.parse(req.body);
+        const validatedData = await UpdatedColumnData.parseAsync(req.body);
         //TODO calc time and num req for this 
         const updatedColumn = await ColumnService.updateColumn(validatedData);
         response.success(res, updatedColumn);
@@ -62,10 +62,8 @@ export const columns = {
     deleteColumn: async (req: Request,
         res: Response,) => {
         const { id } = req.params;
-        if (!id) throw new BadRequestException("Missing required field: id");
 
         await ColumnService.deleteColumn(parseInt(id));
         response.success(res, { message: "Column deleted successfully" });
     }
-
 }

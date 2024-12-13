@@ -30,7 +30,7 @@ export const projects = {
     req: Request,
     res: Response,
   ): Promise<void> => {
-    const validatedData = ProjectBody.parse(req.body);
+    const validatedData = await ProjectBody.parseAsync(req.body);
     const createdProject = await ProjectService.createProject(validatedData);
     response.success(res, createdProject);
 

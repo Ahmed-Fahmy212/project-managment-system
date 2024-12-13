@@ -37,7 +37,7 @@ export const tasks = {
     req: Request,
     res: Response
   ): Promise<void> => {
-    const data = TaskDataSchema.parse(req.body);
+    const data =await TaskDataSchema.parseAsync(req.body);
     const newTask = await TaskService.createTask(data);
     response.created(res, newTask);
   },
