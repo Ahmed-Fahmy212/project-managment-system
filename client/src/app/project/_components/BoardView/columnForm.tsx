@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 interface ColumnFormProps {
     projectId: number;
     isSmallItem?: boolean;
+    //!TODO any shape is using here 
     AddColumnMutation: (column: { title: string, color: string, projectId: number }) => Promise<any>
 }
 

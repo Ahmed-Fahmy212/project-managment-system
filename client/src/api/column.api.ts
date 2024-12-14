@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Column, Column as ColumnWithTasks, Task } from "../state/api";
+import { Column, Column as ColumnWithTasks } from "../state/api";
 
 export type ColumnBody = {
     title: string;

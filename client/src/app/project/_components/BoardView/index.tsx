@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { DndContext, DragEndEvent, DragMoveEvent, DragOverEvent, DragOverlay, DragStartEvent } from '@dnd-kit/core'
 import { TaskColumn } from './taskColumn'
 import { arrayMove, SortableContext, sortableKeyboardCoordinates } from '@dnd-kit/sortable'
-import {  useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getColumns, updateColumns } from "@/api/column.api";
 import ColumnForm from "./columnForm";
@@ -49,12 +49,12 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
   // Fetch columns data
   const { data: columns, isPending, error, isFetching } = useQuery({
     queryKey: ['columns', projectId],
-    queryFn: () => getColumns(projectId),
+    queryFn: async () => await getColumns(projectId),
   });
 
   // Fetch tasks data
   const { data: tasks, isPending: isPendingTasks, error: tasksError, isFetching: isFetchingTasks } = useGetTasksQuery(projectId);
-  
+
   const queryClient = useQueryClient();
 
   // Mutation to add a new column
@@ -64,7 +64,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
       await queryClient.cancelQueries({ queryKey: ['columns', projectId] });
 
       const previousColumns = queryClient.getQueryData(['columns', projectId]);
-      const newColumnWithId = { ...newColumn, id: Date.now() }; // Temporary ID for optimistic update
+      const newColumnWithId = { ...newColumn, id: Date.now() }; //TODO check this is valid Temporary ID for optimistic update
 
       queryClient.setQueryData(['columns', projectId], (oldData: Column[] | undefined) => {
         return oldData ? [...oldData, newColumnWithId] : [newColumnWithId];
@@ -107,7 +107,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     onError: (error, _, context) => {
       queryClient.setQueryData(['columns', projectId], context?.previousColumns);
     },
-    onSettled: (_, __, ___, context) => {
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['columns', projectId] });
     },
   });
@@ -143,7 +143,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
     onError: (error, _, context) => {
       queryClient.setQueryData(['tasks', projectId], context?.previousTasks);
     },
-    onSettled: (_, __, ___, context) => {
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks', projectId] });
     }
   });
@@ -296,16 +296,17 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
           <SortableContext items={columnsIds} >
             {columns?.map((column: Column) => {
               // handled in more faster without conflict 
-              const crazyTask = tasks.filter((task: TaskType) => task.columnId === column?.id).sort((a, b) => a.order - b.order);
-              return (
-                <TaskColumn
-                  key={column.id}
-                  column={column}
-                  setIsModalNewTaskOpen={setIsModalNewTaskOpen}
-                  addColumnMutation={addColumnMutation}
-                  tasks={crazyTask}
-                />
-              );
+              const crazyTask = tasks.filter((task: TaskType) => task.columnId === column?.id)
+              const orderedTaks = crazyTask.sort((a, b) => a.order - b.order)
+            return (
+            <TaskColumn
+              key={column.id}
+              column={column}
+              setIsModalNewTaskOpen={setIsModalNewTaskOpen}
+              addColumnMutation={addColumnMutation}
+              tasks={orderedTaks}
+            />
+            );
             })}
             <ColumnForm projectId={projectId} AddColumnMutation={addColumnMutation} />
           </SortableContext>
@@ -313,15 +314,15 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardViewProps) => {
           {createPortal(
             <DragOverlay>
               {activeColumn && (
-              <TaskColumn
-                column={activeColumn}
-                setIsModalNewTaskOpen={setIsModalNewTaskOpen}
-                addColumnMutation={addColumnMutation}
-                tasks={tasks.filter(task => task.columnId === activeColumn.id).sort((a, b) => a.order - b.order)}
-              />
+                <TaskColumn
+                  column={activeColumn}
+                  setIsModalNewTaskOpen={setIsModalNewTaskOpen}
+                  addColumnMutation={addColumnMutation}
+                  tasks={tasks.filter(task => task.columnId === activeColumn.id).sort((a, b) => a.order - b.order)}
+                />
               )}
               {activeTask && (
-              <Task task={activeTask} />
+                <Task task={activeTask} />
               )}
             </DragOverlay>
             , document.body
