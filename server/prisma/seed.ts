@@ -33,7 +33,11 @@ async function main() {
     "attachment.json",
     "comment.json",
     "taskAssignment.json",
-  ];
+    "tasksAfterParty.json",
+    "columnsAfterParty.json"
+  ]
+
+
 
   await deleteAllData(orderedFileNames);
 

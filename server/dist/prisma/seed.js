@@ -47,6 +47,8 @@ function main() {
             "attachment.json",
             "comment.json",
             "taskAssignment.json",
+            "tasksAfterParty.json",
+            "columnsAfterParty.json"
         ];
         yield deleteAllData(orderedFileNames);
         for (const fileName of orderedFileNames) {
@@ -69,3 +71,4 @@ function main() {
 main()
     .catch((e) => console.error(e))
     .finally(() => __awaiter(void 0, void 0, void 0, function* () { return yield prisma.$disconnect(); }));
+//# sourceMappingURL=seed.js.map

@@ -8,3 +8,4 @@ class NotFoundException extends HttpExceptions_1.HttpException {
     }
 }
 exports.NotFoundException = NotFoundException;
+//# sourceMappingURL=NotFoundException.js.map

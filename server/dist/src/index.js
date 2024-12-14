@@ -45,3 +45,4 @@ app.listen(port, () => {
     console.log(`\x1b[32mServer running on port ${port}\x1b[0m`);
     console.log(`\x1b[32mdatabase running on port : 5432\x1b[0m`);
 });
+//# sourceMappingURL=index.js.map

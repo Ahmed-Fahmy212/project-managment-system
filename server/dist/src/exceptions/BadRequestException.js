@@ -9,3 +9,4 @@ class BadRequestException extends HttpExceptions_1.HttpException {
     }
 }
 exports.BadRequestException = BadRequestException;
+//# sourceMappingURL=BadRequestException.js.map

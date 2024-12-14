@@ -13,3 +13,4 @@ const response = {
     }
 };
 exports.default = response;
+//# sourceMappingURL=responce.js.map

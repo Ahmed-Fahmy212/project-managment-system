@@ -1,0 +1,28 @@
+[
+    {
+      "title": "ToDo",
+      "color": "#f8d7da",  
+      "projectId": 1
+    },
+    {
+      "title": "In Progress",
+      "color": "#fff3cd",  
+      "projectId": 1
+    },
+    {
+      "title": "Done",
+      "color": "#d4edda", 
+      "projectId": 1
+    },
+    {
+      "title": "Backlog",
+      "color": "#d1ecf1",  
+      "projectId": 1
+    },
+    {
+      "title": "Cancelled",
+      "color": "#f8d7da",  
+      "projectId": 1
+    }
+  ]
+  

@@ -9,3 +9,4 @@ class HttpException extends Error {
     }
 }
 exports.HttpException = HttpException;
+//# sourceMappingURL=HttpExceptions.js.map
