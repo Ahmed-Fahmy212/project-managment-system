@@ -1,3 +1,3 @@
-export { projects } from './projectController'
-export { tasks } from './tasksController'
-export { columns } from './columnController'
+export { projects } from './project.controller'
+export { tasks } from './tasks.controller'
+export { columns } from './column.controller'
